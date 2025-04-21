@@ -83,6 +83,8 @@ if ($student->edu_type_id == 1) {
     $contract->save(false);
 }
 
+$contract->contract_price = preg_replace('/\D/', '', $contract->contract_price);
+
 $student->is_down = 1;
 $student->update(false);
 
