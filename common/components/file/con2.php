@@ -139,7 +139,7 @@ $qr = (new QrCode('https://qabul.sarbon.university/site/contract?key=' . $link.'
     ->setForegroundColor(1, 89, 101);
 $img = $qr->writeDataUri();
 
-$lqr = (new QrCode('https://document.licenses.uz/certificate/uuid/57076f62-07b1-496f-8b2b-64789c3e7345/pdf?language=oz'))->setSize(100, 100)
+$lqr = (new QrCode('https://license.gov.uz/registry/abd0350c-93de-4723-a71f-f0513b945c19'))->setSize(100, 100)
     ->setMargin(10)
     ->setForegroundColor(1, 89, 101);
 $limg = $lqr->writeDataUri();
@@ -197,12 +197,12 @@ $limg = $lqr->writeDataUri();
             tasdiqlangan Oliy va o‘rta maxsus, kasb-hunar ta’limi muassasalarida o‘qitishning to‘lov-shartnoma shakli
             va undan tushgan mablag‘larni taqsimlash tartibi to‘g‘risidagi Nizomga muvofiq, <b>SARBON UNIVERSITETI</b> oliy ta’lim
             tashkiloti (keyingi o‘rinlarda “Ta’lim muassasasi”) nomidan Ustav asosida ish yurituvchi direktor
-            <b>SOBIRJONOV NODIRJON QODIRJONOVICH</b> birinchi tomondan, ________________________________________ (keyingi o‘rinlarda “Ta’lim oluvchi”) ikkinchi tomondan, keyingi
+            <b>SOBIRJONOV NODIRJON QODIRJONOVICH</b> birinchi tomondan, <?= $full_name ?> (keyingi o‘rinlarda “Ta’lim oluvchi”) ikkinchi tomondan, keyingi
             o‘rinlarda birgalikda “Tomonlar” deb ataluvchilar o‘rtasida mazkur shartnoma quyidagilar haqida tuzildi:
         </td>
         <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000;">
             Данное соглашение заключено между Высшим образовательным учреждением <b>SARBON UNIVERSITETI</b> (далее именуемым "Образовательное учреждение"), в лице директора <b>Собиржонова Нодиржона
-                Кодиржоновича</b>, действующего на основании Устава, с одной стороны, и ________________________________________
+                Кодиржоновича</b>, действующего на основании Устава, с одной стороны, и <?= $full_name ?>
             (далее именуемым "Обучающийся"), с другой стороны, которые совместно именуются "Стороны",
             в соответствии с Постановлением Кабинета Министров "Об утверждении Положений о приеме в высшие образовательные
             учреждения, переводе, восстановлении и отчислении студентов" от 20 июня 2017 года, № 393, и Приказом Министра
@@ -371,13 +371,13 @@ $limg = $lqr->writeDataUri();
     <tr>
         <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000;">
             Choraklarga bo‘lib to‘langanda quyidagi muddatlarda: <br>
-            - belgilangan to‘lov miqdorining kamida 25.00 foizini talabalikka tavsiya etilgan abiturientlar uchun 01.12.2025 gacha, ikkinchi va undan yuqori bosqich talabalar uchun 01.12.2025 gacha; <br>
-            - belgilangan to‘lov miqdorining kamida 50.00 foizini 01.01.2026 gacha, 75.00 foizini 01.04.2026 gacha va 100.00 foizini 01.06.2026 gacha.
+            - belgilangan to‘lov miqdorining kamida 25.00 foizini talabalikka tavsiya etilgan abiturientlar uchun 15.09.2025 gacha, ikkinchi va undan yuqori bosqich talabalar uchun 01.10.2025 gacha; <br>
+            - belgilangan to‘lov miqdorining kamida 50.00 foizini 01.12.2025 gacha, 75.00 foizini 01.03.2026 gacha va 100.00 foizini 01.05.2026 gacha.
         </td>
         <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000;">
             При оплате по кварталам в следующие сроки: <br>
-            - не менее 25%　от установленной суммы абитуриентами, рекомендованными к зачислению, до 15.11.2025, для студентов второго и последующих курсов - до 25.11.2025;<br>
-            - не менее 50% от установленной суммы до 01.01.2026, 75% до 01.04.2026, и 100% до 01.06.2026.
+            - не менее 25%　от установленной суммы абитуриентами, рекомендованными к зачислению, до 15.09.2025, для студентов второго и последующих курсов - до 01.10.2025;<br>
+            - не менее 50% от установленной суммы до 01.12.2025, 75% до 01.03.2026, и 100% до 01.05.2026.
         </td>
     </tr>
 
@@ -737,7 +737,7 @@ $limg = $lqr->writeDataUri();
         </td>
         <td colspan="2" style="text-align: right; vertical-align: center; border: 1px solid #000; ">
             <b>Дата и номер лицензии</b>
-            14.09.2024 <b>№ 397374</b>
+            14.09.2024 <b>№ 691300</b>
         </td>
     </tr>
 

@@ -137,7 +137,7 @@ $qr = (new QrCode('https://qabul.sarbon.university/site/contract?key=' . $link.'
     ->setForegroundColor(1, 89, 101);
 $img = $qr->writeDataUri();
 
-$lqr = (new QrCode('https://document.licenses.uz/certificate/uuid/57076f62-07b1-496f-8b2b-64789c3e7345/pdf?language=oz'))->setSize(100, 100)
+$lqr = (new QrCode('https://license.gov.uz/registry/abd0350c-93de-4723-a71f-f0513b945c19'))->setSize(100, 100)
     ->setMargin(10)
     ->setForegroundColor(1, 89, 101);
 $limg = $lqr->writeDataUri();
@@ -196,7 +196,7 @@ $limg = $lqr->writeDataUri();
             tushgan mablag‘larni taqsimlash tartibi to‘g‘risidagi Nizomga muvofiq birinchi tomondan -  <b>SARBON UNIVERSITETI</b>
             oliy ta’lim tashkiloti (keyingi o‘rinlarda “Ta’lim muassasasi”) nomidan Ustav asosida ish yurituvchi direktor
             <b>SOBIRJONOV NODIRJON QODIRJONOVICH</b>, ikkinchi tomondan - _________________________________________
-            (keyingi o‘rinlarda “Buyurtmachi”) nomidan _________________________________________ uchinchi tomondan -
+            (keyingi o‘rinlarda “Buyurtmachi”) nomidan <?= $full_name ?> uchinchi tomondan -
             (keyingi o‘rinlarda “Ta’lim oluvchi”) birgalikda “Tomonlar” deb ataluvchilar o‘rtasida mazkur shartnoma quyidagilar haqida tuzildi:
         </td>
         <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000;">
