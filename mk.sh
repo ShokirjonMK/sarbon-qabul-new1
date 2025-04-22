@@ -5,7 +5,7 @@ echo "[INFO] MySQL zaxira jarayoni boshlanyapti..."
 now=$(date +%Y-%m-%d_%H-%M-%S)
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 
-REPO_DIR_API="/home/dev-1/apps/tgfu-qabul-new"
+REPO_DIR_API="/home/dev-1/apps/sarbon_qabul_new1"
 ENV_FILE="$REPO_DIR_API/.env"
 
 # === .env yuklash ===
