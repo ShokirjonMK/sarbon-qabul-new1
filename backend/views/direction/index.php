@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use common\models\Status;
 
 /** @var yii\web\View $this */
 /** @var common\models\DirectionSearch $searchModel */
@@ -65,6 +66,14 @@ $breadcrumbs['item'][] = [
                'value' => function($model) {
                    return $model->name_uz;
                },
+            ],
+            [
+                'attribute' => 'type',
+                'contentOptions' => ['date-label' => 'type'],
+                'format' => 'raw',
+                'value' => function($model) {
+                    return Status::directionType($model->type) ?? '----';
+                },
             ],
             [
                 'class' => ActionColumn::className(),

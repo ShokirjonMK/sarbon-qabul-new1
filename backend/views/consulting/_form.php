@@ -29,9 +29,6 @@ $branchs = Branch::find()
                                 <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
                             </div>
                             <div class='form-group'>
-                                <?= $form->field($model, 'hr')->textInput(['maxlength' => true]) ?>
-                            </div>
-                            <div class='form-group'>
                                 <?= $form->field($model, 'bank_name_uz')->textInput(['maxlength' => true]) ?>
                             </div>
                             <div class='form-group'>
@@ -129,6 +126,33 @@ $branchs = Branch::find()
                                 </div>
                             </div>
                         <?php endforeach; ?>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-section mt-3">
+                <div class="form-section_item">
+                    <div class="form-group">
+                        <div class="col-md-6 col-6">
+                            <div class="view-info-right mb-3">
+                                <h6>Hisob raqamlar</h6>
+                            </div>
+                        </div>
+
+                        <?php for ($i = 0; $i < Status::DIRECTION_TYPE; $i++) : ?>
+
+                            <div class="row mt-1">
+                                <div class="col-12">
+                                    <div class="form-group field-consulting-mfo has-success">
+                                        <label class="control-label" for="number<?= $i ?>"><?= Status::directionType($i) ?></label>
+                                        <input type="text" id="number<?= $i ?>" class="form-control" name="number[<?= $i ?>]" maxlength="255" aria-invalid="false">
+                                    </div>
+                                </div>
+                            </div>
+
+                        <?php endfor; ?>
 
                     </div>
                 </div>

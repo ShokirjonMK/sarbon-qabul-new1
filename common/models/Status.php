@@ -20,6 +20,8 @@ class Status
     const USER_STATUS_BLOCK = 5;
     const USER_STATUS_ACTIVE = 10;
 
+    const DIRECTION_TYPE = 2;
+
 
     public static function accessStatus($id = null)
     {
@@ -40,6 +42,23 @@ class Status
             3 => 'Filial hammasi && Consulting bitta',
             4 => 'Filial bitta && Consulting bitta',
         ];
+
+        return $id === null ? $statuses : ($statuses[$id] ?? null);
+    }
+
+    public static function directionType($id = null)
+    {
+        $defaultLabels = [
+            'Birinchi hisob raqam',
+            'Ikkinchi hisob raqam',
+            'Uchinchi hisob raqam',
+            'To‘rtinchi hisob raqam',
+            'Beshinchi hisob raqam',
+            'Oltinchi hisob raqam',
+            'Yettinchi hisob raqam',
+        ];
+
+        $statuses = array_slice($defaultLabels, 0, self::DIRECTION_TYPE);
 
         return $id === null ? $statuses : ($statuses[$id] ?? null);
     }
