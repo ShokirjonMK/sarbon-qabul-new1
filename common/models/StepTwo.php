@@ -50,7 +50,9 @@ class StepTwo extends Model
         $errors = [];
 
         if (!$this->validate()) {
-            return ['is_ok' => false, 'errors' => $this->simple_errors($this->errors)];
+            $transaction->rollBack();
+            $errors[] = $this->simple_errors($this->errors);
+            return ['is_ok' => false, 'errors' => $errors];
         }
 
         if ($student->edu_type_id != $this->edu_type_id) {

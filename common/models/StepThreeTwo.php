@@ -100,8 +100,11 @@ class StepThreeTwo extends Model
         $errors = [];
 
         if (!$this->validate()) {
-            return ['is_ok' => false, 'errors' => $this->simple_errors($this->errors)];
+            $transaction->rollBack();
+            $errors[] = $this->simple_errors($this->errors);
+            return ['is_ok' => false, 'errors' => $errors];
         }
+
         $student->setAttributes([
             'branch_id' => $this->filial_id,
             'edu_name' => $this->edu_name,
