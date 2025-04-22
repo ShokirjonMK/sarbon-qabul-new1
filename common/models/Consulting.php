@@ -41,6 +41,9 @@ class Consulting extends \yii\db\ActiveRecord
     public $filial;
 
     public $number;
+    public $mfo;
+    public $bank;
+    public $inn;
 
     /**
      * {@inheritdoc}
@@ -111,7 +114,6 @@ class Consulting extends \yii\db\ActiveRecord
         $transaction = Yii::$app->db->beginTransaction();
         $errors = [];
 
-        // Modelni tekshirish
         if (!$model->validate()) {
             $errors[] = $model->simple_errors($model->errors);
             $transaction->rollBack();
@@ -126,7 +128,28 @@ class Consulting extends \yii\db\ActiveRecord
                 if ($exam == null) {
                     $errors[] = ['Hamma hisob raqam yuborilmagan'];
                 } else {
-                    $array[$key] = $exam;
+                    if ($exam['bankUz'] == "") {
+                        $errors[] = ['Bank nomi Uz yuborilmagan'];
+                    }
+                    if ($exam['bankRu'] == "") {
+                        $errors[] = ['Bank nomi Ru yuborilmagan'];
+                    }
+                    if ($exam['number'] == "") {
+                        $errors[] = ['Hisob raqam yuborilmagan'];
+                    }
+                    if ($exam['mfo'] == "") {
+                        $errors[] = ['MFO yuborilmagan'];
+                    }
+                    if ($exam['inn'] == "") {
+                        $errors[] = ['INN yuborilmagan'];
+                    }
+                    $array[$key] = [
+                        'bankUz' => $exam['bankUz'] ?? null,
+                        'bankRu' => $exam['bankRu'] ?? null,
+                        'number' => $exam['number'] ?? null,
+                        'mfo' => $exam['mfo'] ?? null,
+                        'inn' => $exam['inn'] ?? null,
+                    ];
                 }
             }
         } else {

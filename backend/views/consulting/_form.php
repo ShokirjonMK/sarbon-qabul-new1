@@ -29,35 +29,6 @@ $branchs = Branch::find()
                                 <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
                             </div>
                             <div class='form-group'>
-                                <?= $form->field($model, 'bank_name_uz')->textInput(['maxlength' => true]) ?>
-                            </div>
-                            <div class='form-group'>
-                                <?= $form->field($model, 'bank_name_ru')->textInput(['maxlength' => true]) ?>
-                            </div>
-                            <div class='form-group'>
-                                <?= $form->field($model, 'bank_name_en')->textInput(['maxlength' => true]) ?>
-                            </div>
-                            <div class='form-group'>
-                                <?= $form->field($model, 'bank_adress_uz')->textInput(['maxlength' => true]) ?>
-                            </div>
-                            <div class='form-group'>
-                                <?= $form->field($model, 'bank_adress_ru')->textInput(['maxlength' => true]) ?>
-                            </div>
-                            <div class='form-group'>
-                                <?= $form->field($model, 'bank_adress_en')->textInput(['maxlength' => true]) ?>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class='form-group'>
-                                <?= $form->field($model, 'mail')->textInput(['maxlength' => true]) ?>
-                            </div>
-                            <div class='form-group'>
-                                <?= $form->field($model, 'mfo')->textInput(['maxlength' => true]) ?>
-                            </div>
-                            <div class='form-group'>
-                                <?= $form->field($model, 'inn')->textInput(['maxlength' => true]) ?>
-                            </div>
-                            <div class='form-group'>
                                 <?= $form->field($model, 'tel1')
                                     ->widget(\yii\widgets\MaskedInput::class, [
                                         'mask' => '+\9\9\8 (99) 999-99-99',
@@ -68,16 +39,12 @@ $branchs = Branch::find()
                             </div>
 
                             <div class='form-group'>
-                                <?= $form->field($model, 'tel2')
-                                    ->widget(\yii\widgets\MaskedInput::class, [
-                                        'mask' => '+\9\9\8 (99) 999-99-99',
-                                        'options' => [
-                                            'placeholder' => '+998 (__) ___-__-__',
-                                        ],
-                                    ]) ?>
-                            </div>
-                            <div class='form-group'>
                                 <?= $form->field($model, 'domen')->textInput(['maxlength' => true]) ?>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class='form-group'>
+                                <?= $form->field($model, 'mail')->textInput(['maxlength' => true]) ?>
                             </div>
                             <div class='form-group'>
                                 <?= $form->field($model, 'code')->textInput(['maxlength' => true]) ?>
@@ -132,24 +99,32 @@ $branchs = Branch::find()
             </div>
 
 
-            <div class="form-section mt-3">
-                <div class="form-section_item">
-                    <div class="form-group">
-                        <div class="col-md-6 col-6">
-                            <div class="view-info-right mb-3">
-                                <h6>Hisob raqamlar</h6>
+            <?php for ($i = 0; $i < Status::DIRECTION_TYPE; $i++) : ?>
+                <div class="form-section mt-3">
+                    <div class="form-section_item">
+                        <div class="form-group">
+                            <div class="col-md-6 col-6">
+                                <div class="view-info-right mb-3">
+                                    <h6>H/R: <?= Status::directionType($i) ?></h6>
+                                </div>
                             </div>
-                        </div>
 
-                        <?php for ($i = 0; $i < Status::DIRECTION_TYPE; $i++) : ?>
                             <?php
-                            $vaule = '';
+                            $number = '';
+                            $mfo = '';
+                            $bankUz = '';
+                            $bankRu = '';
+                            $inn = '';
                             if ($model->hr != null) {
                                 $hrs = json_decode($model->hr, true);
                                 if (is_array($hrs)) {
                                     foreach ($hrs as $key => $hr) {
                                         if ($key == $i) {
-                                            $vaule = $hr;
+                                            $number = $hr['number'] ?? null;
+                                            $mfo = $hr['mfo'] ?? null;
+                                            $bankUz = $hr['bankUz'] ?? null;
+                                            $bankRu = $hr['bankRu'] ?? null;
+                                            $inn = $hr['inn'] ?? null;
                                             break;
                                         }
                                     }
@@ -160,17 +135,40 @@ $branchs = Branch::find()
                             <div class="row mt-1">
                                 <div class="col-12">
                                     <div class="form-group field-consulting-mfo has-success">
-                                        <label class="control-label" for="number<?= $i ?>"><?= Status::directionType($i) ?></label>
-                                        <input type="text" id="number<?= $i ?>" class="form-control" name="number[<?= $i ?>]" maxlength="255" aria-invalid="false" value="<?= $vaule ?>">
+                                        <label class="control-label" for="bank<?= $i ?>">Bank nomi Uz</label>
+                                        <input type="text" id="bank<?= $i ?>" class="form-control" name="number[<?= $i ?>][bankUz]" maxlength="255" aria-invalid="false" value="<?= $bankUz ?>">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group field-consulting-mfo has-success">
+                                        <label class="control-label" for="bank<?= $i ?>">Bank nomi Rus</label>
+                                        <input type="text" id="bank<?= $i ?>" class="form-control" name="number[<?= $i ?>][bankRu]" maxlength="255" aria-invalid="false" value="<?= $bankRu ?>">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group field-consulting-mfo has-success">
+                                        <label class="control-label" for="number<?= $i ?>">Hisob raqam</label>
+                                        <input type="text" id="number<?= $i ?>" class="form-control" name="number[<?= $i ?>][number]" maxlength="255" aria-invalid="false" value="<?= $number ?>">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group field-consulting-mfo has-success">
+                                        <label class="control-label" for="mfo<?= $i ?>">MFO</label>
+                                        <input type="text" id="mfo<?= $i ?>" class="form-control" name="number[<?= $i ?>][mfo]" maxlength="255" aria-invalid="false" value="<?= $mfo ?>">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group field-consulting-mfo has-success">
+                                        <label class="control-label" for="inn<?= $i ?>">INN</label>
+                                        <input type="text" id="inn<?= $i ?>" class="form-control" name="number[<?= $i ?>][inn]" maxlength="255" aria-invalid="false" value="<?= $inn ?>">
                                     </div>
                                 </div>
                             </div>
-
-                        <?php endfor; ?>
-
+                        </div>
                     </div>
                 </div>
-            </div>
+
+            <?php endfor; ?>
         </div>
     </div>
 
