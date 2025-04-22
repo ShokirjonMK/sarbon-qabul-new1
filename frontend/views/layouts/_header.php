@@ -130,39 +130,23 @@ $flagMap = [
                     </div>
                     <div class="modalBody">
                         <img src="/frontend/web/images/logo_new.svg" alt="" width="200px">
-                        <div class="ik_connection">
+                        <div class="ik_connection mt-5">
                             <h5><?= Yii::t("app", "a6") ?></h5>
                             <ul>
                                 <li><p><?= Yii::t("app", "a7") ?></p></li>
-                                <li><a href="tel:+998557047070">+998 55 704-70-70</a></li>
+                                <li><a href="tel:+998788882288">+998(78) 888 22 88</a></li>
                             </ul>
 
-<!--                            <ul>-->
-<!--                                <li><p>--><?php //= Yii::t("app", "a8") ?><!--</p></li>-->
-<!--                                <li><a href="tel:+998945055250">+998 (94) 505-52-50</a></li>-->
-<!--                            </ul>-->
 
                             <ul>
                                 <li><p><?= Yii::t("app", "a9") ?></p></li>
                                 <li>
-                                    <a href="https://bit.ly/samlokatsiya">
-                                        Samarqand kampusi: Samarqand viloyati, Samarqand shahar, Xo'ja Ahror Valiy ko'chasi, 23-uy
+                                    <a href="https://maps.app.goo.gl/9KPyvDf1pYwWpaYeA">
+                                        Toshkent shahar, Olmazor tumani, Paxta MFY, Sag'bon ko'chasi. Joylashuvni ko'rish uchun bosing!
                                     </a>
                                 </li>
                             </ul>
 
-                            <ul>
-                                <li><p><?= Yii::t("app", "a9") ?></p></li>
-                                <li>
-                                    <a href="https://bit.ly/buxlokatsiya">
-                                        Buxoro kampusi: Buxoro viloyati, Buxoro shahar, Qayum Murtazoyev ko'chasi, 13A-uy
-                                    </a>
-                                </li>
-                            </ul>
-
-<!--                            <div class="modal_vector_img">-->
-<!--                                <img src="/frontend/web/images/logo-vector.svg">-->
-<!--                            </div>-->
                         </div>
                     </div>
                 </div>
