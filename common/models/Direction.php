@@ -26,6 +26,9 @@ class Direction extends \yii\db\ActiveRecord
 {
     use ResourceTrait;
 
+    const TYPE_HR = 1;
+    const TYPE_CONSULTING = 2;
+    
     /**
      * {@inheritdoc}
      */
