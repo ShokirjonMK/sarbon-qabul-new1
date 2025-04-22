@@ -11,8 +11,8 @@ $this->title = 'TOSHKENT GUMANITAR FANLAR UNIVERSITETI';
         <div class="banner">
             <div class="banner-center" data-aos="fade-up" data-aos-duration="3000">
 <!--                <h3>GLOBAL</h3>-->
-                <h1>TOSHKENT</h1>
-                <h3>GUMANITAR FANLAR UNIVERSITETI</h3>
+                <h1>SARBON</h1>
+                <h3>UNIVERSITY <span><?= Yii::t("app" , "a11") ?></span></h3>
                 <h3><?= Yii::t("app" , "a11") ?></h3>
                 <div class="banner-link">
                     <a href="<?= Url::to(['site/login']) ?>">
