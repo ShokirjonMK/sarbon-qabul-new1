@@ -269,6 +269,11 @@ class CabinetController extends Controller
         $user = Yii::$app->user->identity;
         $student = $user->student;
 
+        $errors[] = ['Shartnoma topilmadi!'];
+        \Yii::$app->session->setFlash('error' , $errors);
+        return $this->redirect(\Yii::$app->request->referrer);
+
+
         $action = '';
         if ($type == 2) {
             $action = 'con2';
