@@ -264,7 +264,6 @@ class CabinetController extends Controller
 
     public function actionContractLoad($type)
     {
-        
         $errors = [];
         $errors[] = ['Shartnoma topilmadi!'];
         \Yii::$app->session->setFlash('error' , $errors);
