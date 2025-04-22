@@ -264,8 +264,12 @@ class CabinetController extends Controller
 
     public function actionContractLoad($type)
     {
-        return 0;
+        
         $errors = [];
+        $errors[] = ['Shartnoma topilmadi!'];
+        \Yii::$app->session->setFlash('error' , $errors);
+        return $this->redirect(\Yii::$app->request->referrer);
+        
         $user = Yii::$app->user->identity;
         $student = $user->student;
 
