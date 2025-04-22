@@ -1,4 +1,5 @@
 <?php
+
 use yii\helpers\Url;
 use common\models\Languages;
 use common\models\Student;
@@ -107,14 +108,14 @@ $flagMap = [
             <div class="mb_menu_list">
                 <p><?= Yii::t("app", "a5") ?></p>
                 <ul>
-                    <li><a href="https://www.instagram.com/tgfu_uz/?igshid=MzRlODBiNWFlZA%3D%3D"><i class="fa-brands fa-instagram"></i></a></li>
-                    <li><a href="https://t.me/tgfu_uzb"><i class="fa-brands fa-telegram"></i></a></li>
-                    <li><a href="https://www.facebook.com/tgfu.uz?mibextid=ZbWKwL"><i class="fa-brands fa-facebook"></i></a></li>
-                    <li><a href="https://youtube.com/@tgfuofficial?si=teblBgMHa0fG-nus"><i class="fa-brands fa-youtube"></i></a></li>
+                    <li><a href="https://www.instagram.com/sarbonuniversiteti?igsh=MWRodnB0eG03MG1oOQ=="><i class="fa-brands fa-instagram"></i></a></li>
+                    <li><a href="https://t.me/sarbonuniversity"><i class="fa-brands fa-telegram"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
                 </ul>
             </div>
 
-            <img src="/frontend/web/images/logo_new.svg" class="mb_vector_img">
+            <img src="/frontend/web/images/logo-vector.svg" class="mb_vector_img">
         </div>
     </div>
 </div>
@@ -129,39 +130,23 @@ $flagMap = [
                     </div>
                     <div class="modalBody">
                         <img src="/frontend/web/images/logo_new.svg" alt="" width="200px">
-                        <div class="ik_connection">
+                        <div class="ik_connection mt-5">
                             <h5><?= Yii::t("app", "a6") ?></h5>
                             <ul>
                                 <li><p><?= Yii::t("app", "a7") ?></p></li>
-                                <li><a href="tel:+998557047070">+998 55 704-70-70</a></li>
+                                <li><a href="tel:+998788882288">+998(78) 888 22 88</a></li>
                             </ul>
 
-<!--                            <ul>-->
-<!--                                <li><p>--><?php //= Yii::t("app", "a8") ?><!--</p></li>-->
-<!--                                <li><a href="tel:+998945055250">+998 (94) 505-52-50</a></li>-->
-<!--                            </ul>-->
 
                             <ul>
                                 <li><p><?= Yii::t("app", "a9") ?></p></li>
                                 <li>
-                                    <a href="https://bit.ly/samlokatsiya">
-                                        Samarqand kampusi: Samarqand viloyati, Samarqand shahar, Xo'ja Ahror Valiy ko'chasi, 23-uy
+                                    <a href="https://maps.app.goo.gl/9KPyvDf1pYwWpaYeA">
+                                        Toshkent shahar, Olmazor tumani, Paxta MFY, Sag'bon ko'chasi. Joylashuvni ko'rish uchun bosing!
                                     </a>
                                 </li>
                             </ul>
 
-                            <ul>
-                                <li><p><?= Yii::t("app", "a9") ?></p></li>
-                                <li>
-                                    <a href="https://bit.ly/buxlokatsiya">
-                                        Buxoro kampusi: Buxoro viloyati, Buxoro shahar, Qayum Murtazoyev ko'chasi, 13A-uy
-                                    </a>
-                                </li>
-                            </ul>
-
-<!--                            <div class="modal_vector_img">-->
-<!--                                <img src="/frontend/web/images/logo-vector.svg">-->
-<!--                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -175,7 +160,7 @@ $flagMap = [
         <div class="offSidebarItemSecond">
             <div class="offcanvas-header">
                 <h5 id="offcanvasRightLabel">
-                    <img src="/frontend/web/images/logo_blue.svg" alt="">
+                    <img src="/frontend/web/images/new_logo.svg" alt="" width="180px">
                 </h5>
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>

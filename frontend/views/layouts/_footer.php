@@ -21,14 +21,14 @@ use yii\helpers\Url;
                 <div class="mb_menu_list2">
                     <ul>
                         <li>
-                            <a href="https://tgfu.uz/">
-                                <span><?= Yii::t("app" , "a22") ?> <b>TOSHKENT GUMANITAR FANLAR UNIVERSITETI</b></span>
+                            <a href="https://t.me/globalsoftline">
+                                <span><?= Yii::t("app" , "a22") ?> <b>GLOBAL SOFTLINE GROUP</b></span>
                             </a>
                         </li>
                     </ul>
                 </div>
 
-                <img src="/frontend/web/images/logo_new.svg" class="mb_vector_img">
+                <img src="/frontend/web/images/logo-vector.svg" class="mb_vector_img">
             </div>
         </div>
     </div>
