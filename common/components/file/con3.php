@@ -109,6 +109,19 @@ $student->update(false);
 
 $filial = Branch::findOne($student->branch_id);
 
+$trType = $direction->type;
+
+$vaule = '';
+if ($cons->hr != null) {
+    $hrs = json_decode($cons->hr, true);
+    foreach ($hrs as $key => $hr) {
+        if ($key == $trType) {
+            $vaule = $hr;
+            break;
+        }
+    }
+}
+
 
 $qr = (new QrCode('https://qabul.sarbon.university/site/contract?key=' . $link.'&type=3'))
     ->setSize(120, 120)
@@ -742,7 +755,7 @@ $limg = $lqr->writeDataUri();
             7.1 Ta’lim muassasasi: <b><?= $filial->name_uz ?></b> <br>
             <b>Manzil:</b> <?= $filial->address_uz ?> <br>
             Bank rekvizitlari:<br>
-            <b>H/R: </b> <?= $cons->hr ?> <br>
+            <b>H/R: </b> <?= $vaule ?> <br>
             <b>Bank: </b> <?= $cons->bank_name_uz ?>    <br>
             <b>Bank kodi (MFO): </b> <?= $cons->mfo ?> <br>
             <b>STIR (INN): </b> <?= $cons->inn ?> <br>
@@ -753,7 +766,7 @@ $limg = $lqr->writeDataUri();
             7.1. Образовательное учреждение: <b><?= $filial->name_uz ?></b> <br>
             <b>Адрес: </b> <?= $filial->address_ru ?> <br>
             Банковские реквизиты:<br>
-            <b>Расчетный счет: </b> <?= $cons->hr ?> <br>
+            <b>Расчетный счет: </b> <?= $vaule ?> <br>
             <b>Банк:  </b> <?= $cons->bank_name_ru ?>  <br>
             <b>Код банка (МФО):  </b> <?= $cons->mfo ?><br>
             <b>ИНН: </b> <?= $cons->inn ?> <br>
