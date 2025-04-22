@@ -142,12 +142,22 @@ $branchs = Branch::find()
                         </div>
 
                         <?php for ($i = 0; $i < Status::DIRECTION_TYPE; $i++) : ?>
+                            <?php
+                            $vaule = '';
+                            $hrs = json_decode($model->hr, true);
+                            foreach ($hrs as $key => $hr) {
+                                if ($key == $i) {
+                                    $vaule = $hr;
+                                    break;
+                                }
+                            }
+                            ?>
 
                             <div class="row mt-1">
                                 <div class="col-12">
                                     <div class="form-group field-consulting-mfo has-success">
                                         <label class="control-label" for="number<?= $i ?>"><?= Status::directionType($i) ?></label>
-                                        <input type="text" id="number<?= $i ?>" class="form-control" name="number[<?= $i ?>]" maxlength="255" aria-invalid="false">
+                                        <input type="text" id="number<?= $i ?>" class="form-control" name="number[<?= $i ?>]" maxlength="255" aria-invalid="false" value="<?= $vaule ?>">
                                     </div>
                                 </div>
                             </div>

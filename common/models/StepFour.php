@@ -86,7 +86,7 @@ class StepFour extends Model
             ]);
             checkFileStatus($model, $fileChecks[$student->edu_type_id]['message'], $errors);
         }
-        
+
         $user->step = self::STEP;
         $user->is_confirm = time();
         $user->save(false);

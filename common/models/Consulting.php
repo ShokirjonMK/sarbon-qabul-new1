@@ -118,6 +118,28 @@ class Consulting extends \yii\db\ActiveRecord
             return ['is_ok' => false, 'errors' => $errors];
         }
 
+        $array = [];
+
+        if (isset($post['number'])) {
+            $exams = $post['number'];
+            foreach ($exams as $key => $exam) {
+                if ($exam == null) {
+                    $errors[] = ['Hamma hisob raqam yuborilmagan'];
+                } else {
+                    $array[$key] = $exam;
+                }
+            }
+        } else {
+            $errors[] = ['Hisob raqam yuborilmagan'];
+        }
+
+        $model->hr = json_encode($array, JSON_UNESCAPED_UNICODE);
+
+        if (count($array) == 0) {
+            $errors[] = ['Imtixon turi tanlanmagan.'];
+            $transaction->rollBack();
+            return ['is_ok' => false, 'errors' => $errors];
+        }
 
 
         // Modelni saqlash
