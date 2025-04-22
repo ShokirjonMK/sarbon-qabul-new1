@@ -264,6 +264,7 @@ class CabinetController extends Controller
 
     public function actionContractLoad($type)
     {
+        return 0;
         $errors = [];
         $user = Yii::$app->user->identity;
         $student = $user->student;
