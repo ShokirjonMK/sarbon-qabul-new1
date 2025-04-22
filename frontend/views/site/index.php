@@ -13,7 +13,7 @@ $this->title = 'SARBON UNIVERSITETI';
 
                 <h1>SARBON</h1>
 
-                <h3>UNIVERSITY <span><?= Yii::t("app" , "a11") ?></span></h3>
+                <h3>UNIVERSITETI <span><?= Yii::t("app" , "a11") ?></span></h3>
 
                 <div class="banner-link">
                     <a href="<?= Url::to(['site/login']) ?>">

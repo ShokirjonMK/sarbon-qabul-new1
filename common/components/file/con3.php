@@ -111,12 +111,20 @@ $filial = Branch::findOne($student->branch_id);
 
 $trType = $direction->type;
 
-$vaule = '';
+$number = '';
+$mfo = '';
+$bankUz = '';
+$bankRu = '';
+$inn = '';
 if ($cons->hr != null) {
     $hrs = json_decode($cons->hr, true);
     foreach ($hrs as $key => $hr) {
         if ($key == $trType) {
-            $vaule = $hr;
+            $number = $hr['number'] ?? null;
+            $mfo = $hr['mfo'] ?? null;
+            $bankUz = $hr['bankUz'] ?? null;
+            $bankRu = $hr['bankRu'] ?? null;
+            $inn = $hr['inn'] ?? null;
             break;
         }
     }
@@ -755,10 +763,10 @@ $limg = $lqr->writeDataUri();
             7.1 Ta’lim muassasasi: <b><?= $filial->name_uz ?></b> <br>
             <b>Manzil:</b> <?= $filial->address_uz ?> <br>
             Bank rekvizitlari:<br>
-            <b>H/R: </b> <?= $vaule ?> <br>
-            <b>Bank: </b> <?= $cons->bank_name_uz ?>    <br>
-            <b>Bank kodi (MFO): </b> <?= $cons->mfo ?> <br>
-            <b>STIR (INN): </b> <?= $cons->inn ?> <br>
+            <b>H/R: </b> <?= $number ?> <br>
+            <b>Bank: </b> <?= $bankUz ?>    <br>
+            <b>Bank kodi (MFO): </b> <?= $mfo ?> <br>
+            <b>STIR (INN): </b> <?= $inn ?> <br>
             <b>Telefon: </b> +998 78 888 22 88 <br>
             <img src="<?= $img ?>" width="120px">
         </td>
@@ -766,10 +774,10 @@ $limg = $lqr->writeDataUri();
             7.1. Образовательное учреждение: <b><?= $filial->name_uz ?></b> <br>
             <b>Адрес: </b> <?= $filial->address_ru ?> <br>
             Банковские реквизиты:<br>
-            <b>Расчетный счет: </b> <?= $vaule ?> <br>
-            <b>Банк:  </b> <?= $cons->bank_name_ru ?>  <br>
-            <b>Код банка (МФО):  </b> <?= $cons->mfo ?><br>
-            <b>ИНН: </b> <?= $cons->inn ?> <br>
+            <b>Расчетный счет: </b> <?= $number ?> <br>
+            <b>Банк:  </b> <?= $bankRu ?>  <br>
+            <b>Код банка (МФО):  </b> <?= $mfo ?><br>
+            <b>ИНН: </b> <?= $inn ?> <br>
             <b>Тел: </b> +998 78 888 22 88 <br>
             <img src="<?= $limg ?>" width="120px"> <br>
         </td>
