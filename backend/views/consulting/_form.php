@@ -144,11 +144,13 @@ $branchs = Branch::find()
                         <?php for ($i = 0; $i < Status::DIRECTION_TYPE; $i++) : ?>
                             <?php
                             $vaule = '';
-                            $hrs = json_decode($model->hr, true);
-                            foreach ($hrs as $key => $hr) {
-                                if ($key == $i) {
-                                    $vaule = $hr;
-                                    break;
+                            if ($model->hr != null) {
+                                $hrs = json_decode($model->hr, true);
+                                foreach ($hrs as $key => $hr) {
+                                    if ($key == $i) {
+                                        $vaule = $hr;
+                                        break;
+                                    }
                                 }
                             }
                             ?>
