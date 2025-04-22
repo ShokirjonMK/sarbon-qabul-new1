@@ -25,48 +25,43 @@ class Message extends \yii\db\ActiveRecord
     public static function sendSms($phone, $text)
     {
         $phone = preg_replace("/[^0-9]/", "", $phone);
-        $text = 'Toshkent Gumanitar Fanlar Universiteti qabul tizimi  - tasdiqlash kodi: '. $text;
-        $data = '{
-                "messages":
-                    [
-                        {
-                        "recipient":'.$phone.',
-                        "message-id":"abc000000001",
-                            "sms":{
-                                "originator": "3700",
-                                "content": {
-                                    "text": "'.$text.'"
-                                }
-                            }
-                        }
-                    ]
-                }';
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://send.smsxabar.uz/broker-api/send",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => $data,
-            CURLOPT_HTTPHEADER => array(
-                "Authorization: Basic ".base64_encode("tgfu:6Ya!W5n=Xk9c"),
-                "cache-control: no-cache",
-                "content-type: application/json",
-            ),
-        ));
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-        curl_close($curl);
-        return $phone." --- ".$response;
+        $email = 'norbobo1996@gmail.com';
+        $password = 'UknMFbL9gen9oy8JKbibVpBNfrMP1VY6lq0sFuyj';
+        $url = 'http://notify.eskiz.uz/api/auth/login';
+        $client = new Client();
+        $response = $client->createRequest()
+            ->setFormat(Client::FORMAT_JSON)
+            ->setMethod("POST")
+            ->setUrl($url)
+            ->setData([
+                'email' => $email,
+                'password' => $password
+            ])
+            ->send();
+        $data = (json_decode($response->content))->data;
+        $token = $data->token;
+        $from = "4546";
+        $url = 'http://notify.eskiz.uz/api/message/sms/send';
+        $textNew = "SARBON UNIVERSITETI qabul saytiga ro'yxatdan o'tish uchun tasdiqlash kodi: " . $text;
+        $response = $client->createRequest()
+            ->setFormat(Client::FORMAT_JSON)
+            ->setMethod("POST")
+            ->setUrl($url)
+            ->addHeaders(['Authorization' => 'Bearer ' . $token])
+            ->setData([
+                'message' => $textNew,
+                'mobile_phone' => $phone,
+                'from' => $from
+            ])
+            ->send();
+        return ($response->statusCode);
     }
 
 
 
     public static function sendedSms($phone, $text)
     {
+        return true;
         $phone = preg_replace("/[^0-9]/", "", $phone);
         $data = '{
                 "messages":
