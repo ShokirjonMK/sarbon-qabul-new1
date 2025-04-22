@@ -40,6 +40,8 @@ class Consulting extends \yii\db\ActiveRecord
 
     public $filial;
 
+    public $number;
+
     /**
      * {@inheritdoc}
      */
@@ -59,7 +61,9 @@ class Consulting extends \yii\db\ActiveRecord
                 'pattern' => '/^[+][0-9]{3} [(][0-9]{2}[)] [0-9]{3}-[0-9]{2}-[0-9]{2}$/',
                 'message' => 'Telefon raqamni to\'g\'ri formatda kiriting.'
             ],
-            [['pochta_phone', 'mail' , 'pochta_address', 'name', 'hr', 'bank_name_uz', 'bank_name_ru', 'bank_name_en', 'bank_adress_uz', 'bank_adress_ru', 'bank_adress_en', 'mfo', 'inn', 'tel1', 'tel2', 'domen', 'code'], 'string', 'max' => 255],
+            [['pochta_phone', 'mail' , 'pochta_address', 'name', 'bank_name_uz', 'bank_name_ru', 'bank_name_en', 'bank_adress_uz', 'bank_adress_ru', 'bank_adress_en', 'mfo', 'inn', 'tel1', 'tel2', 'domen', 'code'], 'string', 'max' => 255],
+            [['hr'], 'string'],
+            [['hr'], 'string'],
         ];
     }
 
@@ -113,6 +117,8 @@ class Consulting extends \yii\db\ActiveRecord
             $transaction->rollBack();
             return ['is_ok' => false, 'errors' => $errors];
         }
+
+
 
         // Modelni saqlash
         if (!$model->save(false)) {

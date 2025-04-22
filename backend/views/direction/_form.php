@@ -30,6 +30,17 @@ $branchs = Branch::find()
             <div class="form-group">
                 <?= $form->field($model, 'name_en')->textInput(['maxlength' => true]) ?>
             </div>
+
+            <div class='form-group'>
+                <?= $form->field($model, 'type')->widget(Select2::classname(), [
+                    'data' => Status::directionType(),
+                    'options' => ['placeholder' => 'Hisob raqam tanlang'],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ])->label('Hisob raqam tanlang'); ?>
+            </div>
+
         </div>
         <div class='col-12 col-md-6'>
             <div class='form-group'>
