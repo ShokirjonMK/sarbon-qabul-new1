@@ -175,7 +175,7 @@ $flagMap = [
         <div class="offSidebarItemSecond">
             <div class="offcanvas-header">
                 <h5 id="offcanvasRightLabel">
-                    <img src="/frontend/web/images/logo_blue.svg" alt="">
+                    <img src="/frontend/web/images/new_logo.svg" alt="" width="180px">
                 </h5>
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
