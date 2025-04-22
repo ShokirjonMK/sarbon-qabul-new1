@@ -197,12 +197,12 @@ $limg = $lqr->writeDataUri();
             tasdiqlangan Oliy va o‘rta maxsus, kasb-hunar ta’limi muassasalarida o‘qitishning to‘lov-shartnoma shakli
             va undan tushgan mablag‘larni taqsimlash tartibi to‘g‘risidagi Nizomga muvofiq, <b>SARBON UNIVERSITETI</b> oliy ta’lim
             tashkiloti (keyingi o‘rinlarda “Ta’lim muassasasi”) nomidan Ustav asosida ish yurituvchi direktor
-            <b>SOBIRJONOV NODIRJON QODIRJONOVICH</b> birinchi tomondan, <?= $full_name ?> (keyingi o‘rinlarda “Ta’lim oluvchi”) ikkinchi tomondan, keyingi
+            <b>Sharipov Muzaffar Tolibdjonovich</b> birinchi tomondan, <b><?= $full_name ?></b> (keyingi o‘rinlarda “Ta’lim oluvchi”) ikkinchi tomondan, keyingi
             o‘rinlarda birgalikda “Tomonlar” deb ataluvchilar o‘rtasida mazkur shartnoma quyidagilar haqida tuzildi:
         </td>
         <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000;">
             Данное соглашение заключено между Высшим образовательным учреждением <b>SARBON UNIVERSITETI</b> (далее именуемым "Образовательное учреждение"), в лице директора <b>Собиржонова Нодиржона
-                Кодиржоновича</b>, действующего на основании Устава, с одной стороны, и <?= $full_name ?>
+                Кодиржоновича</b>, действующего на основании Устава, с одной стороны, и <b><?= $full_name ?></b>
             (далее именуемым "Обучающийся"), с другой стороны, которые совместно именуются "Стороны",
             в соответствии с Постановлением Кабинета Министров "Об утверждении Положений о приеме в высшие образовательные
             учреждения, переводе, восстановлении и отчислении студентов" от 20 июня 2017 года, № 393, и Приказом Министра

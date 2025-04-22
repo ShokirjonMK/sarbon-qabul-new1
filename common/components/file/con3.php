@@ -195,7 +195,7 @@ $limg = $lqr->writeDataUri();
             Oliy va o‘rta maxsus, kasb-hunar ta’limi muassasalarida o‘qitishning to‘lov-shartnoma shakli va undan
             tushgan mablag‘larni taqsimlash tartibi to‘g‘risidagi Nizomga muvofiq birinchi tomondan -  <b>SARBON UNIVERSITETI</b>
             oliy ta’lim tashkiloti (keyingi o‘rinlarda “Ta’lim muassasasi”) nomidan Ustav asosida ish yurituvchi direktor
-            <b>SOBIRJONOV NODIRJON QODIRJONOVICH</b>, ikkinchi tomondan - _________________________________________
+            <b>Sharipov Muzaffar Tolibdjonovich</b>, ikkinchi tomondan - _________________________________________
             (keyingi o‘rinlarda “Buyurtmachi”) nomidan <?= $full_name ?> uchinchi tomondan -
             (keyingi o‘rinlarda “Ta’lim oluvchi”) birgalikda “Tomonlar” deb ataluvchilar o‘rtasida mazkur shartnoma quyidagilar haqida tuzildi:
         </td>
@@ -207,7 +207,7 @@ $limg = $lqr->writeDataUri();
             утвержденным Порядком установления контрактов на обучение в высших и средних специальных,
             профессиональных учебных заведениях и распределения полученных средств, между Высшим образовательным
             учреждением <b>SARBON UNIVERSITETI</b> (в дальнейшем именуемое “Образовательное учреждение”), в лице
-            директора <b>SOBIRJONOV NODIRJON QODIRJONOVICH</b>, действующего на основании Устава с одной стороны, и от имени Заказчика
+            директора Sharipov Muzaffar Tolibdjonovich, действующего на основании Устава с одной стороны, и от имени Заказчика
             _________________________________________ действующего на основании _________________________________________
             с другой стороны, и _________________________________________ (в дальнейшем именуемый “Обучающийся”), с третьей стороны, далее совместно именуемые
             “Стороны”, заключили настоящий договор о следующем:
