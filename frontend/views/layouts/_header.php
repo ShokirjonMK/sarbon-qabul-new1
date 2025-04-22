@@ -114,7 +114,7 @@ $flagMap = [
                 </ul>
             </div>
 
-            <img src="/frontend/web/images/logo_new.svg" class="mb_vector_img">
+            <img src="/frontend/web/images/logo-vector.svg" class="mb_vector_img">
         </div>
     </div>
 </div>

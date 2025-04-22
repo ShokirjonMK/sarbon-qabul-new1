@@ -206,7 +206,7 @@
 .ban_content {
     width: 100%;
     height: 100%;
-    background: rgba(2, 27, 102, 0.7);
+    background: rgba(26, 66, 102, 0.7);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -306,7 +306,7 @@
     align-items: center;
 }
 .logo img {
-    width: 100px;
+    width: 70px;
 }
 
 .circle-text {
@@ -386,17 +386,18 @@
     display: none;
 }
 
+
 .head_mobile {
     padding: 25px 0;
     display: block;
     position: relative;
     overflow: hidden;
-    background: #FDB338;
-    background: linear-gradient(0deg,rgba(253, 179, 56, 1) 0%, rgba(2, 27, 102, 1) 2%);
+    background: #6E0F27;
+    background: linear-gradient(0deg, rgba(110, 15, 39, 1) 0%, rgba(45, 81, 115, 1) 2%);
 }
 
 .mb_head_left img {
-    width: 110px;
+    width: 180px;
 }
 
 
