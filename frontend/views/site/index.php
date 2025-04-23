@@ -16,7 +16,7 @@ $this->title = 'SARBON UNIVERSITETI';
                 <h3>UNIVERSITETI <span><?= Yii::t("app" , "a11") ?></span></h3>
 
                 <div class="banner-link">
-                    <a href="<?= Url::to(['site/login']) ?>">
+                    <a href="<?= Url::to(['site/signup']) ?>">
                         <?= Yii::t("app" , "a4") ?>
                         <span>
                         <svg xmlns="http://www.w3.org/2000/svg" height=".9rem" fill="none" viewBox="0 0 17 12">

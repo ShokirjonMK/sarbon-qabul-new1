@@ -87,7 +87,7 @@ $flagMap = [
                     </li>
                     <?php if ($con != "cabinet"): ?>
                         <li>
-                            <a href="<?= Url::to([$user ? 'cabinet/index' : 'site/login']) ?>">
+                            <a href="<?= Url::to([$user ? 'cabinet/index' : 'site/signup']) ?>">
                                 <i class="fa-solid fa-user"></i>
                                 <span><?= Yii::t("app", $user ? "Kabinetga kirish" : "a4") ?></span>
                             </a>
