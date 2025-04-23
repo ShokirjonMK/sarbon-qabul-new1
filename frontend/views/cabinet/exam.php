@@ -137,7 +137,7 @@ if ($eduDirection->is_oferta == 1) {
                     <div class="ika_column">
                         <p>Imtixonga ajratilgan vaqt</p>
                         <h6>
-                            1 soat 20 minut
+                            1 soat 30 minut
                         </h6>
                     </div>
                 </div>
