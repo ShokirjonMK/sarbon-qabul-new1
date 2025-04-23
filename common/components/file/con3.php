@@ -196,7 +196,7 @@ $limg = $lqr->writeDataUri();
             tushgan mablag‘larni taqsimlash tartibi to‘g‘risidagi Nizomga muvofiq birinchi tomondan -  <b>SARBON UNIVERSITETI</b>
             oliy ta’lim tashkiloti (keyingi o‘rinlarda “Ta’lim muassasasi”) nomidan Ustav asosida ish yurituvchi direktor
             <b>Sharipov Muzaffar Tolibdjonovich</b>, ikkinchi tomondan - _________________________________________
-            (keyingi o‘rinlarda “Buyurtmachi”) nomidan <?= $full_name ?> uchinchi tomondan -
+            (keyingi o‘rinlarda “Buyurtmachi”) nomidan <b><?= $full_name ?></b> uchinchi tomondan -
             (keyingi o‘rinlarda “Ta’lim oluvchi”) birgalikda “Tomonlar” deb ataluvchilar o‘rtasida mazkur shartnoma quyidagilar haqida tuzildi:
         </td>
         <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000;">
@@ -371,8 +371,9 @@ $limg = $lqr->writeDataUri();
     <tr>
         <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000;">
             Choraklarga bo‘lib to‘langanda quyidagi muddatlarda: <br>
-            - belgilangan to‘lov miqdorining kamida 25.00 foizini talabalikka tavsiya etilgan abiturientlar uchun 01.12.2025 gacha, ikkinchi va undan yuqori bosqich talabalar uchun 01.12.2025 gacha; <br>
-            - belgilangan to‘lov miqdorining kamida 50.00 foizini 01.01.2026 gacha, 75.00 foizini 01.04.2026 gacha va 100.00 foizini 01.06.2026 gacha.
+            - belgilangan to‘lov miqdorining kamida 25.00 foizini talabalikka tavsiya etilgan abiturientlar uchun 15.09.2025 gacha, ikkinchi va undan yuqori bosqich talabalar uchun 01.10.2025 gacha; <br>
+            -belgilangan to‘lov miqdorining kamida 50.00 foizini 01.12.2025 gacha, 75.00 foizini 01.03.2026 gacha va 100.00 foizini 01.05.2026 gacha.
+
         </td>
         <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000;">
             При оплате по кварталам в следующие сроки: <br>
@@ -808,13 +809,13 @@ $limg = $lqr->writeDataUri();
             F.I.Sh.:
         </td>
         <td colspan="1" style="text-align: left; vertical-align: top; border: 1px solid #000; ">
-            <?= $full_name ?>
+            <b
         </td>
         <td colspan="1" style="text-align: left; vertical-align: top; border: 1px solid #000; ">
             Ф.И.О.:
         </td>
         <td colspan="1" style="text-align: left; vertical-align: top; border: 1px solid #000; ">
-            <?= $full_name ?>
+            <b
         </td>
     </tr>
 
