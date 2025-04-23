@@ -143,12 +143,16 @@ class Consulting extends \yii\db\ActiveRecord
                     if ($exam['inn'] == "") {
                         $errors[] = ['INN yuborilmagan'];
                     }
+                    if ($exam['address'] == "") {
+                        $errors[] = ['Manzil yuborilmagan'];
+                    }
                     $array[$key] = [
                         'bankUz' => $exam['bankUz'] ?? null,
                         'bankRu' => $exam['bankRu'] ?? null,
                         'number' => $exam['number'] ?? null,
                         'mfo' => $exam['mfo'] ?? null,
                         'inn' => $exam['inn'] ?? null,
+                        'address' => $exam['address'] ?? null,
                     ];
                 }
             }

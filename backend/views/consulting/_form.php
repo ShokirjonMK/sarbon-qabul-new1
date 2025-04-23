@@ -115,6 +115,7 @@ $branchs = Branch::find()
                             $bankUz = '';
                             $bankRu = '';
                             $inn = '';
+                            $address = '';
                             if ($model->hr != null) {
                                 $hrs = json_decode($model->hr, true);
                                 if (is_array($hrs)) {
@@ -125,6 +126,7 @@ $branchs = Branch::find()
                                             $bankUz = $hr['bankUz'] ?? null;
                                             $bankRu = $hr['bankRu'] ?? null;
                                             $inn = $hr['inn'] ?? null;
+                                            $address = $hr['address'] ?? null;
                                             break;
                                         }
                                     }
@@ -161,6 +163,12 @@ $branchs = Branch::find()
                                     <div class="form-group field-consulting-mfo has-success">
                                         <label class="control-label" for="inn<?= $i ?>">INN</label>
                                         <input type="text" id="inn<?= $i ?>" class="form-control" name="number[<?= $i ?>][inn]" maxlength="255" aria-invalid="false" value="<?= $inn ?>">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group field-consulting-mfo has-success">
+                                        <label class="control-label" for="address<?= $i ?>">Bank manzili</label>
+                                        <input type="text" id="address<?= $i ?>" class="form-control" name="number[<?= $i ?>][address]" maxlength="255" aria-invalid="false" value="<?= $address ?>">
                                     </div>
                                 </div>
                             </div>
