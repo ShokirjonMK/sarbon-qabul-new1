@@ -57,7 +57,7 @@ class StudentSearch extends Student
                 'u.status' => 10,
                 'u.user_role' => 'student',
             ])
-            ->andWhere(getConsIk());
+            ->andWhere(getConsIk())->orderBy('s.id desc');
 
         // Ma'lumotlarni chiqarish uchun ActiveDataProvider
         $dataProvider = new ActiveDataProvider([
@@ -175,7 +175,7 @@ class StudentSearch extends Student
                 'u.user_role' => 'student',
             ])
             ->andWhere(getConsIk())
-            ->andWhere(['<', 'step' ,5]);
+            ->andWhere(['<', 'step' ,5])->orderBy('s.id desc');
 
         // Ma'lumotlarni chiqarish uchun ActiveDataProvider
         $dataProvider = new ActiveDataProvider([
@@ -274,7 +274,7 @@ class StudentSearch extends Student
                 ['not', ['sp.student_id' => null]],
                 ['not', ['sd.student_id' => null]],
                 ['not', ['sm.student_id' => null]]
-            ]);
+            ])->orderBy('s.id desc');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -289,6 +289,38 @@ class StudentSearch extends Student
         if ($this->username != '+998 (__) ___-__-__') {
             $query->andFilterWhere(['like', 'u.username', $this->username]);
         }
+
+        if ($this->start_date || $this->end_date) {
+            $dateConditions = [];
+
+            if ($this->start_date && $this->end_date) {
+                $start = strtotime($this->start_date . ' 00:00:00');
+                $end = strtotime($this->end_date . ' 23:59:59');
+
+                $dateConditions[] = ['and', ['not', ['e.student_id' => null]], ['between', 'e.confirm_date', $start, $end]];
+                $dateConditions[] = ['and', ['not', ['sp.student_id' => null]], ['between', 'sp.confirm_date', $start, $end]];
+                $dateConditions[] = ['and', ['not', ['sd.student_id' => null]], ['between', 'sd.confirm_date', $start, $end]];
+                $dateConditions[] = ['and', ['not', ['sm.student_id' => null]], ['between', 'sm.confirm_date', $start, $end]];
+            } elseif ($this->start_date) {
+                $start = strtotime($this->start_date . ' 00:00:00');
+
+                $dateConditions[] = ['and', ['not', ['e.student_id' => null]], ['>=', 'e.confirm_date', $start]];
+                $dateConditions[] = ['and', ['not', ['sp.student_id' => null]], ['>=', 'sp.confirm_date', $start]];
+                $dateConditions[] = ['and', ['not', ['sd.student_id' => null]], ['>=', 'sd.confirm_date', $start]];
+                $dateConditions[] = ['and', ['not', ['sm.student_id' => null]], ['>=', 'sm.confirm_date', $start]];
+            } elseif ($this->end_date) {
+                $end = strtotime($this->end_date . ' 23:59:59');
+
+                $dateConditions[] = ['and', ['not', ['e.student_id' => null]], ['<=', 'e.confirm_date', $end]];
+                $dateConditions[] = ['and', ['not', ['sp.student_id' => null]], ['<=', 'sp.confirm_date', $end]];
+                $dateConditions[] = ['and', ['not', ['sd.student_id' => null]], ['<=', 'sd.confirm_date', $end]];
+                $dateConditions[] = ['and', ['not', ['sm.student_id' => null]], ['<=', 'sm.confirm_date', $end]];
+            }
+
+            $query->andWhere(['or', ...$dateConditions]);
+        }
+
+
 
         $query->andFilterWhere([
             's.id' => $this->id,
@@ -337,7 +369,8 @@ class StudentSearch extends Student
                 'u.status' => [5, 9, 10],
                 'u.user_role' => 'student',
             ])
-            ->andWhere(getConsIk());
+            ->andWhere(getConsIk())
+            ->orderBy('s.id desc');
 
         // Ma'lumotlarni chiqarish uchun ActiveDataProvider
         $dataProvider = new ActiveDataProvider([
