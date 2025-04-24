@@ -519,7 +519,6 @@ class StudentSearch extends Student
             ->where([
                 'u.status' => [0],
                 'u.user_role' => 'student',
-                's.exam_type' => 1,
             ])->orderBy('s.id desc');
 
         // Ma'lumotlarni chiqarish uchun ActiveDataProvider
