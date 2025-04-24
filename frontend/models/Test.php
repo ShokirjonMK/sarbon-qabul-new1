@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use common\models\CrmPush;
+use common\models\DirectionBall;
 use common\models\Exam;
 use common\models\ExamStudentQuestions;
 use common\models\ExamSubject;
@@ -182,17 +183,38 @@ class Test extends Model
             $examSubject->save(false);
         }
 
-        if ($model->ball < 30) {
+
+        $sh = false;
+        $conBalls = DirectionBall::find()
+            ->where([
+                'status' => 1,
+                'is_deleted' => 0
+            ])
+            ->all();
+        foreach ($conBalls as $conBall) {
+            if ($conBall->start_ball <= $model->ball && $conBall->end_ball >= $model->ball) {
+                $sh = true;
+                if ($conBall->type < 1) {
+                    $model->status = self::FAILED;
+                    $model->contract_price = null;
+                    $model->confirm_date = null;
+                } elseif ($conBall->type == 1) {
+                    if ($model->ball >= 30 && $model->ball <= 75.5) {
+                        $model->ball = rand(76, 80);
+                    }
+                    $model->contract_price = $direction->price;
+                    $model->confirm_date = time();
+                } else {
+                    $model->contract_price = $direction->price * $conBall->type;
+                    $model->confirm_date = time();
+                }
+            }
+        }
+
+        if (!$sh) {
             $model->status = self::FAILED;
             $model->contract_price = null;
             $model->confirm_date = null;
-        } elseif ($model->ball >= 30 && $model->ball <= 59) {
-            $model->ball = rand(60 , 65);
-            $model->contract_price = $direction->price;
-            $model->confirm_date = time();
-        } else {
-            $model->contract_price = $direction->price;
-            $model->confirm_date = time();
         }
 
         $student->is_down = 0;
