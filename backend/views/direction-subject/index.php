@@ -76,7 +76,7 @@ $breadcrumbs['item'][] = [
                 'contentOptions' => ['date-label' => 'status'],
                 'format' => 'raw',
                 'value' => function($model) {
-                    return "<div class='badge-table-div active'><span>".Status::accessStatus($model->status) ?? '---'."</span></div>";
+                    return "<div class='badge-table-div active'><span>".$model->status ? Status::accessStatus($model->status) : '---'."</span></div>";
                 },
             ],
             [
