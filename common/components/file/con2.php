@@ -201,13 +201,9 @@ $limg = $lqr->writeDataUri();
             ta’lim vazirining 2012-yil 28-dekabrdagi 508-son buyrug‘i (ro‘yxat raqami 2431, 2013-yil 26-fevral) bilan
             tasdiqlangan Oliy va o‘rta maxsus, kasb-hunar ta’limi muassasalarida o‘qitishning to‘lov-shartnoma shakli
             va undan tushgan mablag‘larni taqsimlash tartibi to‘g‘risidagi Nizomga muvofiq, <b>SARBON UNIVERSITETI</b>
-            oliy ta’lim tashkiloti (keyingi o‘rinlarda “Ta’lim muassasasi”) nomidan, Ustav asosida ish yurituvchi
-            direktor Sharipov Muzaffar Tolibdjonovich, ikkinchi tomondan – (keyingi o‘rinlarda “Buyurtmachi”)
-            nomidan ________________________________ asosida ish yurituvchi _________________________________________ yoki
-            fuqaro ____________________________________,
-            uchinchi tomondan – <b><?= $full_name ?></b> (keyingi o‘rinlarda “Ta’lim oluvchi”)
-            (keyingi o‘rinlarda birgalikda “Tomonlar” deb yuritiladi),
-            o‘rtasida mazkur shartnoma quyidagilar haqida tuzildi:
+            oliy ta’lim tashkiloti (keyingi o‘rinlarda “Ta’lim muassasasi”) nomidan Ustav asosida ish yurituvchi direktor Sobirjonov Nodirjon Qodirjonovich
+            birinchi tomondan, <b><?= $full_name ?></b> (keyingi o‘rinlarda “Ta’lim oluvchi”) ikkinchi tomondan,
+            keyingi o‘rinlarda birgalikda “Tomonlar” deb ataluvchilar o‘rtasida mazkur shartnomaquyidagilar haqida tuzildi:
         </td>
         <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000;">
             Во исполнение Постановления Кабинета Министров Республики Узбекистан №393 от 20 июня 2017 года
