@@ -58,7 +58,6 @@ class AuthItemController extends Controller
             $new->save(false);
         }
 
-        dd(2121212);
         $searchModel = new AuthItemSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
