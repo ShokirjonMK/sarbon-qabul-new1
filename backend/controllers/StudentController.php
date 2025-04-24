@@ -615,6 +615,22 @@ class StudentController extends Controller
         $errors = [];
         $student = Student::findOne(['id' => $id]);
 
+        $eduDirection = $student->eduDirection;
+        if ($eduDirection) {
+            if ($eduDirection->type == 2) {
+                if (!permission('student', 'contract-load-admins')) {
+                    $errors[] = ['Shartnoma yuklab olishingizga ruxsat berilmagan.'];
+                }
+            }
+        } else {
+            $errors[] = ['Shartnomangiz mavjud emas.'];
+        }
+
+        if (count($errors) > 0) {
+            \Yii::$app->session->setFlash('error' , $errors);
+            return $this->redirect(\Yii::$app->request->referrer);
+        }
+
         $action = '';
         if ($type == 2) {
             $action = 'con2';
@@ -655,6 +671,12 @@ class StudentController extends Controller
         ]);
 
         return $pdf->render();
+    }
+
+
+    public function actionContractLoadAdmins($id, $type)
+    {
+
     }
 
     public function actionContractUpdate($id, $type)
