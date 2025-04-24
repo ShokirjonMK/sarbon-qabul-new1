@@ -7,6 +7,7 @@ use common\models\AuthItem;
 use common\models\AuthItemSearch;
 use common\models\CrmPush;
 use common\models\Direction;
+use common\models\DirectionBall;
 use common\models\EduDirection;
 use common\models\Employee;
 use common\models\ExamDate;
@@ -33,6 +34,31 @@ class AuthItemController extends Controller
      */
     public function actionIndex()
     {
+        $eduDirections = EduDirection::find()
+            ->where([
+                'edu_type_id' => 1,
+                'is_deleted' => 0
+            ])
+            ->all();
+        foreach ($eduDirections as $eduDirection) {
+            $new = new DirectionBall();
+            $new->edu_direction_id = $eduDirection->id;
+            $new->type = 0;
+            $new->start_ball = 0;
+            $new->end_ball = 29.9;
+            $new->status = 1;
+            $new->save(false);
+
+            $new = new DirectionBall();
+            $new->edu_direction_id = $eduDirection->id;
+            $new->type = 1;
+            $new->start_ball = 30;
+            $new->end_ball = 189;
+            $new->status = 1;
+            $new->save(false);
+        }
+
+        dd(2121212);
         $searchModel = new AuthItemSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
