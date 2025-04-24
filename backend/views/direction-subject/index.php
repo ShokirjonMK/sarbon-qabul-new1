@@ -71,14 +71,14 @@ $breadcrumbs['item'][] = [
                    return $model->count;
                },
             ],
-//            [
-//                'attribute' => 'status',
-//                'contentOptions' => ['date-label' => 'status'],
-//                'format' => 'raw',
-//                'value' => function($model) {
-//                    return "<div class='badge-table-div active'><span>".$model->status ? Status::accessStatus($model->status) : '---'."</span></div>";
-//                },
-//            ],
+            [
+                'attribute' => 'status',
+                'contentOptions' => ['date-label' => 'status'],
+                'format' => 'raw',
+                'value' => function($model) {
+                    return "<div class='badge-table-div active'><span>".$model->status ? Status::accessStatus($model->status) : '---'."</span></div>";
+                },
+            ],
             [
                 'class' => ActionColumn::className(),
                 'contentOptions' => ['date-label' => 'Harakatlar' , 'class' => 'd-flex justify-content-around'],
