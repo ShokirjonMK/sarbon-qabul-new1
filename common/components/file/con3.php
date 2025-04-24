@@ -504,12 +504,14 @@ $limg = $lqr->writeDataUri();
         <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000; border-bottom: 1px solid #fff;">
             4.1. <b>Ta’lim muassasasi huquqlari:</b> <br>
             - O‘quv jarayonini mustaqil ravishda amalga oshirish, “Ta’lim oluvchi”ning oraliq va yakuniy nazoratlarni topshirish, qayta topshirish tartibi hamda vaqtlarini belgilash.<br>
-            - O‘zbekiston Respublikasi qonunlari, “Ta’lim muassasasi” nizomi hamda mahalliy normativ-huquqiy hujjatlarga muvofiq “Ta’lim oluvchi”ga rag‘batlantiruvchi yoki intizomiy choralarni qo‘llash.
+            - O‘zbekiston Respublikasi qonunlari, “Ta’lim muassasasi” nizomi hamda mahalliy normativ-huquqiy hujjatlarga muvofiq “Ta’lim oluvchi”ga rag‘batlantiruvchi yoki intizomiy choralarni qo‘llash.<br>
+            - “Ta’lim oluvchi” shartnomaning 2.2-bandida ko‘rsatilgan to‘lov muddatlariga rioya qilmagan taqdirda, “Ta’lim muassasasi” uning nazorat imtihonlarida ishtirok etishiga ruxsat bermaslik huquqiga ega.
         </td>
         <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000; border-bottom: 1px solid #fff;">
             4.1. <b>Права Образовательного учреждения:</b> <br>
             - Самостоятельно осуществлять учебный процесс, устанавливать порядок и сроки сдачи промежуточных и итоговых экзаменов, а также пересдач.<br>
-            - Применять поощрительные или дисциплинарные меры к Обучающемуся в соответствии с законами Республики Узбекистан, Уставом Образовательного учреждения и местными нормативно-правовыми актами.
+            - Применять поощрительные или дисциплинарные меры к Обучающемуся в соответствии с законами Республики Узбекистан, Уставом Образовательного учреждения и местными нормативно-правовыми актами.<br>
+            - В случае неисполнения «Обучающимся» сроков оплаты, указанных в пункте 2.2 настоящего договора, «Образовательное учреждение» имеет право не допустить его к участию в контрольных экзаменах.
         </td>
     </tr>
 
