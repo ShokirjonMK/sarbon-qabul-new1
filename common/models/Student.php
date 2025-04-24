@@ -238,7 +238,14 @@ class Student extends \yii\db\ActiveRecord
     public function getIpCheck()
     {
         if ($this->exam_type == 1) {
-            if (checkAllowedIP()) {
+            $userIp = getIpMK();
+            $ikIp = IkIp::findOne([
+               'ip_address' => $userIp,
+                'branch_id' => $this->branch_id,
+                'status' => 1,
+                'is_deleted' => 0
+            ]);
+            if ($ikIp) {
                 return true;
             }
             return false;
