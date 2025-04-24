@@ -62,7 +62,9 @@ if ($eduDirection->is_oferta == 1) {
             </div>
 
             <?php if ($exam->status == 3) : ?>
-                <?= $this->render('_contract'); ?>
+                <?php if ($eduDirection->type == 0) : ?>
+                    <?= $this->render('_contract'); ?>
+                <?php endif; ?>
             <?php endif; ?>
 
             <div class="row top30">
