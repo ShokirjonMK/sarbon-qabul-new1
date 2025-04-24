@@ -12,6 +12,14 @@ $breadcrumbs['item'][] = [
     'label' => Yii::t('app', 'Bosh sahifa'),
     'url' => ['/'],
 ];
+$breadcrumbs['item'][] = [
+    'label' => Yii::t('app', 'Ta\'lim yo\'nalishlari'),
+    'url' => ['edu-direction/index'],
+];
+$breadcrumbs['item'][] = [
+    'label' => $model->eduDirection->direction->name.' yo\'nalish fanlari',
+    'url' => ['index' , 'id' => $model->edu_direction_id],
+];
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="page">

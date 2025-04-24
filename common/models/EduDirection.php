@@ -49,8 +49,8 @@ class EduDirection extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['branch_id' ,'direction_id', 'lang_id', 'edu_type_id', 'edu_form_id', 'is_oferta', 'status', 'duration','price'], 'required'],
-            [['branch_id' ,'direction_id', 'lang_id', 'edu_type_id', 'edu_form_id', 'is_oferta', 'status', 'created_at', 'updated_at', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
+            [['branch_id' ,'direction_id', 'type', 'lang_id', 'edu_type_id', 'edu_form_id', 'is_oferta', 'status', 'duration','price'], 'required'],
+            [['branch_id' ,'direction_id', 'type', 'lang_id', 'edu_type_id', 'edu_form_id', 'is_oferta', 'status', 'created_at', 'updated_at', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
             [['exam_type'], 'string'],
             [['duration'], 'string', 'max' => 10],
             [['price'], 'string', 'max' => 255],

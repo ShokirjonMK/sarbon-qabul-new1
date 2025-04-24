@@ -155,6 +155,12 @@ $eduForms = EduForm::find()
                 'contentOptions' => ['data-label' => 'Item'],
                 'format' => 'raw',
                 'value' => function ($model) {
+                    $ball = null;
+                    if ($model->edu_type_id == 1) {
+                        $url = Url::to(['direction-ball/index', 'id' => $model->id]);
+                        $ball = "<br><a href='{$url}' class='badge-table-div active mt-2'><span>Ball taqsimoti</span></a>";
+                    }
+
                     $labels = [
                         1 => ['url' => 'direction-subject/index', 'text' => 'Fanlar'],
                         2 => ['url' => 'direction-course/index', 'text' => 'Bosqichlar'],
@@ -163,7 +169,7 @@ $eduForms = EduForm::find()
                     if (isset($labels[$model->edu_type_id])) {
                         $url = Url::to([$labels[$model->edu_type_id]['url'], 'id' => $model->id]);
                         $text = $labels[$model->edu_type_id]['text'];
-                        return "<a href='{$url}' class='badge-table-div active'><span>{$text}</span></a>";
+                        return "<a href='{$url}' class='badge-table-div active'><span>{$text}</span></a>".$ball;
                     }
 
                     return null;

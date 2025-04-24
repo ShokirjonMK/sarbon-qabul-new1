@@ -117,6 +117,17 @@ $examTypes = [0, 1];
                         </div>
                         <div class='col-12 col-md-6 col-lg-4'>
                             <div class="form-group">
+                                <?= $form->field($model, 'type')->widget(Select2::classname(), [
+                                    'data' => Status::eduDirectionType(),
+                                    'options' => ['placeholder' => 'Type tanlang ...'],
+                                    'pluginOptions' => [
+                                        'allowClear' => true
+                                    ],
+                                ]); ?>
+                            </div>
+                        </div>
+                        <div class='col-12 col-md-6 col-lg-4'>
+                            <div class="form-group">
                                 <?= $form->field($model, 'status')->widget(Select2::classname(), [
                                     'data' => Status::accessStatus(),
                                     'options' => ['placeholder' => 'Status tanlang ...'],

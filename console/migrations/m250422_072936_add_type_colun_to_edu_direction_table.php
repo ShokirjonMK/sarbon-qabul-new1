@@ -30,7 +30,7 @@ class m250422_072936_add_type_colun_to_edu_direction_table extends Migration
         $this->createTable('{{%direction_ball}}', [
             'id' => $this->primaryKey(),
             'edu_direction_id' => $this->integer()->null(),
-            'type' => $this->integer()->defaultValue(0),
+            'type' => $this->float()->defaultValue(0),
             'start_ball' => $this->float()->defaultValue(0),
             'end_ball' => $this->float()->defaultValue(0),
 

@@ -46,6 +46,18 @@ class Status
         return $id === null ? $statuses : ($statuses[$id] ?? null);
     }
 
+
+    public static function eduDirectionType($id = null)
+    {
+        $statuses = [
+            0 => 'Hamma yuklab ololadi',
+            1 => 'Talaba tomondan yuklab olish yopiladi',
+            2 => 'Talaba, Admin tomondan yopiladi',
+        ];
+
+        return $id === null ? $statuses : ($statuses[$id] ?? null);
+    }
+
     public static function directionType($id = null)
     {
         $defaultLabels = [

@@ -12,6 +12,7 @@
       <sourceFolder url="file://$MODULE_DIR$/frontend/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/frontend/tests" isTestSource="true" packagePrefix="frontend\tests\" />
       <sourceFolder url="file://$MODULE_DIR$/frontend/tests/_support" isTestSource="true" packagePrefix="frontend\tests\" />
+      <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/2amigos/qrcode-library" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/aki/yii2-bot-telegram" />
