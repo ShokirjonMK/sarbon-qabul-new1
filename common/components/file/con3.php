@@ -1,4 +1,5 @@
 <?php
+
 use common\models\Student;
 use common\models\Direction;
 use common\models\Exam;
@@ -16,7 +17,8 @@ use common\models\Branch;
 /** @var Direction $direction */
 /** @var User $user */
 
-function   ikYearUz($number) {
+function   ikYearUz($number)
+{
     $years = floor($number);
 
     $months = round(($number - $years) * 12);
@@ -28,7 +30,8 @@ function   ikYearUz($number) {
 
     return "$years yil $months oy";
 }
-function   ikYearRu($number) {
+function   ikYearRu($number)
+{
     $years = floor($number);
 
     $months = round(($number - $years) * 12);
@@ -44,7 +47,7 @@ $user = $student->user;
 $cons = Consulting::findOne($user->cons_id);
 $eduDirection = $student->eduDirection;
 $direction = $eduDirection->direction;
-$full_name = $student->last_name.' '.$student->first_name.' '.$student->middle_name;
+$full_name = $student->last_name . ' ' . $student->first_name . ' ' . $student->middle_name;
 $code = '';
 $joy = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 $date = '';
@@ -57,10 +60,10 @@ if ($student->edu_type_id == 1) {
         'status' => 3,
         'is_deleted' => 0
     ]);
-    $code = 'Q3/'.$cons->code.'/'.$contract->id;
-    $date = date("Y-m-d H:i" , $contract->confirm_date);
-    $link = '1&id='.$contract->id;
-    $con2 = '3'.$contract->invois;
+    $code = 'Q3/' . $cons->code . '/' . $contract->id;
+    $date = date("Y-m-d H:i", $contract->confirm_date);
+    $link = '1&id=' . $contract->id;
+    $con2 = '3' . $contract->invois;
     $contract->down_time = time();
     $contract->save(false);
 } elseif ($student->edu_type_id == 2) {
@@ -70,10 +73,10 @@ if ($student->edu_type_id == 1) {
         'file_status' => 2,
         'is_deleted' => 0
     ]);
-    $code = 'P3/'.$cons->code.'/'.$contract->id;
-    $date = date("Y-m-d H:i" , $contract->confirm_date);
-    $link = '2&id='.$contract->id;
-    $con2 = '3'.$contract->invois;
+    $code = 'P3/' . $cons->code . '/' . $contract->id;
+    $date = date("Y-m-d H:i", $contract->confirm_date);
+    $link = '2&id=' . $contract->id;
+    $con2 = '3' . $contract->invois;
     $contract->down_time = time();
     $contract->save(false);
 } elseif ($student->edu_type_id == 3) {
@@ -83,10 +86,10 @@ if ($student->edu_type_id == 1) {
         'file_status' => 2,
         'is_deleted' => 0
     ]);
-    $code = 'D3/'.$cons->code.'/'.$contract->id;
-    $date = date("Y-m-d H:i:s" , $contract->confirm_date);
-    $link = '3&id='.$contract->id;
-    $con2 = '3'.$contract->invois;
+    $code = 'D3/' . $cons->code . '/' . $contract->id;
+    $date = date("Y-m-d H:i:s", $contract->confirm_date);
+    $link = '3&id=' . $contract->id;
+    $con2 = '3' . $contract->invois;
     $contract->down_time = time();
     $contract->save(false);
 } elseif ($student->edu_type_id == 4) {
@@ -96,10 +99,10 @@ if ($student->edu_type_id == 1) {
         'file_status' => 2,
         'is_deleted' => 0
     ]);
-    $code = 'M3/'.$cons->code.'/'.$contract->id;
-    $date = date("Y-m-d H:i:s" , $contract->confirm_date);
-    $link = '4&id='.$contract->id;
-    $con2 = '3'.$contract->invois;
+    $code = 'M3/' . $cons->code . '/' . $contract->id;
+    $date = date("Y-m-d H:i:s", $contract->confirm_date);
+    $link = '4&id=' . $contract->id;
+    $con2 = '3' . $contract->invois;
     $contract->down_time = time();
     $contract->save(false);
 }
@@ -131,7 +134,7 @@ if ($cons->hr != null) {
 }
 
 
-$qr = (new QrCode('https://qabul.sarbon.university/site/contract?key=' . $link.'&type=3'))
+$qr = (new QrCode('https://qabul.sarbon.university/site/contract?key=' . $link . '&type=3'))
     ->setSize(120, 120)
     ->setMargin(10)
     ->setForegroundColor(1, 89, 101);
@@ -160,7 +163,9 @@ $limg = $lqr->writeDataUri();
         </td>
     </tr>
 
-    <tr><td>&nbsp;</td></tr>
+    <tr>
+        <td>&nbsp;</td>
+    </tr>
 
     <tr>
         <td colspan="2" style="text-align: center; border: 1px solid #000;">
@@ -172,7 +177,7 @@ $limg = $lqr->writeDataUri();
         <td colspan="2" style="text-align: center; border: 1px solid #000;">
             <b>
                 Договор № <?= $code ?>/<?= str_replace('.', '', $direction->code) ?>/<?= $contract->id ?>
-                (трехсторонний ) на подготовку специалиста на основе  оплаты
+                (трехсторонний ) на подготовку специалиста на основе оплаты
             </b>
         </td>
     </tr>
@@ -188,29 +193,32 @@ $limg = $lqr->writeDataUri();
 
     <tr>
         <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000;">
-            Vazirlar Mahkamasining “Oliy ta’lim muassasalariga o‘qishga qabul qilish, talabalar o‘qishini ko‘chirish,
-            qayta tiklash va o‘qishdan chetlashtirish tartibi to‘g‘risidagi nizomlarni tasdiqlash haqida”
-            2017-yil 20-iyundagi 393-son qarori, O‘zbekiston Respublikasi oliy va o‘rta maxsus ta’lim vazirining
-            2012-yil 28-dekabrdagi 508-son buyrug‘i (ro‘yxat raqami 2431, 2013-yil 26-fevral) bilan tasdiqlangan
-            Oliy va o‘rta maxsus, kasb-hunar ta’limi muassasalarida o‘qitishning to‘lov-shartnoma shakli va undan
-            tushgan mablag‘larni taqsimlash tartibi to‘g‘risidagi Nizomga muvofiq birinchi tomondan -  <b>SARBON UNIVERSITETI</b>
-            oliy ta’lim tashkiloti (keyingi o‘rinlarda “Ta’lim muassasasi”) nomidan Ustav asosida ish yurituvchi direktor
-            <b>Sharipov Muzaffar Tolibdjonovich</b>, ikkinchi tomondan - _________________________________________
-            (keyingi o‘rinlarda “Buyurtmachi”) nomidan <b><?= $full_name ?></b> uchinchi tomondan -
-            (keyingi o‘rinlarda “Ta’lim oluvchi”) birgalikda “Tomonlar” deb ataluvchilar o‘rtasida mazkur shartnoma quyidagilar haqida tuzildi:
+        Vazirlar Mahkamasining “Oliy ta’lim muassasalariga o‘qishga qabul qilish, talabalar o‘qishini
+            ko‘chirish, qayta tiklash va o‘qishdan chetlashtirish tartibi to‘g‘risidagi nizomlarni
+            tasdiqlash haqida” 2017-yil 20-iyundagi 393-son qarori, O‘zbekiston Respublikasi oliy va o‘rta maxsus
+            ta’lim vazirining 2012-yil 28-dekabrdagi 508-son buyrug‘i (ro‘yxat raqami 2431, 2013-yil 26-fevral) bilan
+            tasdiqlangan Oliy va o‘rta maxsus, kasb-hunar ta’limi muassasalarida o‘qitishning to‘lov-shartnoma shakli
+            va undan tushgan mablag‘larni taqsimlash tartibi to‘g‘risidagi Nizomga muvofiq, <b>SARBON UNIVERSITETI</b>
+            oliy ta’lim tashkiloti (keyingi o‘rinlarda “Ta’lim muassasasi”) nomidan, Ustav asosida ish yurituvchi
+            direktor Sharipov Muzaffar Tolibdjonovich, ikkinchi tomondan – (keyingi o‘rinlarda “Buyurtmachi”)
+            nomidan ________________________________ asosida ish yurituvchi _________________________________________ yoki
+            fuqaro ____________________________________,
+            uchinchi tomondan – <b><?= $full_name ?></b> (keyingi o‘rinlarda “Ta’lim oluvchi”)
+            (keyingi o‘rinlarda birgalikda “Tomonlar” deb yuritiladi),
+            o‘rtasida mazkur shartnoma quyidagilar haqida tuzildi:
         </td>
         <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000;">
-            В соответствии с постановлением Кабинета Министров “О порядке приема в высшие учебные заведения,
-            перевода студентов, восстановления и отчисления” от 20 июня 2017 года № 393 и
-            приказом министра высшего и среднего специального образования Республики Узбекистан
-            от 28 декабря 2012 года № 508 (регистрационный номер 2431 от 26 февраля 2013 года),
-            утвержденным Порядком установления контрактов на обучение в высших и средних специальных,
-            профессиональных учебных заведениях и распределения полученных средств, между Высшим образовательным
-            учреждением <b>SARBON UNIVERSITETI</b> (в дальнейшем именуемое “Образовательное учреждение”), в лице
-            директора Sharipov Muzaffar Tolibdjonovich, действующего на основании Устава с одной стороны, и от имени Заказчика
-            _________________________________________ действующего на основании _________________________________________
-            с другой стороны, и _________________________________________ (в дальнейшем именуемый “Обучающийся”), с третьей стороны, далее совместно именуемые
-            “Стороны”, заключили настоящий договор о следующем:
+            Во исполнение Постановления Кабинета Министров Республики Узбекистан №393 от 20 июня 2017 года
+            «Об утверждении положений о порядке приема в высшие образовательные учреждения, перевода, восстановления
+            и отчисления студентов», а также Приказа министра высшего и среднего специального образования
+            Республики Узбекистан от 28 декабря 2012 года №508 (рег. №2431 от 26 февраля 2013 года), утвердившего
+            «Положение о порядке организации обучения в высших, средних специальных и профессиональных
+            образовательных учреждениях на платно-контрактной основе и распределении поступающих от этого средств»,
+            с одной стороны — высшее образовательное учреждение SARBON UNIVERSITY, в лице директора
+            Шарипова Музаффара Толибджоновича, действующего на основании Устава (в дальнейшем — «Образовательное учреждение»),
+            с другой стороны — в лице ___________________________________________, действующего на основании ____________________________ или гражданин __________________________________ (в дальнейшем — «Заказчик»),
+            и с третьей стороны — <b><?= $full_name ?></b> (в дальнейшем — «Обучающийся»),
+            совместно именуемые «Стороны», заключили настоящий договор о нижеследующем:
         </td>
     </tr>
 
@@ -315,14 +323,14 @@ $limg = $lqr->writeDataUri();
             Ta’lim yo‘nalishi:
         </td>
         <td colspan="1" style="text-align: left; vertical-align: center; border: 1px solid #000;">
-            <b><?= str_replace('.', '', $direction->code).' - '.$direction->name_uz ?></b>
+            <b><?= str_replace('.', '', $direction->code) . ' - ' . $direction->name_uz ?></b>
         </td>
 
         <td colspan="1" style="text-align: left; vertical-align: center; border: 1px solid #000;">
             Направление обучения:
         </td>
         <td colspan="1" style="text-align: left; vertical-align: center; border: 1px solid #000;">
-            <b><?= str_replace('.', '', $direction->code).' - '.$direction->name_ru ?></b>
+            <b><?= str_replace('.', '', $direction->code) . ' - ' . $direction->name_ru ?></b>
         </td>
     </tr>
 
@@ -348,7 +356,7 @@ $limg = $lqr->writeDataUri();
 
     <tr>
         <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000;">
-            2.1.  “Ta’lim muassasasi”da o‘qish davrida ta’lim xizmatini ko‘rsatish narxi
+            2.1. “Ta’lim muassasasi”da o‘qish davrida ta’lim xizmatini ko‘rsatish narxi
             Respublikada belgilangan Bazaviy hisoblash miqdori o’zgarishiga bog‘liq holda hisoblanadi.
         </td>
         <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000;">
@@ -385,7 +393,7 @@ $limg = $lqr->writeDataUri();
 
     <tr>
         <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000;">
-            2.3. Buyurtmachi tomonidan shartnoma to‘lovini to‘lashda shartnomaning tartib raqami va sanasi,  familiyasi, ismi va sharifi
+            2.3. Buyurtmachi tomonidan shartnoma to‘lovini to‘lashda shartnomaning tartib raqami va sanasi, familiyasi, ismi va sharifi
             hamda o‘quv kursi to‘lov topshiriqnomasida to‘liq ko‘rsatiladi. To‘lov kuni Universitetning bank hisob raqamiga mablag‘ kelib tushgan kun hisoblanadi.
         </td>
         <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000;">
@@ -509,7 +517,7 @@ $limg = $lqr->writeDataUri();
     <tr>
         <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000; border-top: 1px solid #fff;">
             - Agar “Ta’lim oluvchi” o‘quv yili semestrlarida yakuniy nazoratlarni topshirish, qayta topshirish natijalariga ko‘ra akademik qarzdor bo‘lib qolsa uni kursdan-kursga qoldirish huquqiga ega.<br>
-            -  “Ta’lim muassasasi” “Ta’lim oluvchi”ning qobiliyati, darslarga sababsiz 36 akademik soat qatnashmaslik, intizomni buzish, “Ta’lim muassasasi”ning ichki tartib qoidalariga amal qilmaganda, respublikaning normativ-huquqiy hujjatlarida nazarda tutilgan boshqa sabablarga ko‘ra hamda o‘qitish uchun belgilangan to‘lov o‘z vaqtida amalga oshirilmaganda “Ta’lim oluvchi”ni talabalar safidan chetlashtirish huquqiga ega.
+            - “Ta’lim muassasasi” “Ta’lim oluvchi”ning qobiliyati, darslarga sababsiz 36 akademik soat qatnashmaslik, intizomni buzish, “Ta’lim muassasasi”ning ichki tartib qoidalariga amal qilmaganda, respublikaning normativ-huquqiy hujjatlarida nazarda tutilgan boshqa sabablarga ko‘ra hamda o‘qitish uchun belgilangan to‘lov o‘z vaqtida amalga oshirilmaganda “Ta’lim oluvchi”ni talabalar safidan chetlashtirish huquqiga ega.
         </td>
         <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000; border-top: 1px solid #fff;">
             - В случае, если Обучающийся не сдаст итоговые экзамены или пересдачи в течение семестра и будет иметь академическую задолженность, образовательное учреждение имеет право оставить его на повторное обучение на том же курсе.<br>
@@ -590,7 +598,7 @@ $limg = $lqr->writeDataUri();
 
     <tr>
         <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000; ">
-            5.2 Ushbu shartnoma shartlariga uch tomon kelishuviga asosan tuzatish, o‘zgartirish va qo‘shimchalar kiritilishi  mumkin
+            5.2 Ushbu shartnoma shartlariga uch tomon kelishuviga asosan tuzatish, o‘zgartirish va qo‘shimchalar kiritilishi mumkin
         </td>
         <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000; ">
             5.2. В настоящий договор могут быть внесены изменения, дополнения и корректировки по взаимному согласию трех сторон.
@@ -673,7 +681,7 @@ $limg = $lqr->writeDataUri();
     <tr>
         <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000; ">
             6.3 Ushbu shartnomani bajarish jarayonida kelib chiqishi mumkin bo‘lgan nizo va
-            ziddiyatlar tomonlar o‘rtasida  muzokaralar olib borish yo‘li bilan hal etiladi.
+            ziddiyatlar tomonlar o‘rtasida muzokaralar olib borish yo‘li bilan hal etiladi.
         </td>
         <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000; ">
             6.3. Споры и конфликты, возникающие в процессе выполнения настоящего договора, решаются путем переговоров между сторонами.
@@ -719,7 +727,7 @@ $limg = $lqr->writeDataUri();
 
     <tr>
         <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000; ">
-            6.7  “Ta’lim muassasasi” axborotlar va xabarnomalarni internetdagi veb-saytida, axborot
+            6.7 “Ta’lim muassasasi” axborotlar va xabarnomalarni internetdagi veb-saytida, axborot
             tizimida yoki e’lonlar taxtasida e’lon joylashtirish orqali xabar berishi mumkin.
         </td>
         <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000; ">
@@ -731,7 +739,7 @@ $limg = $lqr->writeDataUri();
 
     <tr>
         <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000; ">
-            6.8 Shartnoma 3 (uch)  nusxada, tomonlarning har biri  uchun bir nusxadan tuzildi va uch nusxa ham  bir xil huquqiy kuchga ega.
+            6.8 Shartnoma 3 (uch) nusxada, tomonlarning har biri uchun bir nusxadan tuzildi va uch nusxa ham bir xil huquqiy kuchga ega.
         </td>
         <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000; ">
             6.8. Договор составлен в 3 (трех) экземплярах, по одному для каждой стороны, и все три экземпляра имеют равную юридическую силу.
@@ -765,7 +773,7 @@ $limg = $lqr->writeDataUri();
             <b>Manzil:</b> <?= $filial->address_uz ?> <br>
             Bank rekvizitlari:<br>
             <b>H/R: </b> <?= $number ?> <br>
-            <b>Bank: </b> <?= $bankUz ?>    <br>
+            <b>Bank: </b> <?= $bankUz ?> <br>
             <b>Bank kodi (MFO): </b> <?= $mfo ?> <br>
             <b>STIR (INN): </b> <?= $inn ?> <br>
             <b>Telefon: </b> +998 78 888 22 88 <br>
@@ -776,8 +784,8 @@ $limg = $lqr->writeDataUri();
             <b>Адрес: </b> <?= $filial->address_ru ?> <br>
             Банковские реквизиты:<br>
             <b>Расчетный счет: </b> <?= $number ?> <br>
-            <b>Банк:  </b> <?= $bankRu ?>  <br>
-            <b>Код банка (МФО):  </b> <?= $mfo ?><br>
+            <b>Банк: </b> <?= $bankRu ?> <br>
+            <b>Код банка (МФО): </b> <?= $mfo ?><br>
             <b>ИНН: </b> <?= $inn ?> <br>
             <b>Тел: </b> +998 78 888 22 88 <br>
             <img src="<?= $limg ?>" width="120px"> <br>
@@ -810,13 +818,13 @@ $limg = $lqr->writeDataUri();
         </td>
         <td colspan="1" style="text-align: left; vertical-align: top; border: 1px solid #000; ">
             <b
-        </td>
+                </td>
         <td colspan="1" style="text-align: left; vertical-align: top; border: 1px solid #000; ">
             Ф.И.О.:
         </td>
         <td colspan="1" style="text-align: left; vertical-align: top; border: 1px solid #000; ">
             <b
-        </td>
+                </td>
     </tr>
 
 
@@ -825,13 +833,13 @@ $limg = $lqr->writeDataUri();
             Pasport ma’lumotlari:
         </td>
         <td colspan="1" style="text-align: left; vertical-align: top; border: 1px solid #000; ">
-            <?= $student->passport_serial.' '.$student->passport_number ?>
+            <?= $student->passport_serial . ' ' . $student->passport_number ?>
         </td>
         <td colspan="1" style="text-align: left; vertical-align: top; border: 1px solid #000; ">
             Данные паспорта:
         </td>
         <td colspan="1" style="text-align: left; vertical-align: top; border: 1px solid #000; ">
-            <?= $student->passport_serial.' '.$student->passport_number ?>
+            <?= $student->passport_serial . ' ' . $student->passport_number ?>
         </td>
     </tr>
 
@@ -1017,4 +1025,3 @@ $limg = $lqr->writeDataUri();
 
 
 </table>
-
