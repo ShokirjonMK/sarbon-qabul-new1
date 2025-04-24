@@ -64,8 +64,12 @@ if ($eduDirection->is_oferta == 1) {
             <?php if ($exam->status == 3) : ?>
                 <?php if ($eduDirection->type == 0) : ?>
                     <?= $this->render('_contract'); ?>
+                <?php else: ?>
+                    <?= $this->render('_no-contract'); ?>
                 <?php endif; ?>
             <?php endif; ?>
+
+            <?= $this->render('_no-contract'); ?>
 
             <div class="row top30">
                 <div class="col-md-4 col-12 mb-4">

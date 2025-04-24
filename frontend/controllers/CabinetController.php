@@ -269,10 +269,19 @@ class CabinetController extends Controller
         $user = Yii::$app->user->identity;
         $student = $user->student;
 
-        $errors[] = ['Shartnoma topilmadi!'];
-        \Yii::$app->session->setFlash('error' , $errors);
-        return $this->redirect(\Yii::$app->request->referrer);
+        $eduDirection = $student->eduDirection;
+        if ($eduDirection) {
+            if ($eduDirection->type != 0) {
+                $errors[] = ['Xurmatli talaba! Shartnomangizni universitetga tashrif buyurib olishingiz mumkin!'];
+            }
+        } else {
+            $errors[] = ['Shartnomangiz mavjud emas.'];
+        }
 
+        if (count($errors) > 0) {
+            \Yii::$app->session->setFlash('error' , $errors);
+            return $this->redirect(\Yii::$app->request->referrer);
+        }
 
         $action = '';
         if ($type == 2) {

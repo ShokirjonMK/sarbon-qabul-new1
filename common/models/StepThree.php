@@ -75,9 +75,9 @@ class StepThree extends Model
                 ->where(['edu_direction_id' => $new->edu_direction_id, 'status' => 1, 'is_deleted' => 0])
                 ->all();
 
-            if (count($directionSubjects) < 2) {
-                $errors[] = ['Fanlar yetarli emas.'];
-            }
+//            if (count($directionSubjects) < 2) {
+//                $errors[] = ['Fanlar yetarli emas.'];
+//            }
 
             foreach ($directionSubjects as $directionSubject) {
                 $subject = new ExamSubject();
