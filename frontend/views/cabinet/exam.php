@@ -173,7 +173,7 @@ if ($eduDirection->is_oferta == 1) {
                                                     <p><?= $directionSubject->ball ?? "0" ?> ball</p>
                                                 </li>
                                             </ul>
-                                            <?php if ($exam->status > 3) : ?>
+                                            <?php if ($exam->status > 3 && $exam->ball > 80) : ?>
                                                 <ul>
                                                     <li>Fandan to'plagan ball:</li>
                                                     <li>
