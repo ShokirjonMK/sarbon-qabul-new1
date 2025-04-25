@@ -69,8 +69,6 @@ if ($eduDirection->is_oferta == 1) {
                 <?php endif; ?>
             <?php endif; ?>
 
-            <?= $this->render('_no-contract'); ?>
-
             <div class="row top30">
                 <div class="col-md-4 col-12 mb-4">
                     <div class="ika_column">

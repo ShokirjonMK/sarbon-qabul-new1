@@ -347,17 +347,14 @@ class ExamSubject extends \yii\db\ActiveRecord
         foreach ($conBalls as $conBall) {
             if ($conBall->start_ball <= $exam->ball && $conBall->end_ball >= $exam->ball) {
                 $sh = true;
-                if ($conBall->type < 1) {
+                if ($conBall->type <= 0) {
                     $exam->status = 4;
                     $exam->contract_price = null;
                     $exam->confirm_date = null;
-                } elseif ($conBall->type == 1) {
+                } else {
                     if ($exam->ball >= 30 && $exam->ball <= 75.5) {
                         $exam->ball = rand(76, 80);
                     }
-                    $exam->contract_price = $eduDirection->price;
-                    $exam->confirm_date = time();
-                } else {
                     $exam->contract_price = $eduDirection->price * $conBall->type;
                     $exam->confirm_date = time();
                 }
@@ -369,7 +366,6 @@ class ExamSubject extends \yii\db\ActiveRecord
             $exam->contract_price = null;
             $exam->confirm_date = null;
         }
-
         $exam->save(false);
 
         $student->is_down = 0;

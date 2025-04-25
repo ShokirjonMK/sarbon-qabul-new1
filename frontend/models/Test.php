@@ -194,17 +194,14 @@ class Test extends Model
         foreach ($conBalls as $conBall) {
             if ($conBall->start_ball <= $model->ball && $conBall->end_ball >= $model->ball) {
                 $sh = true;
-                if ($conBall->type < 1) {
+                if ($conBall->type <= 0) {
                     $model->status = self::FAILED;
                     $model->contract_price = null;
                     $model->confirm_date = null;
-                } elseif ($conBall->type == 1) {
+                } else {
                     if ($model->ball >= 30 && $model->ball <= 75.5) {
                         $model->ball = rand(76, 80);
                     }
-                    $model->contract_price = $direction->price;
-                    $model->confirm_date = time();
-                } else {
                     $model->contract_price = $direction->price * $conBall->type;
                     $model->confirm_date = time();
                 }
