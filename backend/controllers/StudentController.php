@@ -635,7 +635,7 @@ class StudentController extends Controller
         if ($type == 2) {
             $action = 'con2';
         } elseif ($type == 3) {
-            $action = 'con3';
+            $action = 'contract3';
         } else {
             $errors[] = ['Type not\'g\'ri tanlandi!'];
             \Yii::$app->session->setFlash('error' , $errors);
@@ -650,6 +650,8 @@ class StudentController extends Controller
 
         $pdf = \Yii::$app->ikPdf;
         $content = $pdf->contract($student , $action);
+
+        return $this->renderContent($content);
 
         $pdf = new Pdf([
             'mode' => Pdf::MODE_UTF8,
