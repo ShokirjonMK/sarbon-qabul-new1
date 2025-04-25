@@ -13,7 +13,7 @@ $breadcrumbs['item'][] = [
     'url' => ['/'],
 ];
 $breadcrumbs['item'][] = [
-    'label' => Yii::t('app', 'Imtixon sanalari'),
+    'label' => Yii::t('app', 'Imtihon sanalari'),
     'url' => ['index'],
 ];
 \yii\web\YiiAsset::register($this);

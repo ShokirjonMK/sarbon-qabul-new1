@@ -1,6 +1,6 @@
 <div class="hpage">
     <div class="htitle">
-        <h4>Imtixon topshiriqlari</h4>
+        <h4>Imtihon topshiriqlari</h4>
     </div>
 
     <div class="hexam top50">

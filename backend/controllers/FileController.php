@@ -71,7 +71,7 @@ class FileController extends Controller
         $eduDirection = EduDirection::findOne($dir_id);
 
         $options = "";
-        $options .= "<option value=''>Imtixon turini tanlang ...<option>";
+        $options .= "<option value=''>Imtihon turini tanlang ...<option>";
 
         if ($eduDirection) {
             if ($eduDirection->exam_type != null) {

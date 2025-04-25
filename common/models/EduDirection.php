@@ -165,7 +165,7 @@ class EduDirection extends \yii\db\ActiveRecord
                 }
             }
             if (count($array) == 0) {
-                $errors[] = ['Imtixon turi tanlanmagan.'];
+                $errors[] = ['Imtihon turi tanlanmagan.'];
                 $transaction->rollBack();
                 return ['is_ok' => false, 'errors' => $errors];
             }

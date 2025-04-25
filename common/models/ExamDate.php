@@ -118,7 +118,7 @@ class ExamDate extends \yii\db\ActiveRecord
             'branch_id' => $model->branch_id,
         ]);
         if (!$query) {
-            $errors[] = ['Aktiv imtixon sanasi mavjud emas.'];
+            $errors[] = ['Aktiv imtihon sanasi mavjud emas.'];
         }
 
         if (empty($errors)) {
@@ -144,7 +144,7 @@ class ExamDate extends \yii\db\ActiveRecord
             'is_deleted' => 0,
         ]);
         if (!$examDate) {
-            $errors[] = ['Aktiv imtixon sanasi mavjud emas.'];
+            $errors[] = ['Aktiv imtihon sanasi mavjud emas.'];
         } else {
             $students = Student::find()
                 ->joinWith('user')

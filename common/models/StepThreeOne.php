@@ -89,7 +89,7 @@ class StepThreeOne extends Model
         if ($this->exam_type == 1) {
 
             if ($this->exam_date_id == null) {
-                $errors[] = ['Imtixon sanasi tanlang.'];
+                $errors[] = ['Imtihon sanasi tanlang.'];
                 $transaction->rollBack();
                 return ['is_ok' => false , 'errors' => $errors];
             }
@@ -102,7 +102,7 @@ class StepThreeOne extends Model
                     'is_deleted' => 0
                 ]);
                 if (!$examDate) {
-                    $errors[] = ['Imtixon sanasi o\'zgarganligi uchun boshqa sanani tanlang.'];
+                    $errors[] = ['Imtihon sanasi o\'zgarganligi uchun boshqa sanani tanlang.'];
                     $transaction->rollBack();
                     return ['is_ok' => false , 'errors' => $errors];
                 }

@@ -108,11 +108,11 @@ $cons = Consulting::find()
                     <div class="form-group">
                         <?= $form->field($model, 'exam_date_id')->widget(Select2::classname(), [
                             'data' => ArrayHelper::map($examDates, 'id', 'name'),
-                            'options' => ['placeholder' => 'Imtixon sanasi'],
+                            'options' => ['placeholder' => 'Imtihon sanasi'],
                             'pluginOptions' => [
                                 'allowClear' => true
                             ],
-                        ])->label('Imtixon sanasi'); ?>
+                        ])->label('Imtihon sanasi'); ?>
                     </div>
                 </div>
 
@@ -120,11 +120,11 @@ $cons = Consulting::find()
                     <div class="form-group">
                         <?= $form->field($model, 'exam_date_status')->widget(Select2::classname(), [
                             'data' => $status,
-                            'options' => ['placeholder' => 'Imtixon xolati ...'],
+                            'options' => ['placeholder' => 'Imtihon xolati ...'],
                             'pluginOptions' => [
                                 'allowClear' => true
                             ],
-                        ])->label('Imtixon xolati');; ?>
+                        ])->label('Imtihon xolati');; ?>
                     </div>
                 </div>
 

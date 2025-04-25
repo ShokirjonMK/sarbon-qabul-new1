@@ -45,7 +45,7 @@ class Test extends Model
         $eduDirection = $student->eduDirection;
 
         if (!$student->ipCheck) {
-            $errors[] = ['Sizning qurilmangizga imtixonda qatnashish ruxsati berilamagan.'];
+            $errors[] = ['Sizning qurilmangizga imtihonda qatnashish ruxsati berilamagan.'];
             $transaction->rollBack();
             return ['is_ok' => false , 'errors' => $errors];
         }

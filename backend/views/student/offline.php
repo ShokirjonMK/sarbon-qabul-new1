@@ -17,7 +17,7 @@ use common\models\Exam;
 /** @var yii\data\ActiveDataProvider $dataProvider */
 /** @var EduType $eduType */
 
-$this->title = 'Offline imtixonga arizalar';
+$this->title = 'Offline imtihonga arizalar';
 $breadcrumbs = [];
 $breadcrumbs['item'][] = [
     'label' => Yii::t('app', 'Bosh sahifa'),
@@ -67,16 +67,16 @@ $breadcrumbs['item'][] = [
             },
         ],
         [
-            'attribute' => 'Imtixon sanasi',
-            'contentOptions' => ['date-label' => 'Imtixon sanasi'],
+            'attribute' => 'Imtihon sanasi',
+            'contentOptions' => ['date-label' => 'Imtihon sanasi'],
             'format' => 'raw',
             'value' => function($model) {
                 return "<div class='badge-table-div active mt-2'>".$model->examDate->date ?? '------'."</div>";
             },
         ],
         [
-            'attribute' => 'Imtixon xolati',
-            'contentOptions' => ['date-label' => 'Imtixon xolati'],
+            'attribute' => 'Imtihon xolati',
+            'contentOptions' => ['date-label' => 'Imtihon xolati'],
             'format' => 'raw',
             'value' => function($model) {
                 $exam = Exam::findOne([

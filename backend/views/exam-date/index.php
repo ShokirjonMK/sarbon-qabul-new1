@@ -13,7 +13,7 @@ use common\models\Student;
 /** @var common\models\ExamDateSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Imtixon sanalari';
+$this->title = 'Imtihon sanalari';
 $breadcrumbs = [];
 $breadcrumbs['item'][] = [
     'label' => Yii::t('app', 'Bosh sahifa'),

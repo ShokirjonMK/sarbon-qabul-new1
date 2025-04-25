@@ -122,11 +122,11 @@ if ($model->edu_direction_id != null) {
     <div class="form-group">
         <?= $form->field($model, 'exam_type')->widget(Select2::classname(), [
             'data' => $exam,
-            'options' => ['placeholder' => Yii::t("app" , "Imtixon turi")],
+            'options' => ['placeholder' => Yii::t("app" , "Imtihon turi")],
             'pluginOptions' => [
                 'allowClear' => true
             ],
-        ])->label(Yii::t("app" , "Imtixon turi").' <span>*</span>');; ?>
+        ])->label(Yii::t("app" , "Imtihon turi").' <span>*</span>');; ?>
     </div>
 
     <div class="examDateIk">

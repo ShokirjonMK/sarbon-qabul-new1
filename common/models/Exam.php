@@ -209,7 +209,7 @@ class Exam extends \yii\db\ActiveRecord
            'status' => 1
         ]);
         if (!$model) {
-            $errors[] = ['Imtixonga qayta ruxsat berish mumkin emas.'];
+            $errors[] = ['Imtihonga qayta ruxsat berish mumkin emas.'];
         } else {
             $subjects = $model->examSubjects;
             foreach ($subjects as $subject) {

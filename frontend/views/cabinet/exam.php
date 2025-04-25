@@ -96,28 +96,28 @@ if ($eduDirection->is_oferta == 1) {
 
                 <div class="col-md-4 col-12 mb-4">
                     <div class="ika_column">
-                        <p>Imtixon turi</p>
+                        <p>Imtihon turi</p>
                         <h6><?= Status::getExamStatus($student->exam_type); ?></h6>
                     </div>
                 </div>
 
                 <div class="col-md-4 col-12 mb-4">
                     <div class="ika_column">
-                        <p>Imtixon holati</p>
+                        <p>Imtihon holati</p>
                         <h6>
                             <?php
                             switch ($exam->status) {
                                 case 1:
-                                    echo "Imtixonni boshlamadingiz";
+                                    echo "Imtihonni boshlamadingiz";
                                     break;
                                 case 2:
-                                    echo "Imtixonni boshladingiz";
+                                    echo "Imtihonni boshladingiz";
                                     break;
                                 case 3:
-                                    echo "Imtixondan o'tdingiz";
+                                    echo "Imtihondan o'tdingiz";
                                     break;
                                 case 4:
-                                    echo "Imtixondan o'ta olmadingiz";
+                                    echo "Imtihondan o'ta olmadingiz";
                                     break;
                                 default:
                                     echo "---";
@@ -139,7 +139,7 @@ if ($eduDirection->is_oferta == 1) {
 
                 <div class="col-md-4 col-12 mb-4">
                     <div class="ika_column">
-                        <p>Imtixonga ajratilgan vaqt</p>
+                        <p>Imtihonga ajratilgan vaqt</p>
                         <h6>
                             1 soat 30 minut
                         </h6>
@@ -234,14 +234,14 @@ if ($eduDirection->is_oferta == 1) {
                         <?php else: ?>
                             <div class="col-md-12 col-12">
                                 <div class="ika_danger top30">
-                                    <h6><i class="fa-solid fa-exclamation"></i> <span><?= getIpMK() ?> sizning qurilmangizga imtixonda qatnashishga ruxsat berilmagan.</span></h6>
+                                    <h6><i class="fa-solid fa-exclamation"></i> <span><?= getIpMK() ?> sizning qurilmangizga imtihonda qatnashishga ruxsat berilmagan.</span></h6>
                                 </div>
                             </div>
                         <?php endif; ?>
                     <?php else: ?>
                         <div class="col-md-12 col-12">
                             <div class="ika_danger top30">
-                                <h6><i class="fa-solid fa-exclamation"></i> <span>Imtixonda qatnashish uchun 5 yillik staj fayl tasdiqlanishini kuting.</span></h6>
+                                <h6><i class="fa-solid fa-exclamation"></i> <span>Imtihonda qatnashish uchun 5 yillik staj fayl tasdiqlanishini kuting.</span></h6>
                             </div>
                         </div>
                     <?php endif; ?>

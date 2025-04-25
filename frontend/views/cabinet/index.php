@@ -89,7 +89,7 @@ if ($student->edu_type_id == 1) {
                     if ($student->edu_type_id == 1) {
                         $eduDetails[Yii::t("app", "a64")] = Status::getExamStatus($student->exam_type);
                         if ($student->exam_type == 1 && $student->examDate) {
-                            $eduDetails['Imtixon sanasi'] = $student->examDate->date ?? '---';
+                            $eduDetails['Imtihon sanasi'] = $student->examDate->date ?? '---';
                         }
                     }
 

@@ -649,7 +649,7 @@ class UserUpdate extends Model
                     'is_deleted' => 0
                 ]);
                 if (!$exam) {
-                    $errors[] = 'Imtixon mavjud emas!';
+                    $errors[] = 'Imtihon mavjud emas!';
                 } else {
                     $exam->contract_price = $eduDirection->price;
                     $exam->confirm_date = time();

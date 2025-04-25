@@ -163,7 +163,7 @@ class Consulting extends \yii\db\ActiveRecord
         $model->hr = json_encode($array, JSON_UNESCAPED_UNICODE);
 
         if (count($array) == 0) {
-            $errors[] = ['Imtixon turi tanlanmagan.'];
+            $errors[] = ['Imtihon turi tanlanmagan.'];
             $transaction->rollBack();
             return ['is_ok' => false, 'errors' => $errors];
         }

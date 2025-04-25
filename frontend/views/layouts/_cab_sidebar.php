@@ -26,7 +26,7 @@
                 <li>
                     <a href="/cabinet/exam" class="<?= getActive('cabinet', 'exam') ?>">
                         <span><i class="bi bi-graph-up"></i></span>
-                        <span class="sidebar-link-test">Imtixon</span>
+                        <span class="sidebar-link-test">Imtihon</span>
                     </a>
                 </li>
             <?php endif; ?>

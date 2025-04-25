@@ -537,7 +537,7 @@ if ($model->eduType != null) {
                                 <?php elseif ($model->edu_type_id == 1) : ?>
                                     <div class="col-md-4 col-12">
                                         <div class="view-info-right">
-                                            <p>Imtixon turi</p>
+                                            <p>Imtihon turi</p>
                                             <h6>
                                                 <?php if ($model->exam_type == 0) : ?>
                                                     Online
