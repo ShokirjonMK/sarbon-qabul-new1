@@ -187,6 +187,7 @@ class Test extends Model
         $sh = false;
         $conBalls = DirectionBall::find()
             ->where([
+                'edu_direction_id' => $direction->id,
                 'status' => 1,
                 'is_deleted' => 0
             ])

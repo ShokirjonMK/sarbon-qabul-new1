@@ -340,6 +340,7 @@ class ExamSubject extends \yii\db\ActiveRecord
         $sh = false;
         $conBalls = DirectionBall::find()
             ->where([
+                'edu_direction_id' => $eduDirection->id,
                 'status' => 1,
                 'is_deleted' => 0
             ])
