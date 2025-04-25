@@ -615,6 +615,10 @@ class StudentController extends Controller
         $errors = [];
         $student = Student::findOne(['id' => $id]);
 
+        return $this->render('pdf', [
+            'student' => $student,
+        ]);
+
         $eduDirection = $student->eduDirection;
         if ($eduDirection) {
             if ($eduDirection->type == 2) {
@@ -650,6 +654,8 @@ class StudentController extends Controller
 
         $pdf = \Yii::$app->ikPdf;
         $content = $pdf->contract($student , $action);
+
+
 
         $pdf = new Pdf([
             'mode' => Pdf::MODE_UTF8,
