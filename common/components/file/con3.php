@@ -820,13 +820,13 @@ $limg = $lqr->writeDataUri();
             F.I.Sh.:
         </td>
         <td colspan="1" style="text-align: left; vertical-align: top; border: 1px solid #000; ">
-            <b><?= $full_name ?></b>
+            <?= $full_name ?>
         </td>
         <td colspan="1" style="text-align: left; vertical-align: top; border: 1px solid #000; ">
             Ф.И.О.:
         </td>
         <td colspan="1" style="text-align: left; vertical-align: top; border: 1px solid #000; ">
-            <b><?= $full_name ?></b>
+            <?= $full_name ?>
         </td>
     </tr>
 
