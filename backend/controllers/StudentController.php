@@ -635,7 +635,7 @@ class StudentController extends Controller
         if ($type == 2) {
             $action = 'con2';
         } elseif ($type == 3) {
-            $action = 'con3';
+            $action = 'con2';
         } else {
             $errors[] = ['Type not\'g\'ri tanlandi!'];
             \Yii::$app->session->setFlash('error' , $errors);
