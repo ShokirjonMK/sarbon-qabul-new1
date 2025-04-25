@@ -651,8 +651,6 @@ class StudentController extends Controller
         $pdf = \Yii::$app->ikPdf;
         $content = $pdf->contract($student , $action);
 
-        return $this->renderContent($content);
-
         $pdf = new Pdf([
             'mode' => Pdf::MODE_UTF8,
             'format' => Pdf::FORMAT_A4,
