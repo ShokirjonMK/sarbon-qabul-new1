@@ -114,24 +114,24 @@ $filial = Branch::findOne($student->branch_id);
 
 $trType = $direction->type;
 
-$number = '';
-$mfo = '';
-$bankUz = '';
-$bankRu = '';
-$inn = '';
-if ($cons->hr != null) {
-    $hrs = json_decode($cons->hr, true);
-    foreach ($hrs as $key => $hr) {
-        if ($key == $trType) {
-            $number = $hr['number'] ?? null;
-            $mfo = $hr['mfo'] ?? null;
-            $bankUz = $hr['bankUz'] ?? null;
-            $bankRu = $hr['bankRu'] ?? null;
-            $inn = $hr['inn'] ?? null;
-            break;
-        }
-    }
-}
+//$number = '';
+//$mfo = '';
+//$bankUz = '';
+//$bankRu = '';
+//$inn = '';
+//if ($cons->hr != null) {
+//    $hrs = json_decode($cons->hr, true);
+//    foreach ($hrs as $key => $hr) {
+//        if ($key == $trType) {
+//            $number = $hr['number'] ?? null;
+//            $mfo = $hr['mfo'] ?? null;
+//            $bankUz = $hr['bankUz'] ?? null;
+//            $bankRu = $hr['bankRu'] ?? null;
+//            $inn = $hr['inn'] ?? null;
+//            break;
+//        }
+//    }
+//}
 
 
 $qr = (new QrCode('https://qabul.sarbon.university/site/contract?key=' . $link . '&type=3'))
@@ -770,30 +770,30 @@ $limg = $lqr->writeDataUri();
     </tr>
 
 
-    <tr>
-        <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000; ">
-            7.1 Ta’lim muassasasi: <b><?= $filial->name_uz ?></b> <br>
-            <b>Manzil:</b> <?= $filial->address_uz ?> <br>
-            Bank rekvizitlari:<br>
-            <b>H/R: </b> <?= $number ?> <br>
-            <b>Bank: </b> <?= $bankUz ?> <br>
-            <b>Bank kodi (MFO): </b> <?= $mfo ?> <br>
-            <b>STIR (INN): </b> <?= $inn ?> <br>
-            <b>Telefon: </b> +998 78 888 22 88 <br>
-            <img src="<?= $img ?>" width="120px">
-        </td>
-        <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000; ">
-            7.1. Образовательное учреждение: <b><?= $filial->name_uz ?></b> <br>
-            <b>Адрес: </b> <?= $filial->address_ru ?> <br>
-            Банковские реквизиты:<br>
-            <b>Расчетный счет: </b> <?= $number ?> <br>
-            <b>Банк: </b> <?= $bankRu ?> <br>
-            <b>Код банка (МФО): </b> <?= $mfo ?><br>
-            <b>ИНН: </b> <?= $inn ?> <br>
-            <b>Тел: </b> +998 78 888 22 88 <br>
-            <img src="<?= $limg ?>" width="120px"> <br>
-        </td>
-    </tr>
+<!--    <tr>-->
+<!--        <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000; ">-->
+<!--            7.1 Ta’lim muassasasi: <b>--><?php //= $filial->name_uz ?><!--</b> <br>-->
+<!--            <b>Manzil:</b> --><?php //= $filial->address_uz ?><!-- <br>-->
+<!--            Bank rekvizitlari:<br>-->
+<!--            <b>H/R: </b> --><?php //= $number ?><!-- <br>-->
+<!--            <b>Bank: </b> --><?php //= $bankUz ?><!-- <br>-->
+<!--            <b>Bank kodi (MFO): </b> --><?php //= $mfo ?><!-- <br>-->
+<!--            <b>STIR (INN): </b> --><?php //= $inn ?><!-- <br>-->
+<!--            <b>Telefon: </b> +998 78 888 22 88 <br>-->
+<!--            <img src="--><?php //= $img ?><!--" width="120px">-->
+<!--        </td>-->
+<!--        <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000; ">-->
+<!--            7.1. Образовательное учреждение: <b>--><?php //= $filial->name_uz ?><!--</b> <br>-->
+<!--            <b>Адрес: </b> --><?php //= $filial->address_ru ?><!-- <br>-->
+<!--            Банковские реквизиты:<br>-->
+<!--            <b>Расчетный счет: </b> --><?php //= $number ?><!-- <br>-->
+<!--            <b>Банк: </b> --><?php //= $bankRu ?><!-- <br>-->
+<!--            <b>Код банка (МФО): </b> --><?php //= $mfo ?><!--<br>-->
+<!--            <b>ИНН: </b> --><?php //= $inn ?><!-- <br>-->
+<!--            <b>Тел: </b> +998 78 888 22 88 <br>-->
+<!--            <img src="--><?php //= $limg ?><!--" width="120px"> <br>-->
+<!--        </td>-->
+<!--    </tr>-->
 
     <tr>
         <td colspan="2" style="text-align: left; vertical-align: center; border: 1px solid #000; ">
