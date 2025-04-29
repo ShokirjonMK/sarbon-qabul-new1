@@ -142,7 +142,7 @@ $flagMap = [
                                 <li><p><?= Yii::t("app", "a9") ?></p></li>
                                 <li>
                                     <a href="https://maps.app.goo.gl/9KPyvDf1pYwWpaYeA">
-                                        Toshkent shahar, Olmazor tumani, Paxta MFY, Sag'bon ko'chasi. Joylashuvni ko'rish uchun bosing!
+                                        Toshkent shahar, Olmazor tumani, Paxta MFY, Sag'bon ko'chasi 290-uy. Joylashuvni ko'rish uchun bosing!
                                     </a>
                                 </li>
                             </ul>
