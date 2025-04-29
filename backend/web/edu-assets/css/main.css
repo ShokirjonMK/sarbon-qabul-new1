@@ -74,7 +74,9 @@ p{
     font-weight: 600;
 }
 
-
+.wrs_tickContainer {
+    display: none!important;
+}
 
 .pageLoading {
     position: fixed;
