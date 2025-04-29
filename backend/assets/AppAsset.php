@@ -32,7 +32,7 @@ class AppAsset extends AssetBundle
 //        '../editor/tinymce6/plugins/tiny_mce_wiris/integration/WIRISplugins.js?viewer=image',
 //        '../editor/tinymce6/tinymce.min.js',
 //        '../editor/js/prism.js',
-//        '../editor/js/wirislib.js',
+        '../editor/js/wirislib.js',
 //        '../editor/js/google_analytics.js',
         'js/alert.js',
         'js/sidebar1.js',
