@@ -9,6 +9,7 @@ use common\models\StudentMaster;
 use common\models\StudentDtm;
 use common\models\Course;
 use yii\helpers\Url;
+use common\models\ExamDate;
 
 
 /** @var yii\web\View $this */
@@ -542,7 +543,14 @@ if ($model->eduType != null) {
                                                 <?php if ($model->exam_type == 0) : ?>
                                                     Online
                                                 <?php elseif ($model->exam_type == 1): ?>
-                                                    Offline
+                                                    <?php
+                                                        $date = '( --- )';
+                                                        $examDate = ExamDate::findOne($model->exam_date_id);
+                                                        if ($examDate) {
+                                                            $date = '( '.date("d-m-Y H:i" , strtotime($examDate->date)).' )';
+                                                        }
+                                                    ?>
+                                                    Offline <?= $date ?>
                                                 <?php endif; ?>
                                             </h6>
                                         </div>
