@@ -544,10 +544,10 @@ if ($model->eduType != null) {
                                                     Online
                                                 <?php elseif ($model->exam_type == 1): ?>
                                                     <?php
-                                                        $date = '( --- )';
+                                                        $date = '| ---';
                                                         $examDate = ExamDate::findOne($model->exam_date_id);
                                                         if ($examDate) {
-                                                            $date = '( '.date("d-m-Y H:i" , strtotime($examDate->date)).' )';
+                                                            $date = '| '.date("d-m-Y H:i" , strtotime($examDate->date));
                                                         }
                                                     ?>
                                                     Offline <?= $date ?>
@@ -589,7 +589,7 @@ if ($model->eduType != null) {
                                             <?php if (count($examSubjects) > 0) : ?>
                                                 <div class="row mt-2">
                                                     <?php foreach ($examSubjects as $examSubject) : ?>
-                                                        <div class="col-lg-6 col-md-12">
+                                                        <div class="col-lg-6 col-md-12 mb-2">
                                                             <div class="subject_box">
                                                                 <div class="d-flex justify-content-between align-items-center">
                                                                     <div class="subject_box_left">
