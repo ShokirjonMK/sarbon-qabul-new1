@@ -184,6 +184,8 @@ return [
     'a162' => 'Master\'s information',
     'a163' => 'Please upload Master\'s information!',
     'a164' => 'Click to upload Master\'s information',
+
+    'a165' => 'Do you allow us to use your personal information?',
 ];
 
 

@@ -28,7 +28,7 @@ class Integration extends Model
             'requestConfig' => [
                 'format' => Client::FORMAT_URLENCODED,
                 'headers' => [
-                    'Authorization' => 'Basic dGdmdToxMjMwMDEyMyE=',
+                    'Authorization' => 'Basic c2FyYm9uOjEyMzAwMTIzIQ==',
                     'Content-Type' => 'application/x-www-form-urlencoded',
                     'Cookie' => '_csrf-frontend=b43e39034f368e3e734f94e5cac75d416febb60b68073164de5f89c5ad01af72a%3A2%3A%7Bi%3A0%3Bs%3A14%3A%22_csrf-frontend%22%3Bi%3A1%3Bs%3A32%3A%22UJAX4iBtAqWwA1XRhLRUe0PVgyQNbBxk%22%3B%7D; advanced-frontend=af050d87d54908bb54ccfb19b04961cb'
                 ],
