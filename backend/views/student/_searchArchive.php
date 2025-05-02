@@ -22,10 +22,12 @@ use common\models\Consulting;
 
 $branchs = Branch::find()
     ->where(['in', 'id', getBranchOneIk()])
+    ->andWhere(['is_deleted' => 0])
     ->all();
 
 $cons = Consulting::find()
     ->where(['in', 'id', getConsOneIk()])
+    ->andWhere(['is_deleted' => 0])
     ->all();
 
 ?>
