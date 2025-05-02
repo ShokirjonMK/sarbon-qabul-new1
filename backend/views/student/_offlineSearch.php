@@ -23,6 +23,7 @@ use common\models\Consulting;
 
 $examDates = ExamDate::find()
     ->orderBy('id desc')
+    ->andWhere(['is_deleted' => 0])
     ->all();
 
 $status = Status::eStatus();
