@@ -60,7 +60,7 @@ if ($student->edu_type_id == 1) {
         'status' => 3,
         'is_deleted' => 0
     ]);
-    $code = 'Q3/' . $cons->code . '/' . $contract->id;
+    $code = 'Q3/' . $cons->code;
     $date = date("Y-m-d H:i", $contract->confirm_date);
     $link = '1&id=' . $contract->id;
     $con2 = '3' . $contract->invois;
@@ -73,7 +73,7 @@ if ($student->edu_type_id == 1) {
         'file_status' => 2,
         'is_deleted' => 0
     ]);
-    $code = 'P3/' . $cons->code . '/' . $contract->id;
+    $code = 'P3/' . $cons->code;
     $date = date("Y-m-d H:i", $contract->confirm_date);
     $link = '2&id=' . $contract->id;
     $con2 = '3' . $contract->invois;
@@ -86,7 +86,7 @@ if ($student->edu_type_id == 1) {
         'file_status' => 2,
         'is_deleted' => 0
     ]);
-    $code = 'D3/' . $cons->code . '/' . $contract->id;
+    $code = 'D3/' . $cons->code;
     $date = date("Y-m-d H:i:s", $contract->confirm_date);
     $link = '3&id=' . $contract->id;
     $con2 = '3' . $contract->invois;
@@ -99,7 +99,7 @@ if ($student->edu_type_id == 1) {
         'file_status' => 2,
         'is_deleted' => 0
     ]);
-    $code = 'M3/' . $cons->code . '/' . $contract->id;
+    $code = 'M3/' . $cons->code;
     $date = date("Y-m-d H:i:s", $contract->confirm_date);
     $link = '4&id=' . $contract->id;
     $con2 = '3' . $contract->invois;
