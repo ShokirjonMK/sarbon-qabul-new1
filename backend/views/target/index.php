@@ -39,11 +39,17 @@ $breadcrumbs['item'][] = [
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'cons_id',
-            'type',
+            [
+                'attribute' => 'CONSULTING',
+                'contentOptions' => ['date-label' => 'CONSULTING'],
+                'format' => 'raw',
+                'value' => function($model) {
+                    $cons = $model->cons;
+                    return "<a href='https://{$cons->domen}' class='badge-table-div active'>".$cons->domen."</a>";
+                },
+            ],
             'name',
             [
                 'class' => ActionColumn::className(),
