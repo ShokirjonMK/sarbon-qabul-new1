@@ -37,7 +37,7 @@ $domen = $cons->domen;
     <div class="form-section mt-3">
         <div class="form-section_item">
             <div class="row">
-                <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-2">
                     <?php
                     $url = "https://".$domen."?id=".$model->id;
                     ?>
@@ -51,7 +51,7 @@ $domen = $cons->domen;
                         <img src="<?= $limg ?>" width="200px">
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
+                <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-2">
                     <?php
                     $url2 = "https://".$domen."/site/sign-up?id=".$model->id;
                     ?>
