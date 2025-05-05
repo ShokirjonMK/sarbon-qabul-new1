@@ -61,77 +61,39 @@ $baseQuery = Student::find()
             'name',
 
             [
-                'attribute' => 'SMS kod tasdiqlamagan',
+                'attribute' => 'Chala arizalar',
+                'contentOptions' => ['date-label' => 'Chala arizalar'],
                 'format' => 'raw',
-                'value' => function ($model) use ($baseQuery) {
-                    return (clone $baseQuery)
-                        ->andWhere([
-                            'u.status' => 9,
-                            'u.step' => 0,
-                            'u.target_id' => $model->id,
-                        ])->count();
-                }
+                'value' => function($model) {
+                    return $model->chalaStudentsCount;
+                },
             ],
             [
-                'attribute' => 'Pasport ma\'lumotini kiritmagan',
+                'attribute' => 'To\'liq ro\'yhatdan o\'tganlar',
+                'contentOptions' => ['date-label' => 'To\'liq ro\'yhatdan o\'tganlar'],
                 'format' => 'raw',
-                'value' => function ($model) use ($baseQuery) {
-                    return (clone $baseQuery)
-                        ->andWhere([
-                            'u.status' => 10,
-                            'u.step' => 1,
-                            'u.target_id' => $model->id,
-                        ])->count();
-                }
+                'value' => function($model) {
+                    return $model->studentsCount;
+                },
             ],
             [
-                'attribute' => 'Qabul turini tanlamagan',
+                'attribute' => 'Shartnoma tasdiqlanganlar',
+                'contentOptions' => ['date-label' => 'Shartnoma tasdiqlanganlar'],
                 'format' => 'raw',
-                'value' => function ($model) use ($baseQuery) {
-                    return (clone $baseQuery)
-                        ->andWhere([
-                            'u.status' => 10,
-                            'u.step' => 2,
-                            'u.target_id' => $model->id,
-                        ])->count();
-                }
+                'value' => function($model) {
+                    return $model->contract;
+                },
             ],
+
             [
-                'attribute' => 'Yo\'nalish tanlamagan',
+                'attribute' => 'Shartnoma yuklab olganlar',
+                'contentOptions' => ['date-label' => 'Shartnoma yuklab olganlar'],
                 'format' => 'raw',
-                'value' => function ($model) use ($baseQuery) {
-                    return (clone $baseQuery)
-                        ->andWhere([
-                            'u.status' => 10,
-                            'u.step' => 3,
-                            'u.target_id' => $model->id,
-                        ])->count();
-                }
+                'value' => function($model) {
+                    return $model->contractLoad;
+                },
             ],
-            [
-                'attribute' => 'Tasdiqlamagan',
-                'format' => 'raw',
-                'value' => function ($model) use ($baseQuery) {
-                    return (clone $baseQuery)
-                        ->andWhere([
-                            'u.status' => 10,
-                            'u.step' => 4,
-                            'u.target_id' => $model->id,
-                        ])->count();
-                }
-            ],
-            [
-                'attribute' => 'To\'liq ro\'yhatdan o\'tgan',
-                'format' => 'raw',
-                'value' => function ($model) use ($baseQuery) {
-                    return (clone $baseQuery)
-                        ->andWhere([
-                            'u.status' => 10,
-                            'u.step' => 5,
-                            'u.target_id' => $model->id,
-                        ])->count();
-                }
-            ],
+
             [
                 'class' => ActionColumn::className(),
                 'contentOptions' => ['date-label' => 'Harakatlar' , 'class' => 'd-flex justify-content-around'],
