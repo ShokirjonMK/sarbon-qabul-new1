@@ -96,7 +96,7 @@ $breadcrumbs['item'][] = [
 </div>
 
 <div class="modal fade" id="targetModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="form-section">
                 <div class="form-section_item">
