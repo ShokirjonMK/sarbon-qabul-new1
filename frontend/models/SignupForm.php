@@ -134,6 +134,15 @@ class SignupForm extends Model
             $user->status = 9;
             $sms = true;
 
+            $session = Yii::$app->session;
+            $idFromSession = $session->get('target_id');
+            if ($idFromSession) {
+                $target = Target::findOne($idFromSession);
+                if ($target) {
+                    $user->target_id = $target->id;
+                }
+            }
+
             $branch = Branch::findOne([
                 'id' => $this->filial_id,
                 'status' => 1,

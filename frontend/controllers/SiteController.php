@@ -11,6 +11,7 @@ use common\models\Student;
 use common\models\StudentDtm;
 use common\models\StudentMaster;
 use common\models\StudentPerevot;
+use common\models\Target;
 use common\models\User;
 use common\models\Verify;
 use frontend\models\ContractSearch;
@@ -77,8 +78,16 @@ class SiteController extends Controller
         ];
     }
 
-    public function actionIndex()
+    public function actionIndex($id = null)
     {
+        Yii::$app->session->remove('redirected_from_flayer');
+        if ($id !== null) {
+            $target = Target::findOne($id);
+            if ($target) {
+                $session = Yii::$app->session;
+                $session->set('target_id', $id);
+            }
+        }
         return $this->render('index');
     }
 
@@ -102,9 +111,17 @@ class SiteController extends Controller
         ]);
     }
 
-    public function actionSignUp()
+    public function actionSignUp($id = null)
     {
         $this->layout = '_cabinet-step';
+
+        if ($id !== null) {
+            $target = Target::findOne($id);
+            if ($target) {
+                $session = Yii::$app->session;
+                $session->set('target_id', $id);
+            }
+        }
 
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
