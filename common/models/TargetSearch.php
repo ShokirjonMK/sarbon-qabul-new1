@@ -39,7 +39,7 @@ class TargetSearch extends Target
      *
      * @return ActiveDataProvider
      */
-    public function search($params, $formName = null)
+    public function search($params)
     {
         $query = Target::find()
             ->where(['is_deleted' => 0])
@@ -51,7 +51,7 @@ class TargetSearch extends Target
             'query' => $query,
         ]);
 
-        $this->load($params, $formName);
+        $this->load($params);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
