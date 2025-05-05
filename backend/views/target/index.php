@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use common\models\Student;
 
 /** @var yii\web\View $this */
 /** @var common\models\TargetSearch $searchModel */
@@ -16,6 +17,13 @@ $breadcrumbs['item'][] = [
     'label' => Yii::t('app', 'Bosh sahifa'),
     'url' => ['/'],
 ];
+
+$baseQuery = Student::find()
+    ->alias('s')
+    ->innerJoin('user u', 's.user_id = u.id')
+    ->where(['u.user_role' => 'student'])
+    ->andWhere(['in' , 'u.cons_id', getConsOneIk()])
+
 
 ?>
 <div class="target-index">
@@ -51,6 +59,79 @@ $breadcrumbs['item'][] = [
                 },
             ],
             'name',
+
+            [
+                'attribute' => 'SMS kod tasdiqlamagan',
+                'format' => 'raw',
+                'value' => function ($model) use ($baseQuery) {
+                    return (clone $baseQuery)
+                        ->andWhere([
+                            'u.status' => 9,
+                            'u.step' => 0,
+                            'u.target_id' => $model->id,
+                        ])->count();
+                }
+            ],
+            [
+                'attribute' => 'Pasport ma\'lumotini kiritmagan',
+                'format' => 'raw',
+                'value' => function ($model) use ($baseQuery) {
+                    return (clone $baseQuery)
+                        ->andWhere([
+                            'u.status' => 10,
+                            'u.step' => 1,
+                            'u.target_id' => $model->id,
+                        ])->count();
+                }
+            ],
+            [
+                'attribute' => 'Qabul turini tanlamagan',
+                'format' => 'raw',
+                'value' => function ($model) use ($baseQuery) {
+                    return (clone $baseQuery)
+                        ->andWhere([
+                            'u.status' => 10,
+                            'u.step' => 2,
+                            'u.target_id' => $model->id,
+                        ])->count();
+                }
+            ],
+            [
+                'attribute' => 'Yo\'nalish tanlamagan',
+                'format' => 'raw',
+                'value' => function ($model) use ($baseQuery) {
+                    return (clone $baseQuery)
+                        ->andWhere([
+                            'u.status' => 10,
+                            'u.step' => 3,
+                            'u.target_id' => $model->id,
+                        ])->count();
+                }
+            ],
+            [
+                'attribute' => 'Tasdiqlamagan',
+                'format' => 'raw',
+                'value' => function ($model) use ($baseQuery) {
+                    return (clone $baseQuery)
+                        ->andWhere([
+                            'u.status' => 10,
+                            'u.step' => 4,
+                            'u.target_id' => $model->id,
+                        ])->count();
+                }
+            ],
+            [
+                'attribute' => 'To\'liq ro\'yhatdan o\'tgan',
+                'format' => 'raw',
+                'value' => function ($model) use ($baseQuery) {
+                    return (clone $baseQuery)
+                        ->andWhere([
+                            'u.status' => 10,
+                            'u.step' => 5,
+                            'u.target_id' => $model->id,
+                        ])->count();
+                }
+            ],
             [
                 'class' => ActionColumn::className(),
                 'contentOptions' => ['date-label' => 'Harakatlar' , 'class' => 'd-flex justify-content-around'],
