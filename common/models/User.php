@@ -146,7 +146,7 @@ class User extends ActiveRecord implements IdentityInterface
         $micTime = (int) round(microtime(true) * 1000);
         $startKey = Yii::$app->security->generateRandomString(10);
         $endKey = Yii::$app->security->generateRandomString(10);
-        return "Ik_Anvarovich_".$startKey.$micTime.$endKey;
+        return "MK_IK_".$startKey.$micTime.$endKey;
     }
 
     public function getEmployee() {
