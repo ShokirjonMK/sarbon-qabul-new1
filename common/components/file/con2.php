@@ -201,7 +201,7 @@ $limg = $lqr->writeDataUri();
             ta’lim vazirining 2012-yil 28-dekabrdagi 508-son buyrug‘i (ro‘yxat raqami 2431, 2013-yil 26-fevral) bilan
             tasdiqlangan Oliy va o‘rta maxsus, kasb-hunar ta’limi muassasalarida o‘qitishning to‘lov-shartnoma shakli
             va undan tushgan mablag‘larni taqsimlash tartibi to‘g‘risidagi Nizomga muvofiq, <b>SARBON UNIVERSITETI</b>
-            oliy ta’lim tashkiloti (keyingi o‘rinlarda “Ta’lim muassasasi”) nomidan Ustav asosida ish yurituvchi direktor Sharipov 
+            oliy ta’lim tashkiloti (keyingi o‘rinlarda “Ta’lim muassasasi”) nomidan Ustav asosida ish yurituvchi direktor Sharipov
             Muzaffar Tolibdjonovich birinchi tomondan, <b><?= $full_name ?></b> (keyingi o‘rinlarda “Ta’lim oluvchi”) ikkinchi tomondan,
             keyingi o‘rinlarda birgalikda “Tomonlar” deb ataluvchilar o‘rtasida mazkur shartnomaquyidagilar haqida tuzildi:
         </td>
@@ -209,11 +209,11 @@ $limg = $lqr->writeDataUri();
             Данное соглашение заключено между Высшим образовательным учреждением SARBON UNIVERSITETI (далее именуемым "Образовательное
             учреждение"), в лице директора Шарипов Музаффар Толибджоновича, действующего на основании Устава, с одной стороны, и
             <b><?= $full_name ?></b> (далее именуемым "Обучающийся"), с другой стороны, которые совместноименуются "Стороны",
-             в соответствии с ПостановлениемКабинета Министров "Об утверждении Положений оприеме в высшие образовательные учреждения,
-              переводе, восстановлении и отчислении студентов" от20 июня 2017 года, № 393, и Приказом Министра высшего и среднего
-               специального образования Республики Узбекистан от 28 декабря 2012 года, № 508 (регистрационный номер 2431, зарегистрирован 
+            в соответствии с ПостановлениемКабинета Министров "Об утверждении Положений оприеме в высшие образовательные учреждения,
+            переводе, восстановлении и отчислении студентов" от20 июня 2017 года, № 393, и Приказом Министра высшего и среднего
+            специального образования Республики Узбекистан от 28 декабря 2012 года, № 508 (регистрационный номер 2431, зарегистрирован
             26 февраля 2013 года), утверждающим Положение о форме договорного обучения в высших и средних
-             специальных учебных заведениях и порядке распределения средств, поступающих от такой формы обучения
+            специальных учебных заведениях и порядке распределения средств, поступающих от такой формы обучения
         </td>
     </tr>
 
@@ -715,7 +715,7 @@ $limg = $lqr->writeDataUri();
 
     <tr>
         <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000; ">
-            7.1 Ta’lim muassasasi: <b><?= $filial->name_uz ?></b> <br>
+            7.1 Ta’lim muassasasi: <b>SARBON UNIVERSITETI</b> <br>
             <b>Manzil:</b> <?= $filial->address_uz ?> <br>
             Bank rekvizitlari:<br>
             <b>H/R: </b> <?= $number ?> <br>
@@ -726,7 +726,7 @@ $limg = $lqr->writeDataUri();
             <img src="<?= $img ?>" width="120px">
         </td>
         <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000; ">
-            7.1. Образовательное учреждение: <b><?= $filial->name_uz ?></b> <br>
+            7.1. Образовательное учреждение: <b>SARBON UNIVERSITETI</b> <br>
             <b>Адрес: </b> <?= $filial->address_ru ?> <br>
             Банковские реквизиты:<br>
             <b>Расчетный счет: </b> <?= $number ?> <br>
