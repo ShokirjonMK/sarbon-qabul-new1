@@ -772,7 +772,7 @@ $limg = $lqr->writeDataUri();
 
     <tr>
         <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000; ">
-            7.1 Ta’lim muassasasi: <b>SARBON UNIVERSITETI</b> <br>
+            7.1 Ta’lim muassasasi: <b>SARBON UNIVERSITETI <?= $filial->name_uz ?></b> <br>
             <b>Manzil:</b> <?= $filial->address_uz ?> <br>
             Bank rekvizitlari:<br>
             <b>H/R: </b> <?= $number ?> <br>
@@ -783,7 +783,7 @@ $limg = $lqr->writeDataUri();
             <img src="<?= $img ?>" width="120px">
         </td>
         <td colspan="2" style="text-align: justify; vertical-align: top; border: 1px solid #000; ">
-            7.1. Образовательное учреждение: <b>SARBON UNIVERSITETI</b> <br>
+            7.1. Образовательное учреждение: <b>SARBON UNIVERSITETI <?= $filial->name_uz ?></b> <br>
             <b>Адрес: </b> <?= $filial->address_ru ?> <br>
             Банковские реквизиты:<br>
             <b>Расчетный счет: </b> <?= $number ?> <br>
