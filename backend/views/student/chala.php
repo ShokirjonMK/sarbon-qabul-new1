@@ -36,6 +36,16 @@ $breadcrumbs['item'][] = [
         </ol>
     </nav>
 
+    <?php if (permission('student', 'create')): ?>
+        <div class="mb-3 mt-4">
+            <?= Html::a(Yii::t('app', 'Qo\'shish'), ['create'], [
+                'class' => 'b-btn b-primary',
+                "data-bs-toggle" => "modal",
+                "data-bs-target" => "#studentInfo",
+            ]) ?>
+        </div>
+    <?php endif; ?>
+
     <?= $this->render('_searchChala', ['model' => $searchModel]); ?>
 
     <?php $data = [
@@ -141,3 +151,32 @@ $breadcrumbs['item'][] = [
         ],
     ]); ?>
 </div>
+
+
+    <div class="modal fade" id="studentInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="form-section">
+                    <div class="form-section_item">
+                        <div class="modal-body" id="studentInfoBody">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<?php
+$js = <<<JS
+$(document).ready(function() {
+    $('#studentInfo').on('show.bs.modal', function (e) {
+        // $(this).find('#studentInfoBody').empty();
+        var button = $(e.relatedTarget);
+        var url = button.attr('href');
+        $(this).find('#studentInfoBody').load(url);
+    });
+});
+JS;
+$this->registerJs($js);
+?>
