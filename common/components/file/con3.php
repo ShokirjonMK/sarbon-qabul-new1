@@ -801,7 +801,7 @@ $limg = $lqr->writeDataUri();
         </td>
         <td colspan="2" style="text-align: right; vertical-align: center; border: 1px solid #000; ">
             <b>Дата и номер лицензии</b>
-            14.09.2024 <b>№ 397374</b>
+            14.09.2024 <b>№ 691300</b>
         </td>
     </tr>
 
