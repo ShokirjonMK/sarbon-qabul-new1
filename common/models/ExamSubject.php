@@ -208,10 +208,11 @@ class ExamSubject extends \yii\db\ActiveRecord
     {
         $user = Yii::$app->user->identity;
         return $this->hasMany(ExamStudentQuestions::class, ['exam_subject_id' => 'id'])
-            ->where(['user_id' => $user->id , 'status' => 1, 'is_deleted' => 0]);
+            ->where(['user_id' => $user->id, 'status' => 1, 'is_deleted' => 0]);
     }
 
-    public static function confirm($model, $old) {
+    public static function confirm($model, $old)
+    {
         $transaction = Yii::$app->db->beginTransaction();
         $errors = [];
 
@@ -233,7 +234,7 @@ class ExamSubject extends \yii\db\ActiveRecord
         if (!$model->validate()) {
             $errors[] = $model->simple_errors($model->errors);
             $transaction->rollBack();
-            return ['is_ok' => false , 'errors' => $errors];
+            return ['is_ok' => false, 'errors' => $errors];
         }
 
         $directionSubject = $model->directionSubject;
@@ -255,36 +256,41 @@ class ExamSubject extends \yii\db\ActiveRecord
         $exam = $model->exam;
         if ($exam->status > 2) {
             $exam->ball = $exam->examBall;
-               $sh = false;
-        $conBalls = DirectionBall::find()
-            ->where([
-                'edu_direction_id' => $direction->id,
-                'status' => 1,
-                'is_deleted' => 0
-            ])
-            ->all();
-        foreach ($conBalls as $conBall) {
-            if ($conBall->start_ball <= $model->ball && $conBall->end_ball >= $model->ball) 
-                $sh = true;
-                if ($conBall->type <= 0) {
-                    $model->status = self::FAILED;
-                    $model->contract_price = null;
-                    $model->confirm_date = null;
-                } else {
-                    if ($model->ball >= 30 && $model->ball <= 75.5) {
-                        $model->ball = rand(76, 80);
+
+            /**exam almashgani */
+            $sh = false;
+            $conBalls = DirectionBall::find()
+                ->where([
+                    'edu_direction_id' => $eduDirection->id,
+                    'status' => 1,
+                    'is_deleted' => 0
+                ])
+                ->all();
+            foreach ($conBalls as $conBall) {
+                if ($conBall->start_ball <= $model->ball && $conBall->end_ball >= $model->ball) {
+                    $sh = true;
+                    if ($conBall->type <= 0) {
+                        $exam->status = 4;
+                        $exam->contract_price = null;
+                        $exam->confirm_date = null;
+                    } else {
+                        if ($exam->ball >= 30 && $exam->ball <= 75.5) {
+                            $exam->ball = rand(76, 80);
+                        }
+                        $exam->contract_price = $eduDirection->price * $conBall->type;
+                        $exam->confirm_date = time();
                     }
-                    $model->contract_price = $direction->price * $conBall->type;
-                    $model->confirm_date = time();
                 }
             }
-        }
 
-        if (!$sh) {
-            $model->status = self::FAILED;
-            $model->contract_price = null;
-            $model->confirm_date = null;
-        }
+            if (!$sh) {
+                $exam->status = 4;
+                $exam->contract_price = null;
+                $exam->confirm_date = null;
+            }
+            /**exam almashgani */
+
+
             $exam->save(false);
 
             $student = $model->student;
@@ -292,20 +298,21 @@ class ExamSubject extends \yii\db\ActiveRecord
             $amo = CrmPush::processType(6, $student, $user);
             if (!$amo['is_ok']) {
                 $transaction->rollBack();
-                return ['is_ok' => false , 'errors' => $amo['errors']];
+                return ['is_ok' => false, 'errors' => $amo['errors']];
             }
         }
 
         if (count($errors) == 0) {
             $transaction->commit();
             return ['is_ok' => true];
-        }else {
+        } else {
             $transaction->rollBack();
-            return ['is_ok' => false , 'errors' => $errors];
+            return ['is_ok' => false, 'errors' => $errors];
         }
     }
 
-    public static function addBall($model, $old) {
+    public static function addBall($model, $old)
+    {
         $transaction = Yii::$app->db->beginTransaction();
         $errors = [];
 
@@ -329,7 +336,7 @@ class ExamSubject extends \yii\db\ActiveRecord
         if (!$model->validate()) {
             $errors[] = $model->simple_errors($model->errors);
             $transaction->rollBack();
-            return ['is_ok' => false , 'errors' => $errors];
+            return ['is_ok' => false, 'errors' => $errors];
         }
         $directionSubject = $model->directionSubject;
         if ($model->add_ball < 0) {
@@ -400,15 +407,15 @@ class ExamSubject extends \yii\db\ActiveRecord
                 $amo = CrmPush::processType(6, $student, $user);
                 if (!$amo['is_ok']) {
                     $transaction->rollBack();
-                    return ['is_ok' => false , 'errors' => $amo['errors']];
+                    return ['is_ok' => false, 'errors' => $amo['errors']];
                 }
             }
 
             $transaction->commit();
             return ['is_ok' => true];
-        }else {
+        } else {
             $transaction->rollBack();
-            return ['is_ok' => false , 'errors' => $errors];
+            return ['is_ok' => false, 'errors' => $errors];
         }
     }
 }
