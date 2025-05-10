@@ -43,42 +43,42 @@ $breadcrumbs['item'][] = [
         ['class' => 'yii\grid\SerialColumn'],
         [
             'attribute' => 'F.I.O',
-            'contentOptions' => ['date-label' => 'F.I.O' ,'class' => 'wid250'],
+            'contentOptions' => ['date-label' => 'F.I.O', 'class' => 'wid250'],
             'format' => 'raw',
-            'value' => function($model) {
+            'value' => function ($model) {
                 return $model->fullName;
             },
         ],
         [
             'attribute' => 'Pasport ma\'lumoti',
-            'contentOptions' => ['date-label' => 'Pasport ma\'lumoti' ,'class' => 'wid250'],
+            'contentOptions' => ['date-label' => 'Pasport ma\'lumoti', 'class' => 'wid250'],
             'format' => 'raw',
-            'value' => function($model) {
-                return $model->passport_serial.' '.$model->passport_number.' | '.$model->passport_pin;
+            'value' => function ($model) {
+                return $model->passport_serial . ' ' . $model->passport_number . ' | ' . $model->passport_pin;
             },
         ],
         [
             'attribute' => 'Telefon raqami',
             'contentOptions' => ['date-label' => 'Telefon raqami'],
             'format' => 'raw',
-            'value' => function($model) {
-                $text = "<br><div class='badge-table-div active mt-2'>".date("Y-m-d H:i:s" , $model->user->created_at)."</div>";
-                return $model->username.$text;
+            'value' => function ($model) {
+                $text = "<br><div class='badge-table-div active mt-2'>" . date("Y-m-d H:i:s", $model->user->created_at) . "</div>";
+                return $model->username . $text;
             },
         ],
         [
             'attribute' => 'Imtihon sanasi',
             'contentOptions' => ['date-label' => 'Imtihon sanasi'],
             'format' => 'raw',
-            'value' => function($model) {
-                return "<div class='badge-table-div active mt-2'>".$model->examDate->date ?? '------'."</div>";
+            'value' => function ($model) {
+                return "<div class='badge-table-div active mt-2'>" . $model->examDate->date ?? '------' . "</div>";
             },
         ],
         [
             'attribute' => 'Imtihon xolati',
             'contentOptions' => ['date-label' => 'Imtihon xolati'],
             'format' => 'raw',
-            'value' => function($model) {
+            'value' => function ($model) {
                 $exam = Exam::findOne([
                     'edu_direction_id' => $model->edu_direction_id,
                     'student_id' => $model->id,
@@ -86,7 +86,11 @@ $breadcrumbs['item'][] = [
                 ]);
 
                 if ($exam) {
-                    return "<div class='badge-table-div active'>".Status::getExamTestStatus($exam->status)."</div>";
+                    if ($exam->status > 2) {
+                        return "<div class='badge-table-div active'>" . Status::getExamTestStatus($exam->status) . "</div>"
+                            . "(" . $exam->ball . " ball)";
+                    }
+                    return "<div class='badge-table-div active'>" . Status::getExamTestStatus($exam->status) . "</div>";
                 }
             },
         ],
@@ -94,15 +98,15 @@ $breadcrumbs['item'][] = [
             'attribute' => 'Status',
             'contentOptions' => ['date-label' => 'Status'],
             'format' => 'raw',
-            'value' => function($model) {
+            'value' => function ($model) {
                 $user = $model->user;
                 if ($user->status == 10) {
                     return "<div class='badge-table-div active'>Faol</div>";
-                } elseif ($user->status == 9 && $user->step > 0){
+                } elseif ($user->status == 9 && $user->step > 0) {
                     return "<div class='badge-table-div active'>Parol tiklashda SMS parol kiritmagan</div>";
-                } elseif ($user->status == 9 && $user->step == 0){
+                } elseif ($user->status == 9 && $user->step == 0) {
                     return "<div class='badge-table-div active'>SMS parol kiritmagan</div>";
-                } elseif ($user->status == 0){
+                } elseif ($user->status == 0) {
                     return "<div class='badge-table-div active'>Arxivlangan</div>";
                 }
             },
@@ -111,19 +115,19 @@ $breadcrumbs['item'][] = [
             'attribute' => 'CONSULTING',
             'contentOptions' => ['date-label' => 'CONSULTING'],
             'format' => 'raw',
-            'value' => function($model) {
+            'value' => function ($model) {
                 $cons = $model->user->cons;
                 $branch = $model->branch->name_uz ?? '- - - -';
-                return "<a href='https://{$cons->domen}' class='badge-table-div active'>".$cons->domen."</a><br><div class='badge-table-div active mt-2'>".$branch."</div>";
+                return "<a href='https://{$cons->domen}' class='badge-table-div active'>" . $cons->domen . "</a><br><div class='badge-table-div active mt-2'>" . $branch . "</div>";
             },
         ],
         [
             'attribute' => 'Batafsil',
             'contentOptions' => ['date-label' => 'Status'],
             'format' => 'raw',
-            'value' => function($model) {
+            'value' => function ($model) {
                 if (permission('student', 'view')) {
-                    $readMore = "<a href='".Url::to(['student/view' , 'id' => $model->id])."' class='badge-table-div active mt-2'>Batafsil</a>";
+                    $readMore = "<a href='" . Url::to(['student/view', 'id' => $model->id]) . "' class='badge-table-div active mt-2'>Batafsil</a>";
                     return $readMore;
                 }
             },
