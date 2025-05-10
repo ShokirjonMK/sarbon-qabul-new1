@@ -274,6 +274,7 @@ class ExamSubject extends \yii\db\ActiveRecord
                         $exam->contract_price = null;
                         $exam->confirm_date = null;
                     } else {
+                        $exam->status = 3;
                         if ($exam->ball >= 30 && $exam->ball <= 75.5) {
                             $exam->ball = rand(76, 80);
                         }
