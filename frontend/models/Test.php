@@ -25,7 +25,7 @@ class Test extends Model
     const FINISHED = 3;
     const FAILED = 4;
 
-    const TIME = 90 * 60;
+    const TIME = 180 * 60;
 
     function simple_errors($errors) {
         $result = [];
