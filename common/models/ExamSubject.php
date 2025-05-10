@@ -248,7 +248,7 @@ class ExamSubject extends \yii\db\ActiveRecord
                     'status' => 1,
                     'is_deleted' => 0
                 ])->count();
-            $model->ball = ($questions * $directionSubject->count);
+            $model->ball = ($questions * $directionSubject->ball);
         }
 
         $model->save(false);
