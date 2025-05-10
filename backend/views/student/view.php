@@ -408,7 +408,7 @@ if ($model->eduType != null) {
         <div class="page_title mt-5 mb-3">
             <h6 class="title-h5"><?php if ($eduType) { echo $eduType->name_uz; } else { echo "Chala user";} ?> ma'lumotlari</h6>
             <div class="d-flex gap-3">
-                <?php if (isset($eduModel) && $eduType->id == 1 && $eduModel->status == 4) : ?>
+                <?php if (isset($eduModel) && $eduType->id == 1 && $eduModel->status > 1) : ?>
                     <?php if (permission('student', 'exam-change')): ?>
                         <h6 class="title-link">
                             <?= Html::a(Yii::t('app', 'Qayta imkon berish'), ['exam-change', 'id' => $model->id],
