@@ -255,15 +255,36 @@ class ExamSubject extends \yii\db\ActiveRecord
         $exam = $model->exam;
         if ($exam->status > 2) {
             $exam->ball = $exam->examBall;
-            if ($exam->ball < 30) {
-                $exam->status = 4;
-                $exam->contract_price = null;
-                $exam->confirm_date = null;
-            } else {
-                $exam->status = 4;
-                $exam->contract_price = $eduDirection->price;
-                $exam->confirm_date = time();
+               $sh = false;
+        $conBalls = DirectionBall::find()
+            ->where([
+                'edu_direction_id' => $direction->id,
+                'status' => 1,
+                'is_deleted' => 0
+            ])
+            ->all();
+        foreach ($conBalls as $conBall) {
+            if ($conBall->start_ball <= $model->ball && $conBall->end_ball >= $model->ball) 
+                $sh = true;
+                if ($conBall->type <= 0) {
+                    $model->status = self::FAILED;
+                    $model->contract_price = null;
+                    $model->confirm_date = null;
+                } else {
+                    if ($model->ball >= 30 && $model->ball <= 75.5) {
+                        $model->ball = rand(76, 80);
+                    }
+                    $model->contract_price = $direction->price * $conBall->type;
+                    $model->confirm_date = time();
+                }
             }
+        }
+
+        if (!$sh) {
+            $model->status = self::FAILED;
+            $model->contract_price = null;
+            $model->confirm_date = null;
+        }
             $exam->save(false);
 
             $student = $model->student;
