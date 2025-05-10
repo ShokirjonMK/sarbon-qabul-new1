@@ -567,8 +567,8 @@ if ($model->eduType != null) {
                                                     Test ishlamoqda
                                                 <?php elseif ($eduModel->status == 3): ?>
                                                     Testni yakunlab shartnoma tasdiqlandi
-                                                <?php elseif ($eduModel->status == 3): ?>
-                                                    Testni yakunladi
+                                                <?php elseif ($eduModel->status == 4): ?>
+                                                    Testdan o'ta olmadi
                                                 <?php endif; ?>
                                             </h6>
                                         </div>
