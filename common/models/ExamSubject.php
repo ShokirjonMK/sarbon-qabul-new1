@@ -267,7 +267,7 @@ class ExamSubject extends \yii\db\ActiveRecord
                 ])
                 ->all();
             foreach ($conBalls as $conBall) {
-                if ($conBall->start_ball <= $model->ball && $conBall->end_ball >= $model->ball) {
+                if ($conBall->start_ball <= $exam->ball && $conBall->end_ball >= $exam->ball) {
                     $sh = true;
                     if ($conBall->type <= 0) {
                         $exam->status = 4;
