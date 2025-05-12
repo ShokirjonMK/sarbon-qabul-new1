@@ -7,6 +7,7 @@ use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use common\models\EduType;
 use common\models\Course;
+use common\models\Direction;
 use common\models\Status;
 use kartik\export\ExportMenu;
 use yii\widgets\LinkPager;
@@ -72,6 +73,14 @@ $breadcrumbs['item'][] = [
             'format' => 'raw',
             'value' => function ($model) {
                 return "<div class='badge-table-div active mt-2'>" . $model->examDate->date ?? '------' . "</div>";
+            },
+        ],
+        [
+            'attribute' => 'Yo\'nalish',
+            'contentOptions' => ['date-label' => 'Yo\'nalish'],
+            'format' => 'raw',
+            'value' => function ($model) {
+                return $model->direction->name_uz ?? '------';
             },
         ],
         [
