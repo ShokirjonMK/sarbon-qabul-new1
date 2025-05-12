@@ -20,15 +20,6 @@ class MenuController extends Controller
 
     public function actionIndex()
     {
-        $users = User::find()
-            ->where([
-                'cons_id' => null
-            ])->all();
-        foreach ($users as $user) {
-            $user->cons_id = 1;
-            $user->save(false);
-        }
-        dd(count($users));
         $searchModel = new MenuSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
