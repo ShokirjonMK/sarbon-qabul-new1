@@ -6,6 +6,7 @@ use common\models\AuthItem;
 use common\models\CrmPush;
 use common\models\Menu;
 use common\models\MenuSearch;
+use common\models\User;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -19,6 +20,15 @@ class MenuController extends Controller
 
     public function actionIndex()
     {
+        $users = User::find()
+            ->where([
+                'cons_id' => null
+            ])->all();
+        foreach ($users as $user) {
+            $user->cons_id = 1;
+            $user->save(false);
+        }
+        dd(count($users));
         $searchModel = new MenuSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
