@@ -26,42 +26,46 @@ class IkBotController extends Controller
         $telegram = Yii::$app->telegram;
         $telegram_id = $telegram->input->message->chat->id;
 
-        $message = "Sarbon universitetida qabul boshlandi\n\n";
-        $message .= "2025-2026-o‘quv yillari uchun kunduzgi, kechki va masofaviy ta'lim shakllariga Sarbon universitetida qabul boshlanganini e'lon qilamiz.\n\n";
-        $message .= "Biz bilan yetakchilar safida bo'!\n\n";
-        $message .= "Mavjud yo‘nalishlarimiz:\n\n";
-
-        $message .= "> Yurisdprudentsiya\n";
-        $message .= "> Davlat va jamiyat boshqaruvi\n";
-        $message .= "> Kosmetologiya\n";
-        $message .= "> Buxgalteriya hisobi\n";
-        $message .= "> Iqtisodiyot\n";
-        $message .= "> Bank ishi\n";
-        $message .= "> Moliya va moliyaviy texnologiyalar\n";
-        $message .= "> Jahon iqtisodiyoti va xalqaro iqtisodiy munosabatlar\n";
-        $message .= "> Biznesni boshqarish\n";
-        $message .= "> Logistika\n";
-        $message .= "> Marketing\n";
-        $message .= "> Xalqaro munosabatlar\n";
-        $message .= "> Turizm va mehmondo‘stlik\n";
-        $message .= "> Psixologiya\n";
-        $message .= "> Tarix\n";
-        $message .= "> Milliy g‘oya, ma’naviyat asoslari va huquq ta’limi\n";
-        $message .= "> Filologiya va tillarni o‘qitish (ingliz tili, rus tili, xitoy tili, o‘zbek tili, turk tili)\n";
-        $message .= "> Axborot tizimlari va texnologiyalari\n";
-        $message .= "> Axborot xavfsizligi\n";
-        $message .= "> Kompyuter injiniringi\n";
-        $message .= "> Mexatronika va robototexnika\n";
-        $message .= "> Dizayn\n";
-        $message .= "> Arxitektura\n";
-        $message .= "> Qurilish muhandisligi (Neft va gazni qayta ishlash sanoati obyektlari faoliyati turi bo‘yicha)\n";
-        $message .= "> Kommunal infratuzilmani tashkil etish va boshqarish";
+        $message = "📢 *Sarbon universitetida qabul boshlandi*\n";
+        $message .= "```\n";
+        $message .= "| 2025-2026-o‘quv yillari uchun:                |\n";
+        $message .= "|  Kunduzgi, kechki va masofaviy taʼlim!       |\n";
+        $message .= "|                                              |\n";
+        $message .= "| Mavjud yo‘nalishlar:                         |\n";
+        $message .= "| > Yurisdprudentsiya                          |\n";
+        $message .= "| > Davlat va jamiyat boshqaruvi               |\n";
+        $message .= "| > Kosmetologiya                              |\n";
+        $message .= "| > Buxgalteriya hisobi                        |\n";
+        $message .= "| > Iqtisodiyot                                |\n";
+        $message .= "| > Bank ishi                                  |\n";
+        $message .= "| > Moliya va moliyaviy texnologiyalar         |\n";
+        $message .= "| > Jahon iqtisodiyoti va XIM                  |\n";
+        $message .= "| > Biznesni boshqarish                        |\n";
+        $message .= "| > Logistika                                  |\n";
+        $message .= "| > Marketing                                  |\n";
+        $message .= "| > Xalqaro munosabatlar                       |\n";
+        $message .= "| > Turizm va mehmondo‘stlik                   |\n";
+        $message .= "| > Psixologiya                                |\n";
+        $message .= "| > Tarix                                      |\n";
+        $message .= "| > Milliy gʻoya va maʼnaviyat asoslari        |\n";
+        $message .= "| > Filologiya (EN, RU, CN, UZ, TR)            |\n";
+        $message .= "| > Axborot tizimlari                          |\n";
+        $message .= "| > Axborot xavfsizligi                        |\n";
+        $message .= "| > Kompyuter injiniringi                      |\n";
+        $message .= "| > Mexatronika va robototexnika               |\n";
+        $message .= "| > Dizayn                                     |\n";
+        $message .= "| > Arxitektura                                |\n";
+        $message .= "| > Qurilish muhandisligi                      |\n";
+        $message .= "| > Kommunal infratuzilmani boshqarish         |\n";
+        $message .= "```\n";
+        $message .= "_Biz bilan yetakchilar safida bo‘l!_";
 
         return $telegram->sendMessage([
             'chat_id' => $telegram_id,
             'text' => $message,
-            // parse_mode YO‘Q — aynan shu kerak!
+            'parse_mode' => 'Markdown'
         ]);
+
 
 
 
