@@ -32,7 +32,7 @@ class IkBotController extends Controller
         return $telegram->sendPhoto([
             'chat_id' => $telegram_id,
             'photo' => $photoUrl,
-            'caption' => "🇺🇿 *TASHKENT SARBON UNIVERSITY* haqida rasm\n\nTelefon raqamingizni yuboring",
+            'caption' => "Rasm yetib keldi",
             'parse_mode' => 'Markdown',
             'reply_markup' => json_encode([
                 'keyboard' => [[
