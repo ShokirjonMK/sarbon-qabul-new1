@@ -30,42 +30,40 @@ class IkBotController extends Controller
 
         // Xabar matni
         $message = "Sarbon universitetida qabul boshlandi\n\n";
-        $message .= "2025-2026-o‘quv yillari uchun <b>kunduzgi, kechki va masofaviy ta'lim shakllariga</b> Sarbon universitetida qabul boshlanganini e'lon qilamiz.\n\n";
+        $message .= "2025-2026-o‘quv yillari uchun *kunduzgi, kechki va masofaviy ta'lim shakllariga* Sarbon universitetida qabul boshlanganini e'lon qilamiz.\n\n";
         $message .= "Biz bilan yetakchilar safida bo'!\n\n";
-        $message .= "<b>Mavjud yo‘nalishlarimiz:</b>\n";
-        $message .= "<pre>";
-        $message .= "• Yurisdprudentsiya;\n";
-        $message .= "• Davlat va jamiyat boshqaruvi;\n";
-        $message .= "• Kosmetologiya;\n";
-        $message .= "• Buxgalteriya hisobi;\n";
-        $message .= "• Iqtisodiyot;\n";
-        $message .= "• Bank ishi;\n";
-        $message .= "• Moliya va moliyaviy texnologiyalar;\n";
-        $message .= "• Jahon iqtisodiyoti va xalqaro iqtisodiy munosabatlar;\n";
-        $message .= "• Biznesni boshqarish;\n";
-        $message .= "• Logistika;\n";
-        $message .= "• Marketing;\n";
-        $message .= "• Xalqaro munosabatlar;\n";
-        $message .= "• Turizm va mehmondo‘stlik;\n";
-        $message .= "• Psixologiya;\n";
-        $message .= "• Tarix;\n";
-        $message .= "• Milliy g‘oya, ma’naviyat asoslari va huquq ta’limi;\n";
-        $message .= "• Filologiya va tillarni o‘qitish (ingliz tili, rus tili, xitoy tili, o‘zbek tili, turk tili);\n";
-        $message .= "• Axborot tizimlari va texnologiyalari;\n";
-        $message .= "• Axborot xavfsizligi;\n";
-        $message .= "• Kompyuter injiniringi;\n";
-        $message .= "• Mexatronika va robototexnika;\n";
-        $message .= "• Dizayn;\n";
-        $message .= "• Arxitektura;\n";
-        $message .= "• Qurilish muhandisligi (Neft va gazni qayta ishlash sanoati obyektlari faoliyati turi bo‘yicha);\n";
-        $message .= "• Kommunal infratuzilmani tashkil etish va boshqarish.";
-        $message .= "</pre>";
+        $message .= "*Mavjud yo‘nalishlarimiz:*\n";
+        $message .= "> Yurisdprudentsiya\n";
+        $message .= "> Davlat va jamiyat boshqaruvi\n";
+        $message .= "> Kosmetologiya\n";
+        $message .= "> Buxgalteriya hisobi\n";
+        $message .= "> Iqtisodiyot\n";
+        $message .= "> Bank ishi\n";
+        $message .= "> Moliya va moliyaviy texnologiyalar\n";
+        $message .= "> Jahon iqtisodiyoti va xalqaro iqtisodiy munosabatlar\n";
+        $message .= "> Biznesni boshqarish\n";
+        $message .= "> Logistika\n";
+        $message .= "> Marketing\n";
+        $message .= "> Xalqaro munosabatlar\n";
+        $message .= "> Turizm va mehmondo‘stlik\n";
+        $message .= "> Psixologiya\n";
+        $message .= "> Tarix\n";
+        $message .= "> Milliy g‘oya, ma’naviyat asoslari va huquq ta’limi\n";
+        $message .= "> Filologiya va tillarni o‘qitish (ingliz tili, rus tili, xitoy tili, o‘zbek tili, turk tili)\n";
+        $message .= "> Axborot tizimlari va texnologiyalari\n";
+        $message .= "> Axborot xavfsizligi\n";
+        $message .= "> Kompyuter injiniringi\n";
+        $message .= "> Mexatronika va robototexnika\n";
+        $message .= "> Dizayn\n";
+        $message .= "> Arxitektura\n";
+        $message .= "> Qurilish muhandisligi\n";
+        $message .= "> Kommunal infratuzilmani tashkil etish va boshqarish";
 
 // Xabar yuborish
         return $telegram->sendMessage([
             'chat_id' => $telegram_id,
             'text' => $message,
-            'parse_mode' => 'HTML' // HTML formatidan foydalaniladi
+            'parse_mode' => 'MarkdownV2'
         ]);
 
 //        $photoUrl = "https://qabul.sarbon.university/frontend/web/images/new_bino.jpg";
