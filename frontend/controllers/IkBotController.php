@@ -30,11 +30,7 @@ class IkBotController extends Controller
 
         return $telegram->sendMessage([
             'chat_id' => $telegram_id,
-            'text' => 'Salom Ik_Anvarovich',
-            'parse_mode' => 'MarkdownV2',
-            'reply_markup' => json_encode([
-                'remove_keyboard' => true
-            ])
+            'text' => 'Salom Ik Anvarovich',
         ]);
 
         $photoPath = Yii::getAlias('@frontend/web/images/new_bino.jpg');
