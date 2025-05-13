@@ -29,21 +29,7 @@ class IkBotController extends Controller
         $telegram_id = $telegram->input->message->chat->id;
 
         $photoPath = Yii::getAlias('@frontend/web/images/new_bino.jpg');
-
-        $text = 'Salom';
-        if (!file_exists($photoPath)) {
-            $text = 'Xech nima';
-        }
-        return $telegram->sendMessage([
-            'chat_id' => $telegram_id,
-            'text' => $text,
-            'parse_mode' => 'MarkdownV2',
-            'reply_markup' => json_encode([
-                'remove_keyboard' => true
-            ])
-        ]);
-
-        $photo = new \CURLFile($photoPath);
+        $photo = new \CURLFile($photoPath, mime_content_type($photoPath), 'new_bino.jpg');
 
         return $telegram->sendPhoto([
             'chat_id' => $telegram_id,
