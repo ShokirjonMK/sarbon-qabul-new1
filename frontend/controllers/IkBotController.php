@@ -24,8 +24,29 @@ class IkBotController extends Controller
 
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $telegram = Yii::$app->telegram;
+        $text = $telegram->input->message->text;
+        $username = $telegram->input->message->chat->username;
+        $telegram_id = $telegram->input->message->chat->id;
 
-        $result = Bot::telegram($telegram);
+
+        $photoPath = Yii::getAlias('@frontend/web/images/new_bino.jpg');
+
+        return $telegram->sendPhoto([
+            'chat_id' => $telegram_id,
+            'photo' => curl_file_create($photoPath),
+            'caption' => "🇺🇿 *TASHKENT SARBON UNIVERSITY* haqida rasm\n\nTelefon raqamingizni yuboring:",
+            'parse_mode' => 'Markdown',
+            'reply_markup' => json_encode([
+                'keyboard' => [[
+                    [
+                        'text' => "☎️ Telefon raqamni yuborish",
+                        'request_contact' => true
+                    ]
+                ]],
+                'resize_keyboard' => true,
+                'one_time_keyboard' => true,
+            ])
+        ]);
     }
 
 }
