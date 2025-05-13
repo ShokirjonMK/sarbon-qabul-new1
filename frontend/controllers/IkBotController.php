@@ -26,44 +26,22 @@ class IkBotController extends Controller
         $telegram = Yii::$app->telegram;
         $telegram_id = $telegram->input->message->chat->id;
 
-        $message = "📢 *Sarbon universitetida qabul boshlandi*\n";
-        $message .= "```\n";
-        $message .= "| 2025-2026-o‘quv yillari uchun:                |\n";
-        $message .= "|  Kunduzgi, kechki va masofaviy taʼlim!       |\n";
-        $message .= "|                                              |\n";
-        $message .= "| Mavjud yo‘nalishlar:                         |\n";
-        $message .= "| > Yurisdprudentsiya                          |\n";
-        $message .= "| > Davlat va jamiyat boshqaruvi               |\n";
-        $message .= "| > Kosmetologiya                              |\n";
-        $message .= "| > Buxgalteriya hisobi                        |\n";
-        $message .= "| > Iqtisodiyot                                |\n";
-        $message .= "| > Bank ishi                                  |\n";
-        $message .= "| > Moliya va moliyaviy texnologiyalar         |\n";
-        $message .= "| > Jahon iqtisodiyoti va XIM                  |\n";
-        $message .= "| > Biznesni boshqarish                        |\n";
-        $message .= "| > Logistika                                  |\n";
-        $message .= "| > Marketing                                  |\n";
-        $message .= "| > Xalqaro munosabatlar                       |\n";
-        $message .= "| > Turizm va mehmondo‘stlik                   |\n";
-        $message .= "| > Psixologiya                                |\n";
-        $message .= "| > Tarix                                      |\n";
-        $message .= "| > Milliy gʻoya va maʼnaviyat asoslari        |\n";
-        $message .= "| > Filologiya (EN, RU, CN, UZ, TR)            |\n";
-        $message .= "| > Axborot tizimlari                          |\n";
-        $message .= "| > Axborot xavfsizligi                        |\n";
-        $message .= "| > Kompyuter injiniringi                      |\n";
-        $message .= "| > Mexatronika va robototexnika               |\n";
-        $message .= "| > Dizayn                                     |\n";
-        $message .= "| > Arxitektura                                |\n";
-        $message .= "| > Qurilish muhandisligi                      |\n";
-        $message .= "| > Kommunal infratuzilmani boshqarish         |\n";
-        $message .= "```\n";
-        $message .= "_Biz bilan yetakchilar safida bo‘l!_";
+        $message = "> Sarbon universitetida qabul boshlandi\n";
+        $message .= "> 2025-2026-o‘quv yili uchun quyidagi yo‘nalishlarga qabul ochiq:\n";
+        $message .= ">\n";
+        $message .= "> • Yurisdprudentsiya\n";
+        $message .= "> • Kosmetologiya\n";
+        $message .= "> • Iqtisodiyot\n";
+        $message .= "> • Axborot xavfsizligi\n";
+        $message .= "> • Dizayn\n";
+        $message .= "> • Qurilish muhandisligi\n";
+        $message .= ">\n";
+        $message .= "> Hujjat topshirish uchun shoshiling!";
 
         return $telegram->sendMessage([
             'chat_id' => $telegram_id,
             'text' => $message,
-            'parse_mode' => 'Markdown'
+            // parse_mode NI YOZMANG!
         ]);
 
 
