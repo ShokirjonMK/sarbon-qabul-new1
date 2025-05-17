@@ -113,6 +113,10 @@ class SiteController extends Controller
 
     public function actionSignUp($id = null)
     {
+        if (!Yii::$app->user->isGuest) {
+            return $this->redirect(['cabinet/index']);
+        }
+        
         $this->layout = '_cabinet-step';
 
         if ($id !== null) {
