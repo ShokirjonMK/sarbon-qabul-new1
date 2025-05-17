@@ -138,7 +138,7 @@ class CrmPushController extends Controller
             }
 
             if ($model->lead_status != null) {
-                $updatedFields['statusId'] = $model->lead_status;
+                $updatedFields['statusId'] = is_numeric($model->lead_status) ? (int)$model->lead_status : 0;
             }
 
             if ($model->data != null) {
