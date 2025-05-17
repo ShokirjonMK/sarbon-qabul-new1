@@ -51,7 +51,7 @@ class  AmoCrmClient extends Component  implements AmoCrmSettings, IAmoCrmClient
         try {
             $pipelinesService = $this->apiClient->pipelines();
             $pipelines =  $pipelinesService->get();
-//            $pipelineArray = ArrayHelper::map($pipelines, 'id', 'name');
+            //            $pipelineArray = ArrayHelper::map($pipelines, 'id', 'name');
             return $pipelines;
         } catch (\AmoCRM\Exceptions\AmoCRMApiException $e) {
             throw new \Exception('Error fetching pipelines: ' . $e->getMessage());
@@ -65,9 +65,9 @@ class  AmoCrmClient extends Component  implements AmoCrmSettings, IAmoCrmClient
             $pipeline = $this->apiClient->pipelines()->getOne($pipelineId);
             $pipelineStatusesArray = [];
             $pipelineStatuses =  $pipeline->getStatuses();
-            foreach($pipelineStatuses as $status){
+            foreach ($pipelineStatuses as $status) {
                 // isEditable => true
-                if($status->getIsEditable()){
+                if ($status->getIsEditable()) {
                     $pipelineStatusesArray[$status->getId()] = $status->getName();
                 }
             }
@@ -120,13 +120,21 @@ class  AmoCrmClient extends Component  implements AmoCrmSettings, IAmoCrmClient
     }
 
 
-    public function addLeadToPipeline(string $phoneNumber, string $leadName, string $message, array $tags, array $customFields, int $pipelineId = 0, int $statusId = 0, int $leadPrice = 0)
-    {
-         try {
-            if($pipelineId == 0 ){
+    public function addLeadToPipeline(
+        string $phoneNumber,
+        string $leadName,
+        string $message,
+        array $tags,
+        array $customFields,
+        int $pipelineId = 0,
+        int $statusId = 0,
+        int $leadPrice = 0
+    ) {
+        try {
+            if ($pipelineId == 0) {
                 $pipelineId = self::DEFAULT_PIPELINE_ID;
             }
-            if($statusId == 0){
+            if ($statusId == 0) {
                 $statusId = self::DEFAULT_STATUS_ID;
             }
             $time = time();
@@ -151,54 +159,54 @@ class  AmoCrmClient extends Component  implements AmoCrmSettings, IAmoCrmClient
             }
             $newLead->setTags($tagsCollection);
 
-             if (!empty($customFields)) {
-                 $customFieldsCollection = $newLead->getCustomFieldsValues() ?: new \AmoCRM\Collections\CustomFieldsValuesCollection();
+            if (!empty($customFields)) {
+                $customFieldsCollection = $newLead->getCustomFieldsValues() ?: new \AmoCRM\Collections\CustomFieldsValuesCollection();
 
-                 foreach ($customFields as $fieldId => $fieldValue) {
-                     $fieldModel = (new \AmoCRM\Models\CustomFieldsValues\TextCustomFieldValuesModel())
-                         ->setFieldId($fieldId)
-                         ->setValues(
-                             (new \AmoCRM\Models\CustomFieldsValues\ValueCollections\TextCustomFieldValueCollection())
-                                 ->add(
-                                     (new \AmoCRM\Models\CustomFieldsValues\ValueModels\TextCustomFieldValueModel())
-                                         ->setValue($fieldValue)
-                                 )
-                         );
-                     $customFieldsCollection->add($fieldModel);
-                 }
+                foreach ($customFields as $fieldId => $fieldValue) {
+                    $fieldModel = (new \AmoCRM\Models\CustomFieldsValues\TextCustomFieldValuesModel())
+                        ->setFieldId($fieldId)
+                        ->setValues(
+                            (new \AmoCRM\Models\CustomFieldsValues\ValueCollections\TextCustomFieldValueCollection())
+                                ->add(
+                                    (new \AmoCRM\Models\CustomFieldsValues\ValueModels\TextCustomFieldValueModel())
+                                        ->setValue($fieldValue)
+                                )
+                        );
+                    $customFieldsCollection->add($fieldModel);
+                }
 
-                 $newLead->setCustomFieldsValues($customFieldsCollection);
-             }
+                $newLead->setCustomFieldsValues($customFieldsCollection);
+            }
 
-             $contact = new ContactModel();
-             $contact->setName($leadName); // Set the contact name if needed
+            $contact = new ContactModel();
+            $contact->setName($leadName); // Set the contact name if needed
 
-             $customFieldsValues = new \AmoCRM\Collections\CustomFieldsValuesCollection();
-             $phoneFieldModel = (new \AmoCRM\Models\CustomFieldsValues\MultitextCustomFieldValuesModel())
-                 ->setFieldCode('PHONE') // or use setFieldId() if you have the field ID
-                 ->setValues(
-                     (new \AmoCRM\Models\CustomFieldsValues\ValueCollections\MultitextCustomFieldValueCollection())
-                         ->add(
-                             (new \AmoCRM\Models\CustomFieldsValues\ValueModels\MultitextCustomFieldValueModel())
-                                 ->setValue($phoneNumber) // Set the phone number here
-                                 ->setEnum('WORK') // Specify the phone type (WORK, HOME, etc.)
-                         )
-                 );
-             $customFieldsValues->add($phoneFieldModel);
-             $contact->setCustomFieldsValues($customFieldsValues);
+            $customFieldsValues = new \AmoCRM\Collections\CustomFieldsValuesCollection();
+            $phoneFieldModel = (new \AmoCRM\Models\CustomFieldsValues\MultitextCustomFieldValuesModel())
+                ->setFieldCode('PHONE') // or use setFieldId() if you have the field ID
+                ->setValues(
+                    (new \AmoCRM\Models\CustomFieldsValues\ValueCollections\MultitextCustomFieldValueCollection())
+                        ->add(
+                            (new \AmoCRM\Models\CustomFieldsValues\ValueModels\MultitextCustomFieldValueModel())
+                                ->setValue($phoneNumber) // Set the phone number here
+                                ->setEnum('WORK') // Specify the phone type (WORK, HOME, etc.)
+                        )
+                );
+            $customFieldsValues->add($phoneFieldModel);
+            $contact->setCustomFieldsValues($customFieldsValues);
 
-             $contactsCollection = new \AmoCRM\Collections\ContactsCollection();
-             $contactsCollection->add($contact);
-             $this->apiClient->contacts()->add($contactsCollection);
+            $contactsCollection = new \AmoCRM\Collections\ContactsCollection();
+            $contactsCollection->add($contact);
+            $this->apiClient->contacts()->add($contactsCollection);
 
-             // Link the contact to the lead
-             $newLead->setContacts($contactsCollection);
+            // Link the contact to the lead
+            $newLead->setContacts($contactsCollection);
 
             $addedLead = $this->apiClient->leads()->addOne($newLead);
             return $addedLead;
-         } catch (\AmoCRM\Exceptions\AmoCRMApiException $e) {
-             throw new \Exception('Leadni yangilashda xatolik:' . $e->getMessage());
-         }
+        } catch (\AmoCRM\Exceptions\AmoCRMApiException $e) {
+            throw new \Exception('Leadni yangilashda xatolik:' . $e->getMessage());
+        }
     }
 
 
@@ -255,7 +263,7 @@ class  AmoCrmClient extends Component  implements AmoCrmSettings, IAmoCrmClient
                 $lead->setCustomFieldsValues($customFieldsCollection);
             }
 
-//            dd($lead);
+            //            dd($lead);
 
             // 5. Leadni yangilash
             $updatedLead = $this->apiClient->leads()->updateOne($lead);
@@ -272,10 +280,7 @@ class  AmoCrmClient extends Component  implements AmoCrmSettings, IAmoCrmClient
             }
 
             return $updatedLead;
-
         } catch (\AmoCRM\Exceptions\AmoCRMApiException $e) {
-
         }
     }
-
 }
