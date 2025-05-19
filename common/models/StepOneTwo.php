@@ -84,7 +84,7 @@ class StepOneTwo extends Model
                 $student->passport_serial = $this->seria;
                 $student->passport_pin = isset($passport['pinfl']) ? (string)$passport['pinfl'] : null;
                 $student->birthday = date("Y-m-d" , strtotime($this->birthday));
-                $student->gender = $passport['gender'] ?? null;
+                $student->gender = $passport['gender'] ?? 1;
 
                 if (!$student->validate()){
                     $errors[] = $this->simple_errors($student->errors);
