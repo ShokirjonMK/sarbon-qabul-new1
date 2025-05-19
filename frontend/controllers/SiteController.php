@@ -80,7 +80,6 @@ class SiteController extends Controller
 
     public function actionIndex($id = null)
     {
-        Yii::$app->session->remove('redirected_from_flayer');
         if ($id !== null) {
             $target = Target::findOne($id);
             if ($target) {
@@ -116,7 +115,7 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest) {
             return $this->redirect(['cabinet/index']);
         }
-        
+
         $this->layout = '_cabinet-step';
 
         if ($id !== null) {
