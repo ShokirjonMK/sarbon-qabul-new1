@@ -22,6 +22,57 @@ use yii\web\NotFoundHttpException;
 
 class Message extends \yii\db\ActiveRecord
 {
+    public static function sendSmsNew($phone, $text)
+    {
+        $phone = preg_replace("/[^0-9]/", "", $phone);
+        $email = 'norbobo1996@gmail.com';
+        $password = 'UknMFbL9gen9oy8JKbibVpBNfrMP1VY6lq0sFuyj';
+        $url = 'http://notify.eskiz.uz/api/auth/login';
+        $client = new Client();
+        try {
+            $response = $client->createRequest()
+                ->setFormat(Client::FORMAT_JSON)
+                ->setMethod("POST")
+                ->setUrl($url)
+                ->setData([
+                    'email' => $email,
+                    'password' => $password
+                ])
+                ->send();
+        } catch (\Exception $e) {
+            return [
+                'is_ok' => false,
+                'errors' => ['SMS yuborishda xatolik: ' . $e->getMessage()],
+            ];
+        }
+
+        $data = (json_decode($response->content))->data;
+        $token = $data->token;
+        $from = "4546";
+        $url = 'http://notify.eskiz.uz/api/message/sms/send';
+        $textNew = "SARBON UNIVERSITETI qabul saytiga ro'yxatdan o'tish uchun tasdiqlash kodi: " . $text;
+
+        try {
+            $response = $client->createRequest()
+                ->setFormat(Client::FORMAT_JSON)
+                ->setMethod("POST")
+                ->setUrl($url)
+                ->addHeaders(['Authorization' => 'Bearer ' . $token])
+                ->setData([
+                    'message' => $textNew,
+                    'mobile_phone' => $phone,
+                    'from' => $from
+                ])
+                ->send();
+        } catch (\Exception $e) {
+            return [
+                'is_ok' => false,
+                'errors' => ['SMS yuborishda xatolik: ' . $e->getMessage()],
+            ];
+        }
+        return ($response->statusCode);
+    }
+
     public static function sendSms($phone, $text)
     {
         $phone = preg_replace("/[^0-9]/", "", $phone);
@@ -29,6 +80,7 @@ class Message extends \yii\db\ActiveRecord
         $password = 'UknMFbL9gen9oy8JKbibVpBNfrMP1VY6lq0sFuyj';
         $url = 'http://notify.eskiz.uz/api/auth/login';
         $client = new Client();
+
         $response = $client->createRequest()
             ->setFormat(Client::FORMAT_JSON)
             ->setMethod("POST")
@@ -38,6 +90,7 @@ class Message extends \yii\db\ActiveRecord
                 'password' => $password
             ])
             ->send();
+
         $data = (json_decode($response->content))->data;
         $token = $data->token;
         $from = "4546";
@@ -67,12 +120,12 @@ class Message extends \yii\db\ActiveRecord
                 "messages":
                     [
                         {
-                        "recipient":'.$phone.',
+                        "recipient":' . $phone . ',
                         "message-id":"abc000000001",
                             "sms":{
                                 "originator": "3700",
                                 "content": {
-                                    "text": "'.$text.'"
+                                    "text": "' . $text . '"
                                 }
                             }
                         }
@@ -89,7 +142,7 @@ class Message extends \yii\db\ActiveRecord
             CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_POSTFIELDS => $data,
             CURLOPT_HTTPHEADER => array(
-                "Authorization: Basic ".base64_encode("tgfu:6Ya!W5n=Xk9c"),
+                "Authorization: Basic " . base64_encode("tgfu:6Ya!W5n=Xk9c"),
                 "cache-control: no-cache",
                 "content-type: application/json",
             ),
@@ -97,9 +150,6 @@ class Message extends \yii\db\ActiveRecord
         $response = curl_exec($curl);
         $err = curl_error($curl);
         curl_close($curl);
-        return $phone." --- ".$response;
+        return $phone . " --- " . $response;
     }
-
-
 }
-

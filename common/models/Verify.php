@@ -40,7 +40,8 @@ class Verify extends Model
         return false;
     }
 
-    function simple_errors($errors) {
+    function simple_errors($errors)
+    {
         $result = [];
         foreach ($errors as $lev1) {
             foreach ($lev1 as $key => $error) {
@@ -58,7 +59,8 @@ class Verify extends Model
         return $this->_user;
     }
 
-    public static function confirm($user , $model) {
+    public static function confirm($user, $model)
+    {
         $transaction = Yii::$app->db->beginTransaction();
         $errors = [];
         $time = time() + 5;
@@ -66,7 +68,7 @@ class Verify extends Model
         if (!$model->validate()) {
             $errors[] = $model->simple_errors($model->errors);
             $transaction->rollBack();
-            return ['is_ok' => false , 'errors' => $errors];
+            return ['is_ok' => false, 'errors' => $errors];
         }
 
         $smsTime = $user->sms_time;
@@ -91,7 +93,7 @@ class Verify extends Model
                 $amo = CrmPush::processType(2, $student, $user);
                 if (!$amo['is_ok']) {
                     $transaction->rollBack();
-                    return ['is_ok' => false , 'errors' => $amo['errors']];
+                    return ['is_ok' => false, 'errors' => $amo['errors']];
                 }
 
                 Yii::$app->user->login($user,  3600 * 15);
@@ -103,13 +105,14 @@ class Verify extends Model
         if (count($errors) == 0) {
             $transaction->commit();
             return ['is_ok' => true, 'user' => $user];
-        }else {
+        } else {
             $transaction->rollBack();
             return ['is_ok' => false, 'errors' => $errors, 'user' => $user];
         }
     }
 
-    public static function sendSms($user) {
+    public static function sendSms($user)
+    {
         $transaction = Yii::$app->db->beginTransaction();
         $errors = [];
         $time = time();
@@ -129,18 +132,23 @@ class Verify extends Model
 
         if (count($errors) == 0) {
             if ($t) {
-                Message::sendSms($user->username, $user->sms_number);
+                $result = Message::sendSmsNew($user->username, $user->sms_number);
+                if (!$result['is_ok']) {
+                    $transaction->rollBack();
+                    return ['is_ok' => false, 'errors' => $result['errors']];
+                }
             }
             $transaction->commit();
-            return ['is_ok' => true , 'user' => $user];
-        }else {
+            return ['is_ok' => true, 'user' => $user];
+        } else {
             $transaction->rollBack();
-            return ['is_ok' => false , 'errors' => $errors , 'user' => $user];
+            return ['is_ok' => false, 'errors' => $errors, 'user' => $user];
         }
     }
 
 
-    public static function password($user , $model) {
+    public static function password($user, $model)
+    {
         $transaction = Yii::$app->db->beginTransaction();
         $errors = [];
         $time = time() + 5;
@@ -148,7 +156,7 @@ class Verify extends Model
         if (!$model->validate()) {
             $errors[] = $model->simple_errors($model->errors);
             $transaction->rollBack();
-            return ['is_ok' => false , 'errors' => $errors];
+            return ['is_ok' => false, 'errors' => $errors];
         }
 
         $smsTime = $user->sms_time;
@@ -157,7 +165,11 @@ class Verify extends Model
             $user->sms_time = strtotime('+2 minutes', time());
             $user->sms_number = rand(100000, 999999);
             $user->save(false);
-            Message::sendSms($user->username, $user->sms_number);
+            $result = Message::sendSmsNew($user->username, $user->sms_number);
+            if (!$result['is_ok']) {
+                $transaction->rollBack();
+                return ['is_ok' => false, 'errors' => $result['errors']];
+            }
         } else {
             if ($user->sms_number == $model->sms_code) {
                 $user->setPassword($user->new_password);
@@ -181,10 +193,10 @@ class Verify extends Model
 
         if (count($errors) == 0) {
             $transaction->commit();
-            return ['is_ok' => true , 'user' => $user];
-        }else {
+            return ['is_ok' => true, 'user' => $user];
+        } else {
             $transaction->rollBack();
-            return ['is_ok' => false , 'errors' => $errors, 'user' => $user];
+            return ['is_ok' => false, 'errors' => $errors, 'user' => $user];
         }
     }
 
