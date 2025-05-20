@@ -88,6 +88,8 @@ class StepOneTwo extends Model
 
                 if (!$student->validate()){
                     $errors[] = $this->simple_errors($student->errors);
+                    $transaction->rollBack();
+                    return ['is_ok' => false, 'errors' => $errors];
                 }
 
                 if (in_array(null, [
@@ -133,58 +135,11 @@ class StepOneTwo extends Model
                 $transaction->rollBack();
                 return ['is_ok' => false, 'errors' => $errors];
             }
-
-//            $integration = new Integration();
-//            $integration->birthDate = date("d-m-Y" , strtotime($this->birthday));
-//            $integration->series = $this->seria;
-//            $integration->number = $this->number;
-//            $data = $integration->checkPassport();
-//            if ($data['is_ok']) {
-//                $data = $data['data'];
-//                $student->first_name = $data['first_name'];
-//                $student->last_name = $data['last_name'];
-//                $student->middle_name = $data['middle_name'];
-//                $student->passport_number = $data['passport_number'];
-//                $student->passport_serial = $data['passport_serial'];
-//                $student->passport_pin = (string)$data['passport_pin'];
-//                $student->birthday = $data['birthday'];
-//                $student->gender = $data['gender'];
-//
-//                if (!$student->validate()){
-//                    $errors[] = $this->simple_errors($student->errors);
-//                }
-//
-//                $query = Student::find()
-//                    ->joinWith('user')
-//                    ->where(['passport_pin' => $student->passport_pin])
-//                    ->andWhere(['user.status' => [9, 10]])
-//                    ->one();
-//
-//                if ($query) {
-//                    $queryUser = $query->user;
-//                    if ($queryUser->id != $user->id) {
-//                        $domen = $queryUser->cons->domen ?? '----';
-//                        $errors[] = ['Bu pasport ma\'lumot avval ro\'yhatdan o\'tgan. Tel:' . $queryUser->username . ' Domen: ' .$domen];
-//                        $transaction->rollBack();
-//                        return ['is_ok' => false, 'errors' => $errors];
-//                    }
-//                }
-//
-//                $amo = CrmPush::processType(3, $student, $user);
-//                if (!$amo['is_ok']) {
-//                    $transaction->rollBack();
-//                    return ['is_ok' => false , 'errors' => $amo['errors']];
-//                }
-//            } else {
-//                $errors[] = ['Ma\'lumotlarni olishda xatolik yuz berdi.'];
-//                $transaction->rollBack();
-//                return ['is_ok' => false, 'errors' => $errors];
-//            }
         }
 
         $student->save(false);
         $user->step = 2;
-        $user->update(false);
+        $user->save(false);
 
         if (count($errors) == 0) {
             $transaction->commit();
