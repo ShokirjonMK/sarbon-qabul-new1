@@ -105,7 +105,7 @@ class StepOneTwo extends Model
                     return ['is_ok' => false, 'errors' => $errors];
                 }
 
-                $student->update(false);
+                $student->save(false);
 
                 $query = Student::find()
                     ->joinWith('user')
@@ -182,7 +182,7 @@ class StepOneTwo extends Model
 //            }
         }
 
-        $student->update(false);
+        $student->save(false);
         $user->step = 2;
         $user->update(false);
 

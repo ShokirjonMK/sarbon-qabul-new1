@@ -80,7 +80,7 @@ $breadcrumbs['item'][] = [
             'contentOptions' => ['date-label' => 'Yo\'nalish'],
             'format' => 'raw',
             'value' => function ($model) {
-                return $model->direction->name_uz ?? '------';
+                return $model->eduDirection->direction->name ?? '----';
             },
         ],
         [

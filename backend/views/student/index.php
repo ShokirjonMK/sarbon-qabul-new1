@@ -53,7 +53,7 @@ $breadcrumbs['item'][] = [
             'contentOptions' => ['date-label' => 'Yo\'nalishi' ,'class' => 'wid250'],
             'format' => 'raw',
             'value' => function($model) {
-                return $model->direction->name ?? '----';
+                return $model->eduDirection->direction->name ?? '----';
             },
         ],
         [
@@ -77,7 +77,7 @@ $breadcrumbs['item'][] = [
             'contentOptions' => ['date-label' => 'Ta\'lim tili'],
             'format' => 'raw',
             'value' => function($model) {
-                return $model->language->name_uz ?? '----';
+                return $model->lang->name_uz ?? '----';
             },
         ],
         [
