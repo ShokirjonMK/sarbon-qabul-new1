@@ -101,7 +101,11 @@ class StepOneTwo extends Model
                     $student->gender,
                 ], true)) {
                     $errors[] = ['Pasport ma\'lumot yuklashda xatolik'];
+                    $transaction->rollBack();
+                    return ['is_ok' => false, 'errors' => $errors];
                 }
+
+                $student->update(false);
 
                 $query = Student::find()
                     ->joinWith('user')
