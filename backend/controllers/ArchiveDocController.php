@@ -74,7 +74,7 @@ class ArchiveDocController extends Controller
                 $model->student_full_name = $student->first_name . ' ' . $student->last_name . ' ' . $student->middle_name;
                 $model->direction = $student->direction->name_uz;
                 $model->edu_form = $student->eduForm->name_uz;
-                $model->phone_number = $student->student_phone;
+                $model->phone_number = $student->username;
                 $model->direction_id = $student->direction_id;
                 $model->edu_form_id = $student->edu_form_id;
                 $model->edu_direction_id = $student->edu_direction_id;
