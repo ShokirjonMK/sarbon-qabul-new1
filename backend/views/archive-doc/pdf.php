@@ -27,7 +27,7 @@ use yii\helpers\Html;
     }
 
     .docs-table th, .docs-table td {
-        border: 1px solid #000;
+        border: 1px solid #fff;
         padding: 5px 10px;
         text-align: left;
     }
