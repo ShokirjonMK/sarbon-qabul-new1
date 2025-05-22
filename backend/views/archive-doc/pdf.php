@@ -35,18 +35,12 @@ use yii\helpers\Html;
     .docs-table th {
         text-align: center;
     }
-
-    .footer {
-        text-align: center;
-        margin-top: 50px;
-        font-weight: bold;
-    }
 </style>
 
 <h3>O‘ZBEKISTON RESPUBLIKASI OLIY TA’LIM, FAN VA INNOVATSIYALAR VAZIRLIGI</h3>
 <h4>SARBON UNIVERSITETI</h4>
 
-<table class="info-table">
+<table class="info-table" style="margin-top: 100px">
     <tr>
         <td><strong>Ta’lim yo‘nalishi:</strong></td>
         <td><?= Html::encode($model->direction) ?></td>
@@ -69,7 +63,7 @@ use yii\helpers\Html;
     </tr>
 </table>
 
-<h4>HUJJATLAR RO‘YXATI</h4>
+<h4 style="margin-top: 180px">HUJJATLAR RO‘YXATI</h4>
 
 <table class="docs-table">
     <tr>
@@ -108,7 +102,3 @@ use yii\helpers\Html;
         <td><?= $model->payment_receipt ? 'HA' : 'YO‘Q' ?></td>
     </tr>
 </table>
-
-<div class="footer">
-    Toshkent – <?= date('Y') ?> yil
-</div>
