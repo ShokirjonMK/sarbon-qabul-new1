@@ -58,7 +58,7 @@ $query = Student::find()
         'pluginOptions' => [
             'allowClear' => true
         ],
-    ]) ?>
+    ])->label('Talabalar ( '.count($query).' )') ?>
 
     <hr>
     <h4>📎 Hujjatlar</h4>
