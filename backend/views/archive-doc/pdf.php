@@ -67,7 +67,7 @@ use yii\helpers\Html;
 
 <table class="docs-table">
     <tr>
-        <th>#</th>
+        <th>№</th>
         <th>Hujjat nomi</th>
         <th>Holat</th>
     </tr>
