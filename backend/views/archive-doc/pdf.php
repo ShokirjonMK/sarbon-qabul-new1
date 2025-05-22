@@ -63,7 +63,7 @@ use yii\helpers\Html;
     </tr>
 </table>
 
-<h4 style="margin-top: 180px">HUJJATLAR RO‘YXATI</h4>
+<h4 style="margin-top: 100px">HUJJATLAR RO‘YXATI</h4>
 
 <table class="docs-table">
     <tr>
