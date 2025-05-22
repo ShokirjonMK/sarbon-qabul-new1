@@ -18,7 +18,11 @@ use kartik\select2\Select2;
 
     <?= $form->field($model, 'student_id')->widget(Select2::class, [
         'data' => ArrayHelper::map(
-                Student::find()->where(["is_deleted"=>0, 'status' => [9,10]])->all(),
+            Student::find()
+                ->joinWith('user')
+                ->where(['student.is_deleted' => 0])
+                ->andWhere(['user.status' => [9, 10]])
+                ->all(),
             'id',
             function ($model) {
                 return $model->first_name . ' ' . $model->last_name . ' ' . $model->middle_name .
