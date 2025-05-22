@@ -22,12 +22,12 @@ use yii\helpers\Html;
     }
 
     .info-table td {
-        border: 1px solid #000;
+        border: 1px solid #e9ecef;
         padding: 6px 8px;
     }
 
     .docs-table th, .docs-table td {
-        border: 1px solid #fff;
+        border: 1px solid #e9ecef;
         padding: 5px 10px;
         text-align: left;
     }
