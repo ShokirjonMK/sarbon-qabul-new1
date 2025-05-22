@@ -1,5 +1,4 @@
 <?php
-
 use yii\helpers\Html;
 
 /** @var app\models\ArchiveDoc $model */
@@ -11,86 +10,105 @@ use yii\helpers\Html;
         font-size: 12pt;
     }
 
-    h3,
-    h4 {
+    h3, h4 {
         text-align: center;
         margin: 5px 0;
     }
 
-    .section {
-        margin-top: 20px;
+    .info-table, .docs-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px auto;
     }
 
-    .label {
+    .info-table td {
+        border: 1px solid #000;
+        padding: 6px 8px;
+    }
+
+    .docs-table th, .docs-table td {
+        border: 1px solid #000;
+        padding: 5px 10px;
+        text-align: left;
+    }
+
+    .docs-table th {
+        text-align: center;
+    }
+
+    .footer {
+        text-align: center;
+        margin-top: 50px;
         font-weight: bold;
-    }
-
-    table {
-        margin-left: -10px;
-    }
-
-    .check {
-        font-weight: bold;
-        color: #28a745;
-    }
-
-    .nocheck {
-        font-weight: bold;
-        color: #dc3545;
     }
 </style>
 
 <h3>O‘ZBEKISTON RESPUBLIKASI OLIY TA’LIM, FAN VA INNOVATSIYALAR VAZIRLIGI</h3>
 <h4>SARBON UNIVERSITETI</h4>
 
-<div class="section">
-    <p><span class="label">Ta’lim yo‘nalishi: </span> <?= Html::encode($model->direction) ?></p>
-    <p><span class="label">Ta’lim shakli: </span> <?= Html::encode($model->edu_form) ?></p>
-    <p><span class="label">Talaba FIO: </span> <?= Html::encode($model->student_full_name) ?></p>
-    <p><span class="label">Telefon raqami: </span> <?= Html::encode($model->phone_number) ?></p>
-    <p><span class="label">Hujjat topshirilgan sana: </span> <?= Yii::$app->formatter->asDate($model->submission_date, 'php:Y-m-d') ?></p>
-</div>
+<table class="info-table">
+    <tr>
+        <td><strong>Ta’lim yo‘nalishi:</strong></td>
+        <td><?= Html::encode($model->direction) ?></td>
+    </tr>
+    <tr>
+        <td><strong>Ta’lim shakli:</strong></td>
+        <td><?= Html::encode($model->edu_form) ?></td>
+    </tr>
+    <tr>
+        <td><strong>Talaba FIO:</strong></td>
+        <td><?= Html::encode($model->student_full_name) ?></td>
+    </tr>
+    <tr>
+        <td><strong>Tel raqami:</strong></td>
+        <td><?= Html::encode($model->phone_number) ?></td>
+    </tr>
+    <tr>
+        <td><strong>Hujjat topshirilgan sana:</strong></td>
+        <td><?= Yii::$app->formatter->asDate($model->submission_date, 'php:Y-m-d') ?></td>
+    </tr>
+</table>
 
-<div class="section">
-    <h4>HUJJATLAR RO‘YXATI</h4>
-    <p></p>
+<h4>HUJJATLAR RO‘YXATI</h4>
 
-    <table style="margin-left: auto; margin-right: auto;">
-        <tr>
-            <th>#</th>
-            <th>Hujjat nomi</th>
-            <th>Holat</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Rektor nomiga ariza</td>
-            <td class="<?= $model->application_letter ? 'yes' : 'no' ?>"><?= $model->application_letter ? 'Ha' : 'Yo‘q' ?></td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Passport nusxasi</td>
-            <td class="<?= $model->passport_copy ? 'yes' : 'no' ?>"><?= $model->passport_copy ? 'Ha' : 'Yo‘q' ?></td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Diplom yoki attestat (ilova) asl nusxa</td>
-            <td class="<?= $model->diploma_original ? 'yes' : 'no' ?>"><?= $model->diploma_original ? 'Ha' : 'Yo‘q' ?></td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>3x4 rasm</td>
-            <td class="<?= $model->photo_3x4 ? 'yes' : 'no' ?>"><?= $model->photo_3x4 ? 'Ha' : 'Yo‘q' ?></td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>Shartnoma nusxasi</td>
-            <td class="<?= $model->contract_copy ? 'yes' : 'no' ?>"><?= $model->contract_copy ? 'Ha' : 'Yo‘q' ?></td>
-        </tr>
-        <tr>
-            <td>6</td>
-            <td>To‘lov cheki</td>
-            <td class="<?= $model->payment_receipt ? 'yes' : 'no' ?>"><?= $model->payment_receipt ? 'Ha' : 'Yo‘q' ?></td>
-        </tr>
-    </table>
+<table class="docs-table">
+    <tr>
+        <th>#</th>
+        <th>Hujjat nomi</th>
+        <th>Holat</th>
+    </tr>
+    <tr>
+        <td>1)</td>
+        <td>Rektor nomiga ariza</td>
+        <td><?= $model->application_letter ? 'HA' : 'YO‘Q' ?></td>
+    </tr>
+    <tr>
+        <td>2)</td>
+        <td>Passport nusxasi</td>
+        <td><?= $model->passport_copy ? 'HA' : 'YO‘Q' ?></td>
+    </tr>
+    <tr>
+        <td>3)</td>
+        <td>Diplom yoki attestat(ilovasi) asl nusxa</td>
+        <td><?= $model->diploma_original ? 'HA' : 'YO‘Q' ?></td>
+    </tr>
+    <tr>
+        <td>4)</td>
+        <td>3x4 rasm</td>
+        <td><?= $model->photo_3x4 ? 'HA' : 'YO‘Q' ?></td>
+    </tr>
+    <tr>
+        <td>5)</td>
+        <td>Shartnoma nusxasi</td>
+        <td><?= $model->contract_copy ? 'HA' : 'YO‘Q' ?></td>
+    </tr>
+    <tr>
+        <td>6)</td>
+        <td>To‘lov cheki</td>
+        <td><?= $model->payment_receipt ? 'HA' : 'YO‘Q' ?></td>
+    </tr>
+</table>
 
+<div class="footer">
+    Toshkent – <?= date('Y') ?> yil
 </div>
