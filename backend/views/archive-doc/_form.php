@@ -49,7 +49,7 @@ $query = Student::find()
             'id',
             function ($model) {
                 return $model->first_name . ' ' . $model->last_name . ' ' . $model->middle_name .
-                    ' | 📞 ' . $model->student_phone .
+                    ' | 📞 ' . $model->username .
                     ' | 🆔 ' . $model->passport_serial . $model->passport_number .
                     ' | PIN: ' . $model->passport_pin;
             }
