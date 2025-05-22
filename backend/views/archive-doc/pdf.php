@@ -94,8 +94,3 @@ use yii\helpers\Html;
     </table>
 
 </div>
-
-<div class="section" style="text-align: center; margin-top: 50px;">
-    <p style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);">Toshkent – <?= date('Y') ?> yil</p>
-
-</div>

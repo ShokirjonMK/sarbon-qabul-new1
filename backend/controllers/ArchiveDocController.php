@@ -114,10 +114,14 @@ class ArchiveDocController extends Controller
             'model' => $model,
         ]);
 
-        $pdf = new Mpdf([
+        $pdf = new \Mpdf\Mpdf([
             'format' => 'A4',
             'margin_top' => 20,
+            'margin_bottom' => 20, // pastgi bo‘sh joyni ham aniqlaymiz
         ]);
+
+        // Footer qo‘shamiz
+        $pdf->SetHTMLFooter('<div style="text-align: center;">Toshkent – ' . date('Y') . ' yil</div>');
 
         $pdf->WriteHTML($html);
         return $pdf->Output('Talaba_blanka.pdf', \Mpdf\Output\Destination::INLINE);
