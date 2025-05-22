@@ -72,32 +72,32 @@ use yii\helpers\Html;
         <th>Holat</th>
     </tr>
     <tr>
-        <td>1)</td>
+        <td>1</td>
         <td>Rektor nomiga ariza</td>
         <td><?= $model->application_letter ? 'HA' : 'YO‘Q' ?></td>
     </tr>
     <tr>
-        <td>2)</td>
+        <td>2</td>
         <td>Passport nusxasi</td>
         <td><?= $model->passport_copy ? 'HA' : 'YO‘Q' ?></td>
     </tr>
     <tr>
-        <td>3)</td>
+        <td>3</td>
         <td>Diplom yoki attestat(ilovasi) asl nusxa</td>
         <td><?= $model->diploma_original ? 'HA' : 'YO‘Q' ?></td>
     </tr>
     <tr>
-        <td>4)</td>
+        <td>4</td>
         <td>3x4 rasm</td>
         <td><?= $model->photo_3x4 ? 'HA' : 'YO‘Q' ?></td>
     </tr>
     <tr>
-        <td>5)</td>
+        <td>5</td>
         <td>Shartnoma nusxasi</td>
         <td><?= $model->contract_copy ? 'HA' : 'YO‘Q' ?></td>
     </tr>
     <tr>
-        <td>6)</td>
+        <td>6</td>
         <td>To‘lov cheki</td>
         <td><?= $model->payment_receipt ? 'HA' : 'YO‘Q' ?></td>
     </tr>
