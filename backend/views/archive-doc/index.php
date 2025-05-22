@@ -54,7 +54,7 @@ $breadcrumbs['item'][] = [
                 'attribute' => 'phone_number',
                 'label' => 'Telefon raqami',
                 'value' => function ($model) {
-                    return $model->phone_number ?: '(qayt etilmagan)';
+                    return $model->username;
                 }
             ],
             [
