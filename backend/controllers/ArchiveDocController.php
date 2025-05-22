@@ -5,6 +5,7 @@ namespace backend\controllers;
 use common\models\ArchiveDoc;
 use common\models\ArchiveDocSearch;
 use common\models\Student;
+use Mpdf\Mpdf;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -103,6 +104,24 @@ class ArchiveDocController extends Controller
     //         'model' => $model,
     //     ]);
     // }
+
+
+    public function actionPdf($id)
+    {
+        $model = $this->findModel($id);
+
+        $html = $this->renderPartial('pdf', [
+            'model' => $model,
+        ]);
+
+        $pdf = new Mpdf([
+            'format' => 'A4',
+            'margin_top' => 20,
+        ]);
+
+        $pdf->WriteHTML($html);
+        return $pdf->Output('Talaba_blanka.pdf', \Mpdf\Output\Destination::INLINE);
+    }
 
     /**
      * Updates an existing ArchiveDoc model.

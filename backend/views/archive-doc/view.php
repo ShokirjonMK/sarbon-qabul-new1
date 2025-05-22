@@ -59,4 +59,10 @@ $breadcrumbs['item'][] = [
         ],
     ]) ?>
 
+
+    <?= Html::a('<i class="fa fa-file-pdf"></i> PDF yuklash', ['pdf', 'id' => $model->id], [
+        'class' => 'btn btn-outline-danger',
+        'target' => '_blank'
+    ]) ?>
+
 </div>
