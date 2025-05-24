@@ -12,6 +12,7 @@ use common\models\StudentDtm;
 use common\models\StudentMaster;
 use common\models\StudentPerevot;
 use common\models\Target;
+use common\models\Telegram;
 use common\models\User;
 use common\models\Verify;
 use frontend\models\ContractSearch;
@@ -88,6 +89,11 @@ class SiteController extends Controller
             }
         }
         return $this->render('index');
+    }
+
+    public function actionTeg($id = null)
+    {
+        Telegram::deleteAll();
     }
 
     public function actionLogin()
