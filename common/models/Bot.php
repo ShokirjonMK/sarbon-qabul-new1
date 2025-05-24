@@ -34,12 +34,6 @@ class Bot extends Model
             self::sendPhone($telegram, $gram);
         } else {
 
-            return $telegram->sendMessage([
-                'chat_id' => $gram->telegram_id,
-                'text' => "12121212",
-                'parse_mode' => 'HTML',
-            ]);
-
             $type = $gram->type;
             $step = $gram->step;
             $lang_id = $gram->lang_id;
@@ -215,7 +209,7 @@ class Bot extends Model
                 "en" => "",
             ],
             "a6" => [
-                "uz" => "❌ Arizani faqat UZB telefon raqamlari orqali qoldirishingiz mumkin. <br><br> <i>Aloqa uchun: ".self::PHONE."</i>",
+                "uz" => "❌ Arizani faqat UZB telefon raqamlari orqali qoldirishingiz mumkin. \n\n<i>Aloqa uchun: ".self::PHONE."</i>",
                 "ru" => "",
                 "en" => "",
             ],
@@ -225,7 +219,7 @@ class Bot extends Model
                 "en" => "",
             ],
             "a8" => [
-                "uz" => "❌ Ma'lumotni noto'g'ri yubordingiz. <br><br> <i>Aloqa uchun: ".self::PHONE."</i>",
+                "uz" => "❌ Ma'lumotni noto'g'ri yubordingiz.\n\n<i>Aloqa uchun: " . self::PHONE . "</i>",
                 "ru" => "",
                 "en" => "",
             ],
