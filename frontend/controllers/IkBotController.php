@@ -21,49 +21,27 @@ class IkBotController extends Controller
     public function actionCons()
     {
         // Xamkor yozib ketiladi, eslab qolish uchun;
-
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $telegram = Yii::$app->telegram;
-        $telegram_id = $telegram->input->message->chat->id;
 
-        $message = "> Sarbon universitetida qabul boshlandi\n";
-        $message .= "> 2025-2026-o‘quv yili uchun quyidagi yo‘nalishlarga qabul ochiq:\n";
-        $message .= ">\n";
-        $message .= "> • Yurisdprudentsiya\n";
-        $message .= "> • Kosmetologiya\n";
-        $message .= "> • Iqtisodiyot\n";
-        $message .= "> • Axborot xavfsizligi\n";
-        $message .= "> • Dizayn\n";
-        $message .= "> • Qurilish muhandisligi\n";
-        $message .= ">\n";
-        $message .= "> Hujjat topshirish uchun shoshiling!";
+        try {
 
-        return $telegram->sendMessage([
-            'chat_id' => $telegram_id,
-            'text' => $message,
-            // parse_mode NI YOZMANG!
-        ]);
+            $result = Bot::telegram($telegram);
+            if ($result['is_ok']) {
+                return $result['telegram'];
+            }
 
-
-
-
-//        $photoUrl = "https://qabul.sarbon.university/frontend/web/images/new_bino.jpg";
-//        return $telegram->sendPhoto([
-//            'chat_id' => $telegram_id,
-//            'photo' => $photoUrl,
-//            'caption' => "🇺🇿 *TASHKENT SARBON UNIVERSITY* haqida rasm\n\nTelefon raqamingizni yuboring",
-//            'parse_mode' => 'Markdown',
-//            'reply_markup' => json_encode([
-//                'keyboard' => [[
-//                    [
-//                        'text' => "☎️ Telefon raqamni yuborish",
-//                        'request_contact' => true
-//                    ]
-//                ]],
-//                'resize_keyboard' => true,
-//                'one_time_keyboard' => true,
-//            ])
-//        ]);
+        } catch (\Exception $e) {
+            return $telegram->sendMessage([
+                'chat_id' => 1841508935,
+                'text' => $e->getMessage(),
+            ]);
+        } catch (\Throwable $t) {
+            return $telegram->sendMessage([
+                'chat_id' => 1841508935,
+                'text' => $t->getMessage(), " at ", $t->getFile(), ":", $t->getLine(),
+            ]);
+        }
     }
 
 }
