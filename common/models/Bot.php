@@ -36,10 +36,10 @@ class Bot extends Model
 
             return $telegram->sendMessage([
                 'chat_id' => $gram->telegram_id,
-                'text' => (string)$gram->type,
+                'text' => "12121212",
                 'parse_mode' => 'HTML',
             ]);
-            
+
             $type = $gram->type;
             $step = $gram->step;
             $lang_id = $gram->lang_id;
