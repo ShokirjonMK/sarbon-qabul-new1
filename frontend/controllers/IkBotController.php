@@ -24,24 +24,7 @@ class IkBotController extends Controller
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $telegram = Yii::$app->telegram;
 
-        try {
-
-            $result = Bot::telegram($telegram);
-            if ($result['is_ok']) {
-                return $result['telegram'];
-            }
-
-        } catch (\Exception $e) {
-            return $telegram->sendMessage([
-                'chat_id' => 1841508935,
-                'text' => $e->getMessage(),
-            ]);
-        } catch (\Throwable $t) {
-            return $telegram->sendMessage([
-                'chat_id' => 1841508935,
-                'text' => $t->getMessage(), " at ", $t->getFile(), ":", $t->getLine(),
-            ]);
-        }
+        Bot::telegram($telegram);
     }
 
 }
