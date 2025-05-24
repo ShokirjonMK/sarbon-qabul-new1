@@ -33,14 +33,29 @@ class Bot extends Model
 
             self::sendPhone($telegram, $gram);
         } else {
-
             $type = $gram->type;
             $step = $gram->step;
             $lang_id = $gram->lang_id;
-            self::setBotCommands($token, $lang_id);
+
+//            self::setBotCommands($token, $lang_id);
 
             switch ($type) {
                 case 0:
+                    self::main($telegram, $lang_id, $gram);
+                    break;
+                case 2:
+                    // Universitet haqida
+                    self::main($telegram, $lang_id, $gram);
+                    break;
+                case 3:
+                    // Mavjud yonalishlar
+                    self::main($telegram, $lang_id, $gram);
+                    break;
+                case 4:
+                    // Bot tilini ozgartirish
+                    self::main($telegram, $lang_id, $gram);
+                case 5:
+                    // Ro'yhatdan o'tish
                     self::main($telegram, $lang_id, $gram);
                     break;
                 default:
