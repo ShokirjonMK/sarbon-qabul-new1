@@ -33,6 +33,13 @@ class Bot extends Model
 
             self::sendPhone($telegram, $gram);
         } else {
+
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => (string)$gram->type,
+                'parse_mode' => 'HTML',
+            ]);
+            
             $type = $gram->type;
             $step = $gram->step;
             $lang_id = $gram->lang_id;
