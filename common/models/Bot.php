@@ -277,15 +277,16 @@ class Bot extends Model
             return $telegram->sendMessage([
                 'chat_id' => $gram->telegram_id,
                 'text' => $text,
+                'parse_mode' => 'HTML',
                 'reply_markup' => json_encode([
                     'keyboard' => [
                         [
-                            ['text' => self::getT("a9", $lang_id)],
-                            ['text' => self::getT("a10", $lang_id)],
+                            ['text' => self::getT("a1", $gram->lang_id)],
+                            ['text' => self::getT("a2", $gram->lang_id)],
                         ],
                         [
-                            ['text' => self::getT("a11", $lang_id)],
-                            ['text' => self::getT("a12", $lang_id)],
+                            ['text' => self::getT("a4", $gram->lang_id)],
+                            ['text' => self::getT("a3", $gram->lang_id)],
                         ]
                     ],
                     'resize_keyboard' => true,
@@ -310,15 +311,16 @@ class Bot extends Model
             return $telegram->sendMessage([
                 'chat_id' => $gram->telegram_id,
                 'text' => $text,
+                'parse_mode' => 'HTML',
                 'reply_markup' => json_encode([
                     'keyboard' => [
                         [
-                            ['text' => self::getT("a9", $lang_id)],
-                            ['text' => self::getT("a10", $lang_id)],
+                            ['text' => self::getT("a1", $gram->lang_id)],
+                            ['text' => self::getT("a2", $gram->lang_id)],
                         ],
                         [
-                            ['text' => self::getT("a11", $lang_id)],
-                            ['text' => self::getT("a12", $lang_id)],
+                            ['text' => self::getT("a4", $gram->lang_id)],
+                            ['text' => self::getT("a3", $gram->lang_id)],
                         ]
                     ],
                     'resize_keyboard' => true,
