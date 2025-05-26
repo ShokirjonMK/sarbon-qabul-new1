@@ -42,15 +42,15 @@ class Bot extends Model
             $gram->update(false);
 
             if ($type != 0) {
-                if ($text == 'home') {
+                if ($text == '/home') {
                     self::sendHome($telegram, $lang_id, $gram);
-                } elseif ($text == 'signup') {
+                } elseif ($text == '/signup') {
                     self::signUp($telegram, $lang_id, $gram);
-                } elseif ($text == 'university') {
+                } elseif ($text == '/university') {
                     self::sendUniversity($telegram, $lang_id, $gram);
-                } elseif ($text == 'directions') {
+                } elseif ($text == '/directions') {
                     self::sendDirections($telegram, $lang_id, $gram);
-                } elseif ($text == 'langupdate') {
+                } elseif ($text == '/langupdate') {
                     self::sendLang($telegram, $lang_id, $gram);
                 }
             }
@@ -379,7 +379,7 @@ class Bot extends Model
 
     public static function step0($telegram, $lang_id, $gram, $text)
     {
-        if ($text === 'signup' || $text === self::getT("a3", $lang_id)) {
+        if ($text === '/signup' || $text === self::getT("a3", $lang_id)) {
             return $telegram->sendMessage([
                 'chat_id' => $gram->telegram_id,
                 'text' => self::getT("a16", $lang_id), // Pasport seriya va raqamini kiriting
@@ -444,7 +444,7 @@ class Bot extends Model
         $i = 1;
         $backText = self::getT("a12", $lang_id); // "Orqaga" tugmasi matni
 
-        if ($text === 'signup' || $text === self::getT("a3", $lang_id)) {
+        if ($text === '/signup' || $text === self::getT("a3", $lang_id)) {
             return $telegram->sendMessage([
                 'chat_id' => $gram->telegram_id,
                 'text' => self::getT("a15", $lang_id), // Tug‘ilgan sanani kiriting
