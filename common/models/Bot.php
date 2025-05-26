@@ -27,7 +27,7 @@ class Bot extends Model
             'is_deleted' => 0
         ]);
         return $telegram->sendMessage([
-            'chat_id' => $gram->telegram_id,
+            'chat_id' => $telegram_id,
             'text' => "sasasasas",
             'parse_mode' => 'HTML',
         ]);
