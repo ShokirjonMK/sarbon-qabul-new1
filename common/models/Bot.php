@@ -26,6 +26,11 @@ class Bot extends Model
             'telegram_id' => $telegram_id,
             'is_deleted' => 0
         ]);
+        return $telegram->sendMessage([
+            'chat_id' => $gram->telegram_id,
+            'text' => "sasasasas",
+            'parse_mode' => 'HTML',
+        ]);
         if (!$gram) {
             $gram = new Telegram();
             $gram->telegram_id = $telegram_id;
