@@ -1,38 +1,31 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
-use common\models\StudentOferta;
-use common\models\Exam;
-use common\models\StudentPerevot;
-use common\models\StudentMaster;
-use common\models\StudentDtm;
-use common\models\Course;
-use yii\helpers\Url;
-use common\models\ExamDate;
+
 use kartik\grid\GridView;
+use yii\helpers\ArrayHelper;
+use common\models\User;
+use kartik\grid\ExpandRowColumn;
 
 /** @var yii\web\View $this */
 /** @var common\models\Student $model */
 
-$this->title = $model->fullName;
+$this->title = 'Imtihon natijalari';
 
 $breadcrumbs = [];
 $breadcrumbs['item'][] = [
     'label' => Yii::t('app', 'Bosh sahifa'),
     'url' => ['/'],
 ];
-if ($model->edu_type_id != null) {
-    $breadcrumbs['item'][] = [
-        'label' => $model->eduType->name_uz,
-        'url' => ['index', 'id' => $model->edu_type_id],
-    ];
-} else {
-    $breadcrumbs['item'][] = [
-        'label' => 'Chala arizalar',
-        'url' => ['chala'],
-    ];
-}
+$breadcrumbs['item'][] = [
+    'label' => $model->eduType->name_uz,
+    'url' => ['index', 'id' => $model->edu_type_id],
+];
+$breadcrumbs['item'][] = [
+    'label' => $model->fullName,
+    'url' => ['view', 'id' => $model->id],
+];
+
 
 
 \yii\web\YiiAsset::register($this);
@@ -53,22 +46,56 @@ if ($model->edu_type_id != null) {
         <div class="row">
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
+                'filterModel' => $searchModel,
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
+
+                    [
+                        'class' => ExpandRowColumn::class,
+                        'width' => '50px',
+                        'value' => function () {
+                            return GridView::ROW_COLLAPSED;
+                        },
+                        'detail' => function ($model) {
+                            $histories = $model->histories;
+                            if (empty($histories)) {
+                                return "<i>O‘zgarishlar mavjud emas.</i>";
+                            }
+
+                            $html = '<table class="table table-bordered table-sm">';
+                            $html .= '<thead><tr><th>Maydon</th><th>Eski</th><th>Yangi</th><th>Vaqt</th></tr></thead><tbody>';
+
+                            foreach ($histories as $history) {
+                                $data = is_string($history->data)
+                                    ? json_decode($history->data, true)
+                                    : $history->data;
+
+                                foreach ($data as $attr => $change) {
+                                    $html .= '<tr>';
+                                    $html .= '<td><b>' . Html::encode($attr) . '</b></td>';
+                                    $html .= '<td style="color:red;">' . Html::encode($change['old']) . '</td>';
+                                    $html .= '<td style="color:green;">' . Html::encode($change['new']) . '</td>';
+                                    $html .= '<td>' . Yii::$app->formatter->asDatetime($history->created_at) . '</td>';
+                                    $html .= '</tr>';
+                                }
+                            }
+
+                            $html .= '</tbody></table>';
+                            return $html;
+                        },
+                        'expandOneOnly' => true,
+                    ],
 
                     // [
                     //     'attribute' => 'question_id',
                     //     'label' => 'Savol',
-                    //     'value' => fn($model) => $model->question->text ?? '(yo‘q)',
-                    // ],
-                    // [
-                    //     'attribute' => 'question_id',
-                    //     'label' => 'Savol',
                     //     'format' => 'ntext',
-                    //     'value' => fn($model) => isset($model->question->text) ? strip_tags($model->question->text) : '(yo‘q)',
+                    //     'value' => fn($model) => isset($model->question->text)
+                    //         ? trim(html_entity_decode(strip_tags($model->question->text)))
+                    //         : '(yo‘q)',
                     // ],
                     [
-                        'attribute' => 'question_id',
+                        'attribute' => 'question_text',
                         'label' => 'Savol',
                         'format' => 'ntext',
                         'value' => fn($model) => isset($model->question->text)
@@ -79,23 +106,55 @@ if ($model->edu_type_id != null) {
                         'attribute' => 'option',
                         'label' => 'Tanlangan javob',
                         'format' => 'raw',
-                        'value' => fn($model) => $model->option,
                     ],
                     [
                         'attribute' => 'is_correct',
                         'label' => 'To‘g‘rimi?',
                         'format' => 'raw',
-                        'value' => fn($model) => $model->is_correct ? '<span class="badge bg-success">To‘g‘ri</span>' : '<span class="badge bg-danger">Noto‘g‘ri</span>',
+                        'filter' => [1 => "To'g'ri", 0 => "Noto'g'ri"],
+                        'value' => fn($model) => $model->is_correct
+                            ? '<span class="badge bg-success">To‘g‘ri</span>'
+                            : '<span class="badge bg-danger">Noto‘g‘ri</span>',
                     ],
                     [
-                        'attribute' => 'created_at',
-                        'format' => ['datetime', 'php:Y-m-d H:i'],
-                        'label' => 'Yaratilgan',
+                        'attribute' => 'status',
+                        'label' => 'Holati',
+                        'format' => 'raw',
+                        'filter' => [1 => "Faol", 0 => "Faol emas"],
+                        'value' => fn($model) => match ($model->status) {
+                            1 => '<span class="badge bg-success">Faol</span>',
+                            0 => '<span class="badge bg-warning text-dark">Faol emas</span>',
+                            default => '<span class="badge bg-secondary">Noma’lum</span>',
+                        },
                     ],
                     [
-                        'attribute' => 'updated_at',
-                        'format' => ['datetime', 'php:Y-m-d H:i'],
-                        'label' => 'O‘zgartirilgan',
+                        'attribute' => 'is_deleted',
+                        'label' => 'O‘chirilganmi',
+                        'format' => 'raw',
+                        'filter' => [0 => 'Yo‘q', 1 => 'Ha'],
+                        'value' => fn($model) => $model->is_deleted == 1
+                            ? '<span class="badge bg-danger">O‘chirilgan</span>'
+                            : '<span class="badge bg-primary">Saqlangan</span>',
+                    ],
+                    [
+                        'attribute' => 'created_by',
+                        'label' => 'Yaratgan',
+                        'format' => 'raw',
+                        'filter' => ArrayHelper::map(User::find()->all(), 'id', 'username'),
+                        'value' => fn($model) =>
+                        $model->createdBy
+                            ? '<span class="badge bg-success">' . Html::encode($model->createdBy->username) . '</span>'
+                            : '<span class="badge bg-secondary">nomalum</span>',
+                    ],
+                    [
+                        'attribute' => 'updated_by',
+                        'label' => 'O‘zgartirgan',
+                        'format' => 'raw',
+                        'filter' => ArrayHelper::map(User::find()->all(), 'id', 'username'),
+                        'value' => fn($model) =>
+                        $model->updatedBy
+                            ? '<span class="badge bg-info">' . Html::encode($model->updatedBy->username) . '</span>'
+                            : '<span class="badge bg-secondary">nomalum</span>',
                     ],
                 ],
             ]) ?>

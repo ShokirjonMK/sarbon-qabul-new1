@@ -86,6 +86,12 @@ class ExamStudentQuestions extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getHistories()
+    {
+        return $this->hasMany(ExamStudentQuestionsHistory::class, ['exam_student_question_id' => 'id'])->orderBy(['id' => SORT_DESC]);
+    }
+
+
     /**
      * Gets query for [[Exam]].
      *

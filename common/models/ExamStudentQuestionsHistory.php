@@ -60,9 +60,10 @@ class ExamStudentQuestionsHistory extends \yii\db\ActiveRecord
         return [
 
             [['exam_student_question_id', 'is_correct', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-            [['data'], 'string'],
+            [['data'], 'safe'],
         ];
     }
+
 
     /**
      * {@inheritdoc}
@@ -79,6 +80,15 @@ class ExamStudentQuestionsHistory extends \yii\db\ActiveRecord
             'created_by' => Yii::t('app', 'Created By'),
             'updated_by' => Yii::t('app', 'Updated By'),
         ];
+    }
+
+
+    public function afterFind()
+    {
+        parent::afterFind();
+        if (is_string($this->data)) {
+            $this->data = json_decode($this->data, true);
+        }
     }
 
 
