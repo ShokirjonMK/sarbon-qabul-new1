@@ -18,6 +18,7 @@ use Yii;
  * @property string|null $passport_number
  * @property string|null $passport_serial
  * @property string|null $passport_pin
+ * @property string|null $username
  * @property int|null $edu_type_id
  * @property int|null $edu_form_id
  * @property int|null $edu_direction_id
@@ -35,6 +36,7 @@ use Yii;
 class Telegram extends \yii\db\ActiveRecord
 {
 
+    use ResourceTrait;
 
     /**
      * {@inheritdoc}
@@ -53,8 +55,11 @@ class Telegram extends \yii\db\ActiveRecord
             [['telegram_id', 'phone','type', 'user_id', 'birthday', 'passport_number', 'passport_serial', 'passport_pin', 'edu_type_id', 'edu_form_id', 'edu_direction_id', 'direction_course_id', 'branch_id', 'exam_date_id', 'created_at', 'updated_at'], 'default', 'value' => null],
             [['is_deleted', 'type'], 'default', 'value' => 0],
             [['status'], 'default', 'value' => 1],
-            [['step', 'lang_id', 'edu_type_id', 'edu_form_id', 'edu_direction_id', 'direction_course_id', 'exam_type', 'branch_id', 'exam_date_id', 'status', 'created_at', 'updated_at', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
-            [['telegram_id', 'phone', 'user_id', 'birthday', 'passport_number', 'passport_serial', 'passport_pin'], 'string', 'max' => 255],
+            [['step',  'lang_id', 'edu_type_id', 'edu_form_id', 'edu_direction_id', 'direction_course_id', 'exam_type', 'branch_id', 'exam_date_id', 'status', 'created_at', 'updated_at', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
+            [['telegram_id', 'phone', 'user_id', 'birthday', 'passport_number', 'passport_serial', 'passport_pin', 'oferta_file',
+                'perevot_file',
+                'dtm_file',
+                'master_file','username'], 'string', 'max' => 255],
         ];
     }
 

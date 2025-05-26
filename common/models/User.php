@@ -33,6 +33,7 @@ use yii\web\IdentityInterface;
  * @property string $adress
  * @property string $auth_key
  * @property integer $status
+ * @property integer $bot_step
  * @property integer $created_at
  * @property integer $updated_at
  * @property integer $telegram_step
