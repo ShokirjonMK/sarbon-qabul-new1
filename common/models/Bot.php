@@ -22,20 +22,6 @@ class Bot extends Model
     {
         $telegram_id = $telegram->input->message->chat->id;
         $username = $telegram->input->message->chat->username;
-        try {
-            return $telegram->sendMessage([
-                'chat_id' => $telegram_id,
-                'text' => "sasasasas",
-                'parse_mode' => 'HTML',
-            ]);
-        } catch (\Exception $e) {
-            return $telegram->sendMessage([
-                'chat_id' => self::CHAT_ID,
-                'text' => ['Ik main :( '.$e->getMessage()],
-            ]);
-        }
-        $telegram_id = $telegram->input->message->chat->id;
-        $username = $telegram->input->message->chat->username;
         $gram = Telegram::findOne([
             'telegram_id' => $telegram_id,
             'is_deleted' => 0
