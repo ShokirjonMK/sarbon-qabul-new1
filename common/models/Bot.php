@@ -116,7 +116,7 @@ class Bot extends Model
                     return $telegram->sendMessage([
                         'chat_id' => $gram->telegram_id,
                         'text' => self::getT("a20", $lang_id),
-                        'parse_mode' => 'MarkdownV2',
+                        'parse_mode' => 'HTML',
                         'reply_markup' => json_encode([
                             'keyboard' => [
                                 [
@@ -155,7 +155,7 @@ class Bot extends Model
             return $telegram->sendMessage([
                 'chat_id' => $gram->telegram_id,
                 'text' => self::getT("a20", $lang_id),
-                'parse_mode' => 'MarkdownV2',
+                'parse_mode' => 'HTML',
                 'reply_markup' => json_encode([
                     'keyboard' => [
                         [
@@ -212,7 +212,7 @@ class Bot extends Model
             return $telegram->sendMessage([
                 'chat_id' => $gram->telegram_id,
                 'text' => self::getT("a20", $lang_id),
-                'parse_mode' => 'MarkdownV2',
+                'parse_mode' => 'HTML',
                 'reply_markup' => json_encode([
                     'keyboard' => [
                         [
