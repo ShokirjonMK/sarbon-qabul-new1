@@ -49,7 +49,7 @@ class ExamStudentQuestionsHistory extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'exam_student_questions_history';
+        return 'exam_student_question_history';
     }
 
     /**
