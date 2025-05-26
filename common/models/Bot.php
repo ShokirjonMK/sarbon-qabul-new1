@@ -44,14 +44,19 @@ class Bot extends Model
             if ($type != 0) {
                 if ($text == '/home') {
                     self::sendHome($telegram, $lang_id, $gram);
+                    return true;
                 } elseif ($text == '/signup') {
                     self::signUp($telegram, $lang_id, $gram);
+                    return true;
                 } elseif ($text == '/university') {
                     self::sendUniversity($telegram, $lang_id, $gram);
+                    return true;
                 } elseif ($text == '/directions') {
                     self::sendDirections($telegram, $lang_id, $gram);
+                    return true;
                 } elseif ($text == '/langupdate') {
                     self::sendLang($telegram, $lang_id, $gram);
+                    return true;
                 }
             }
 
