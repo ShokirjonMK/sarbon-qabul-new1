@@ -27,7 +27,8 @@ class Test extends Model
 
     const TIME = 180 * 60;
 
-    function simple_errors($errors) {
+    function simple_errors($errors)
+    {
         $result = [];
         foreach ($errors as $lev1) {
             foreach ($lev1 as $key => $error) {
@@ -37,7 +38,7 @@ class Test extends Model
         return array_unique($result);
     }
 
-    public static function isCheck($student , $user)
+    public static function isCheck($student, $user)
     {
         $transaction = Yii::$app->db->beginTransaction();
         $errors = [];
@@ -47,7 +48,7 @@ class Test extends Model
         if (!$student->ipCheck) {
             $errors[] = ['Sizning qurilmangizga imtihonda qatnashish ruxsati berilamagan.'];
             $transaction->rollBack();
-            return ['is_ok' => false , 'errors' => $errors];
+            return ['is_ok' => false, 'errors' => $errors];
         }
 
         if ($student->edu_type_id != 1) {
@@ -85,7 +86,7 @@ class Test extends Model
                     } else {
                         $i = 1;
                         foreach ($subjects as $subject) {
-                            ExamStudentQuestions::updateAll(['status' => 0 , 'is_deleted' => 1] , ['user_id' => $user->id ,'exam_subject_id' => $subject->id, 'status' => 1, 'is_deleted' => 0]);
+                            ExamStudentQuestions::updateAll(['status' => 0, 'is_deleted' => 1, 'updated_by' => Yii::$app->user->identity->id, 'updated_at' => time()], ['user_id' => $user->id, 'exam_subject_id' => $subject->id, 'status' => 1, 'is_deleted' => 0]);
                             $questionCount = $subject->directionSubject->count;
                             $query = Questions::find()
                                 ->where([
@@ -124,10 +125,9 @@ class Test extends Model
                         $amo = CrmPush::processType(6, $student, $user);
                         if (!$amo['is_ok']) {
                             $transaction->rollBack();
-                            return ['is_ok' => false , 'errors' => $amo['errors']];
+                            return ['is_ok' => false, 'errors' => $amo['errors']];
                         }
                     }
-
                 } elseif ($exam->status == 2) {
                     if ($exam->finish_time <= $time) {
                         $exam = self::finish($exam);
@@ -135,7 +135,7 @@ class Test extends Model
                         $amo = CrmPush::processType(6, $student, $user);
                         if (!$amo['is_ok']) {
                             $transaction->rollBack();
-                            return ['is_ok' => false , 'errors' => $amo['errors']];
+                            return ['is_ok' => false, 'errors' => $amo['errors']];
                         }
                     }
                 } else {
@@ -147,10 +147,10 @@ class Test extends Model
 
         if (count($errors) == 0) {
             $transaction->commit();
-            return ['is_ok' => true , 'data' => $exam];
-        }else {
+            return ['is_ok' => true, 'data' => $exam];
+        } else {
             $transaction->rollBack();
-            return ['is_ok' => false , 'errors' => $errors];
+            return ['is_ok' => false, 'errors' => $errors];
         }
     }
 
@@ -168,7 +168,7 @@ class Test extends Model
             $one_ball = $directionSubject->ball;
             if ($examSubject->file_status == 2) {
                 $examSubject->ball = $directionSubject->count * $one_ball;
-                ExamStudentQuestions::updateAll(['is_correct' => 1] , ['exam_subject_id' => $examSubject->id , 'status' => 1, 'is_deleted' => 0]);
+                ExamStudentQuestions::updateAll(['is_correct' => 1, 'updated_by' => Yii::$app->user->identity->id, 'updated_at' => time()], ['exam_subject_id' => $examSubject->id, 'status' => 1, 'is_deleted' => 0]);
             } else {
                 $questions = ExamStudentQuestions::find()
                     ->where([
@@ -240,20 +240,20 @@ class Test extends Model
         $amo = CrmPush::processType(6, $student, $user);
         if (!$amo['is_ok']) {
             $transaction->rollBack();
-            return ['is_ok' => false , 'errors' => $amo['errors']];
+            return ['is_ok' => false, 'errors' => $amo['errors']];
         }
 
         if (count($errors) == 0) {
             $transaction->commit();
-            return ['is_ok' => true , 'data' => $model];
-        }else {
+            return ['is_ok' => true, 'data' => $model];
+        } else {
             $transaction->rollBack();
-            return ['is_ok' => false , 'errors' => $errors];
+            return ['is_ok' => false, 'errors' => $errors];
         }
     }
 
 
-    public static function changeOption($questionId , $optionId)
+    public static function changeOption($questionId, $optionId)
     {
         $transaction = Yii::$app->db->beginTransaction();
         $user = Yii::$app->user->identity;
