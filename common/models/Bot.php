@@ -42,19 +42,19 @@ class Bot extends Model
             $gram->update(false);
 
             if ($type != 0) {
-                if ($text == '/home') {
+                if ($text == '/home' || $text == self::getT("a5", $lang_id)) {
                     self::sendHome($telegram, $lang_id, $gram);
                     return true;
-                } elseif ($text == '/signup') {
+                } elseif ($text == '/signup' || $text == self::getT("a3", $lang_id)) {
                     self::signUp($telegram, $lang_id, $gram);
                     return true;
-                } elseif ($text == '/university') {
+                } elseif ($text == '/university' || $text == self::getT("a1", $lang_id)) {
                     self::sendUniversity($telegram, $lang_id, $gram);
                     return true;
-                } elseif ($text == '/directions') {
+                } elseif ($text == '/directions' || $text == self::getT("a2", $lang_id)) {
                     self::sendDirections($telegram, $lang_id, $gram);
                     return true;
-                } elseif ($text == '/langupdate') {
+                } elseif ($text == '/langupdate' || $text == self::getT("a4", $lang_id)) {
                     self::sendLang($telegram, $lang_id, $gram);
                     return true;
                 }
@@ -64,7 +64,7 @@ class Bot extends Model
                 case 0:
                     self::main($telegram, $lang_id, $gram);
                     break;
-                case 1:
+                case 10:
                     self::signUp($telegram, $lang_id, $gram);
                     break;
                 case 4:
@@ -364,7 +364,7 @@ class Bot extends Model
     {
         try {
             $text = $telegram->input->message->text;
-            $gram->type = 1;
+            $gram->type = 10;
             $gram->update(false);
             $step = $gram->step;
 
