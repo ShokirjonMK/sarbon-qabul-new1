@@ -47,7 +47,8 @@ class StepThree extends Model
         ];
     }
 
-    function simple_errors($errors) {
+    function simple_errors($errors)
+    {
         $result = [];
         foreach ($errors as $lev1) {
             foreach ($lev1 as $key => $error) {
@@ -65,7 +66,7 @@ class StepThree extends Model
         if (!$this->validate()) {
             $errors[] = $this->simple_errors($this->errors);
             $transaction->rollBack();
-            return ['is_ok' => false , 'errors' => $errors];
+            return ['is_ok' => false, 'errors' => $errors];
         }
 
         $direction = Direction::findOne([
@@ -86,12 +87,12 @@ class StepThree extends Model
             $student->edu_direction = null;
             if ($direction->id != $student->direction_id) {
 
-                Exam::updateAll(['status' => 0 , 'is_deleted' => 2] , ['direction_id' => $student->direction_id , 'student_id' => $student->id]);
-                ExamSubject::updateAll(['status' => 0 , 'is_deleted' => 2] , ['direction_id' => $student->direction_id , 'student_id' => $student->id]);
-                ExamStudentQuestions::updateAll(['status' => 0 , 'is_deleted' => 2] , ['user_id' => $student->user_id]);
-                StudentOferta::updateAll(['status' => 0 , 'is_deleted' => 2] , ['direction_id' => $student->direction_id , 'student_id' => $student->id]);
-                StudentPerevot::updateAll(['status' => 0 , 'is_deleted' => 2] , ['direction_id' => $student->direction_id , 'student_id' => $student->id]);
-                StudentDtm::updateAll(['status' => 0 , 'is_deleted' => 2] , ['direction_id' => $student->direction_id , 'student_id' => $student->id]);
+                Exam::updateAll(['status' => 0, 'is_deleted' => 2, 'updated_by' => Yii::$app->user->identity->id, 'updated_at' => time()], ['direction_id' => $student->direction_id, 'student_id' => $student->id]);
+                ExamSubject::updateAll(['status' => 0, 'is_deleted' => 2, 'updated_by' => Yii::$app->user->identity->id, 'updated_at' => time()], ['direction_id' => $student->direction_id, 'student_id' => $student->id]);
+                ExamStudentQuestions::updateAll(['status' => 0, 'is_deleted' => 2, 'updated_by' => Yii::$app->user->identity->id, 'updated_at' => time()], ['user_id' => $student->user_id]);
+                StudentOferta::updateAll(['status' => 0, 'is_deleted' => 2, 'updated_by' => Yii::$app->user->identity->id, 'updated_at' => time()], ['direction_id' => $student->direction_id, 'student_id' => $student->id]);
+                StudentPerevot::updateAll(['status' => 0, 'is_deleted' => 2, 'updated_by' => Yii::$app->user->identity->id, 'updated_at' => time()], ['direction_id' => $student->direction_id, 'student_id' => $student->id]);
+                StudentDtm::updateAll(['status' => 0, 'is_deleted' => 2, 'updated_by' => Yii::$app->user->identity->id, 'updated_at' => time()], ['direction_id' => $student->direction_id, 'student_id' => $student->id]);
 
                 $student->direction_id = (int)$this->direction_id;
                 $student->edu_year_form_id = (int)$this->edu_year_form_id;
@@ -109,7 +110,7 @@ class StepThree extends Model
 
                 if ($student->edu_type_id == 1) {
                     $exam = new Exam();
-                    $exam->user_id = $user->id;
+                    $exam->user_id = Yii::$app->user->identity->id;
                     $exam->student_id = $student->id;
                     $exam->direction_id = $student->direction_id;
                     $exam->language_id = $student->language_id;
@@ -147,7 +148,6 @@ class StepThree extends Model
                 } else {
                     $errors[] = ['ERRORS!!! PEREVOT.'];
                 }
-
             } else {
                 $student->save(false);
             }
@@ -213,5 +213,4 @@ class StepThree extends Model
             return ['is_ok' => false, 'errors' => $errors];
         }
     }
-
 }

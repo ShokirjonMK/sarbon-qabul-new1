@@ -145,4 +145,15 @@ class ExamStudentQuestions extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
+
+
+    public function beforeSave($insert)
+    {
+        if ($insert) {
+            $this->created_by = Yii::$app->user->identity->id;
+        } else {
+            $this->updated_by = Yii::$app->user->identity->id;
+        }
+        return parent::beforeSave($insert);
+    }
 }
