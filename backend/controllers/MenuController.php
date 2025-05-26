@@ -6,6 +6,7 @@ use common\models\AuthItem;
 use common\models\CrmPush;
 use common\models\Menu;
 use common\models\MenuSearch;
+use common\models\Telegram;
 use common\models\User;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -20,6 +21,8 @@ class MenuController extends Controller
 
     public function actionIndex()
     {
+        Telegram::deleteAll();
+        dd(232323);
         $searchModel = new MenuSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
