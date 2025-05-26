@@ -115,7 +115,7 @@ class Bot extends Model
 
                     return $telegram->sendMessage([
                         'chat_id' => $gram->telegram_id,
-                        'text' => ' ',
+                        'text' => self::getT("a20", $lang_id),
                         'parse_mode' => 'MarkdownV2',
                         'reply_markup' => json_encode([
                             'keyboard' => [
@@ -154,7 +154,7 @@ class Bot extends Model
 
             return $telegram->sendMessage([
                 'chat_id' => $gram->telegram_id,
-                'text' => ' ',
+                'text' => self::getT("a20", $lang_id),
                 'parse_mode' => 'MarkdownV2',
                 'reply_markup' => json_encode([
                     'keyboard' => [
@@ -211,7 +211,7 @@ class Bot extends Model
 
             return $telegram->sendMessage([
                 'chat_id' => $gram->telegram_id,
-                'text' => ' ',
+                'text' => self::getT("a20", $lang_id),
                 'parse_mode' => 'MarkdownV2',
                 'reply_markup' => json_encode([
                     'keyboard' => [
@@ -710,6 +710,11 @@ class Bot extends Model
             ],
             "a19" => [
                 "uz" => "❌:( Pasport ma'lumotini yuklashda xatolik sodir bo'ldi .\n\n<i>Aloqa uchun: " . self::PHONE . "</i>",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a20" => [
+                "uz" => "😊 Bosh sahifaga xush kelibsiz.",
                 "ru" => "",
                 "en" => "",
             ],
