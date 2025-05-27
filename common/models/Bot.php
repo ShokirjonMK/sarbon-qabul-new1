@@ -853,7 +853,7 @@ class Bot extends Model
                 'branch_id' => $gram->branch_id,
                 'edu_type_id' => $gram->edu_type_id,
                 'edu_form_id' => $gram->edu_form_id,
-                'lang_id' => $gram->lang_id,
+                'lang_id' => $gram->edu_lang_id,
                 'status' => 1,
                 'is_deleted' => 0
             ])
