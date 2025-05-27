@@ -1526,7 +1526,7 @@ class Bot extends Model
         $row = [];
 
         foreach ($examDates as $index => $examDate) {
-            $row[] = ['text' => date('d.m.Y', strtotime($examDate->date))];
+            $row[] = ['text' => date('Y-m-d H:i', strtotime($examDate->date))];
 
             // Har 2 ta elementdan keyin yangi qatorga o'tamiz
             if (count($row) == 2) {
