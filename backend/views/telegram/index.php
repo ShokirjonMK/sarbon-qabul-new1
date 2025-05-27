@@ -33,7 +33,6 @@ $breadcrumbs['item'][] = [
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'telegram_id',
