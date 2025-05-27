@@ -44,6 +44,7 @@ $breadcrumbs['item'][] = [
             'cons_id',
             'branch_id',
             'lang_id',
+            'type',
             [
                 'class' => ActionColumn::className(),
                 'contentOptions' => ['date-label' => 'Harakatlar' , 'class' => 'd-flex justify-content-around'],
