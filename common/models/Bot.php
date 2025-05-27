@@ -609,6 +609,7 @@ class Bot extends Model
 
         // Agar qabul turini to‘g‘ri kiritgan bo‘lsa
         if (in_array($text, $backOptions)) {
+            $gram->step = ($i + 1);
             $eduTypeId = array_search($text, $backOptions); // index (1 yoki 2) ni topadi
             $gram->edu_type_id = $eduTypeId;
             $gram->save(false);
@@ -664,6 +665,7 @@ class Bot extends Model
 
         // Agar talim shakli to‘g‘ri kiritgan bo‘lsa
         if (in_array($text, $backOptions)) {
+            $gram->step = ($i + 1);
             $eduFormId = array_search($text, $backOptions); // index (1 yoki 2) ni topadi
             $gram->edu_form_id = $eduFormId;
             $gram->save(false);
@@ -720,6 +722,7 @@ class Bot extends Model
 
         // Agar talim tili to‘g‘ri kiritgan bo‘lsa
         if (in_array($text, $backOptions)) {
+            $gram->step = ($i + 1);
             $eduLangId = array_search($text, $backOptions); // index (1 yoki 2) ni topadi
             $gram->edu_lang_id = $eduLangId;
             $gram->save(false);
