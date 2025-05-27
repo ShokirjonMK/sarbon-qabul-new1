@@ -122,6 +122,11 @@ class ExamStudentQuestions extends \yii\db\ActiveRecord
         return $this->hasOne(Options::class, ['id' => 'option_id']);
     }
 
+    public function getChooseOption()
+    {
+        return $this->hasOne(Options::class, ['id' => 'option_id']);
+    }
+
     /**
      * Gets query for [[Question]].
      *

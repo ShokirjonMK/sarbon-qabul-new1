@@ -33,7 +33,7 @@ class Options extends \yii\db\ActiveRecord
     public $photo;
 
     public $photoMaxSize = 1024 * 1024 * 8; // 8 Mb
-    public $photoExtension = 'jpg , png';
+    public $photoExtension = 'jpg,png';
 
 
     /**
@@ -102,7 +102,7 @@ class Options extends \yii\db\ActiveRecord
     }
 
 
-    public static function options($questionId , $jsonOptions)
+    public static function options($questionId, $jsonOptions)
     {
         $jsonOptions = json_decode($jsonOptions);
         $arrayId = [];
@@ -119,14 +119,14 @@ class Options extends \yii\db\ActiveRecord
     }
 
 
-    public static function createItem($model , $post)
+    public static function createItem($model, $post)
     {
         $transaction = Yii::$app->db->beginTransaction();
         $errors = [];
 
         if (!isset($post['example'])) {
             $errors[] = ['Savol matnini yuborishda xatolik.'];
-            return ['is_ok' => false , 'errors' => $errors];
+            return ['is_ok' => false, 'errors' => $errors];
         }
 
         $model->text = $post['example'];
@@ -134,7 +134,7 @@ class Options extends \yii\db\ActiveRecord
         if (!$model->validate()) {
             $errors[] = $model->simple_errors($model->errors);
             $transaction->rollBack();
-            return ['is_ok' => false , 'errors' => $errors];
+            return ['is_ok' => false, 'errors' => $errors];
         }
 
         $photoFile = UploadedFile::getInstance($model, 'photo');
@@ -145,8 +145,8 @@ class Options extends \yii\db\ActiveRecord
                     mkdir(\Yii::getAlias($photoFolderName), 0777, true);
                 }
 
-                $photoName = $model->subject_id ."_". time() . \Yii::$app->security->generateRandomString(20). '.' . $photoFile->extension;
-                if ($photoFile->saveAs($photoFolderName."/".$photoName)) {
+                $photoName = $model->subject_id . "_" . time() . \Yii::$app->security->generateRandomString(20) . '.' . $photoFile->extension;
+                if ($photoFile->saveAs($photoFolderName . "/" . $photoName)) {
                     $model->image = $photoName;
                 }
             }
@@ -157,39 +157,39 @@ class Options extends \yii\db\ActiveRecord
         }
 
         if ($model->is_correct == 1) {
-            Options::updateAll(['is_correct' => 0] , ['question_id' => $model->question_id]);
+            Options::updateAll(['is_correct' => 0], ['question_id' => $model->question_id]);
         }
 
         if (count($errors) == 0) {
             $model->save(false);
             $transaction->commit();
             return ['is_ok' => true];
-        }else {
+        } else {
             $transaction->rollBack();
-            return ['is_ok' => false , 'errors' => $errors];
+            return ['is_ok' => false, 'errors' => $errors];
         }
     }
 
 
-    public static function updateItem($model , $post, $oldModel)
+    public static function updateItem($model, $post, $oldModel)
     {
         $transaction = Yii::$app->db->beginTransaction();
         $errors = [];
 
-//        if ($model->question->status == 1) {
-//            $errors[] = ['Tasdiqlangan savolni variantini o\'zgartirib bo\'lmaydi.'];
-//            return ['is_ok' => false , 'errors' => $errors];
-//        }
+        //        if ($model->question->status == 1) {
+        //            $errors[] = ['Tasdiqlangan savolni variantini o\'zgartirib bo\'lmaydi.'];
+        //            return ['is_ok' => false , 'errors' => $errors];
+        //        }
         if (!isset($post['example'])) {
             $errors[] = ['Variant matnini yuborishda xatolik.'];
-            return ['is_ok' => false , 'errors' => $errors];
+            return ['is_ok' => false, 'errors' => $errors];
         }
         $model->text = $post['example'];
 
         if (!$model->validate()) {
             $errors[] = $model->simple_errors($model->errors);
             $transaction->rollBack();
-            return ['is_ok' => false , 'errors' => $errors];
+            return ['is_ok' => false, 'errors' => $errors];
         }
 
         $photoFile = UploadedFile::getInstance($model, 'photo');
@@ -200,15 +200,15 @@ class Options extends \yii\db\ActiveRecord
                     mkdir(\Yii::getAlias($photoFolderName), 0777, true);
                 }
 
-                $photoName = $model->subject_id ."_". time() . \Yii::$app->security->generateRandomString(20). '.' . $photoFile->extension;
-                if ($photoFile->saveAs($photoFolderName."/".$photoName)) {
+                $photoName = $model->subject_id . "_" . time() . \Yii::$app->security->generateRandomString(20) . '.' . $photoFile->extension;
+                if ($photoFile->saveAs($photoFolderName . "/" . $photoName)) {
                     $model->image = $photoName;
                 }
             }
         }
 
         if ($model->is_correct == 1) {
-            Options::updateAll(['is_correct' => 0] , ['question_id' => $model->question_id]);
+            Options::updateAll(['is_correct' => 0], ['question_id' => $model->question_id]);
         }
 
         if ($model->text == null && $model->image == null) {
@@ -219,9 +219,9 @@ class Options extends \yii\db\ActiveRecord
             $model->save(false);
             $transaction->commit();
             return ['is_ok' => true];
-        }else {
+        } else {
             $transaction->rollBack();
-            return ['is_ok' => false , 'errors' => $errors];
+            return ['is_ok' => false, 'errors' => $errors];
         }
     }
 }

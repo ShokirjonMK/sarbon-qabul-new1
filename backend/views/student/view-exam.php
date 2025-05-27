@@ -102,11 +102,90 @@ $breadcrumbs['item'][] = [
                             ? trim(html_entity_decode(strip_tags($model->question->text)))
                             : '(yo‘q)',
                     ],
+                    // [
+                    //     'attribute' => 'option_id',
+                    //     'label' => 'Tanlangan javob',
+                    //     'format' => 'raw',
+                    //     'value' => fn($model) =>
+                    //     $model->chooseOption
+                    //         ? trim(html_entity_decode(strip_tags($model->chooseOption->text)))
+                    //         : '<span class="text-muted">Tanlanmagan</span>',
+                    // ],
+                    // [
+                    //     'attribute' => 'option',
+                    //     'label' => 'Tanlangan javob',
+                    //     'format' => 'raw',
+                    // ],
+                    // [
+                    //     'attribute' => 'option',
+                    //     'label' => 'Tanlangan javob',
+                    //     'format' => 'raw',
+                    //     'value' => function ($model) {
+                    //         if (!$model->question) return '<span class="text-muted">—</span>';
+
+                    //         $selectedIds = [];
+                    //         $decoded = json_decode($model->option, true);
+                    //         if (is_array($decoded)) {
+                    //             foreach ($decoded as $item) {
+                    //                 if (isset($item['id'])) {
+                    //                     $selectedIds[] = $item['id'];
+                    //                 }
+                    //             }
+                    //         }
+
+                    //         if (empty($selectedIds)) return '<span class="text-muted">—</span>';
+
+                    //         $output = '';
+                    //         foreach ($model->question->options as $option) {
+                    //             if (in_array($option->id, $selectedIds)) {
+                    //                 $output .= $option->text;
+                    //             }
+                    //         }
+
+                    //         return $output ?: '<span class="text-muted">—</span>';
+                    //     },
+                    // ],
                     [
-                        'attribute' => 'option',
+                        'attribute' => 'option_id',
                         'label' => 'Tanlangan javob',
                         'format' => 'raw',
+                        'value' => function ($model) {
+                            if (!$model->question || empty($model->question->options)) {
+                                return '<span class="text-muted">—</span>';
+                            }
+
+                            $output = '<div class="d-inline-block p-2" style="background-color:#e9ecef;border-radius:8px;">';
+
+                            foreach ($model->question->options as $option) {
+                                $text = $option->text;
+                                $isSelected = $option->id == $model->option_id;
+                                $isCorrect = $option->is_correct == 1;
+
+                                if ($isSelected && $isCorrect) {
+                                    $class = 'bg-success text-white';
+                                } elseif ($isSelected && !$isCorrect) {
+                                    $class = 'bg-danger text-white';
+                                } elseif ($isCorrect) {
+                                    $class = 'bg-secondary text-white';
+                                } else {
+                                    $class = 'bg-light text-dark border';
+                                }
+                                // $output .= "<div class='badge $class me-1 mb-1 d-flex align-items-center gap-1' style='font-size:13px;'><span style='font-weight:bold;'>ID:{$option->id})</span> $text</div>";
+
+
+                                // $output .= "<div class='badge $class me-1 mb-1' style='font-size:13px; display: inline-block;'>
+                                // <span style='font-weight:bold;'>ID:{$option->id}</span>&nbsp;$text
+                                // </div>";
+
+                                $output .= "<div class='badge $class me-1 mb-1' style='font-size:13px;'><span>$text</span></div>";
+                            }
+
+                            $output .= '</div>';
+                            return $output;
+                        },
                     ],
+
+
                     [
                         'attribute' => 'is_correct',
                         'label' => 'To‘g‘rimi?',
