@@ -36,6 +36,7 @@ $breadcrumbs['item'][] = [
         'model' => $model,
         'attributes' => [
             'id',
+            'type',
             'telegram_id',
             'branch_id',
             'cons_id',

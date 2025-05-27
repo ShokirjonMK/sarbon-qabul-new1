@@ -874,6 +874,7 @@ class Bot extends Model
 
             if ($gram->edu_type_id == 1) {
                 $gram->step = 7;
+                $gram->save(false);
                 return $telegram->sendMessage([
                     'chat_id' => $gram->telegram_id,
                     'text' => self::getT("a44", $lang_id), // Imtixon turi
@@ -882,6 +883,7 @@ class Bot extends Model
                 ]);
             } elseif ($gram->edu_type_id == 2) {
                 $gram->step = 9;
+                $gram->save(false);
                 return $telegram->sendMessage([
                     'chat_id' => $gram->telegram_id,
                     'text' => self::getT("a54", $lang_id), // Bosqichlari
@@ -908,6 +910,7 @@ class Bot extends Model
                     ]);
                 }
                 $gram->step = 12;
+                $gram->save(false);
                 return $telegram->sendMessage([
                     'chat_id' => $gram->telegram_id,
                     'text' => self::getT("a54", $lang_id), // DTM
@@ -941,6 +944,7 @@ class Bot extends Model
                     ]);
                 }
                 $gram->step = 13;
+                $gram->save(false);
                 return $telegram->sendMessage([
                     'chat_id' => $gram->telegram_id,
                     'text' => self::getT("a54", $lang_id), // MASTER
