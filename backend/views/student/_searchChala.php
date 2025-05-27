@@ -90,7 +90,7 @@ $cons = Consulting::find()
 
                 <div class="col-lg-2 col-md-6">
                     <div class="form-group">
-                        <?= $form->field($model, 'status')->widget(Select2::classname(), [
+                        <?= $form->field($model, 'step')->widget(Select2::classname(), [
                             'data' => Status::step(),
                             'options' => ['placeholder' => 'Status tanlang ...'],
                             'pluginOptions' => [
