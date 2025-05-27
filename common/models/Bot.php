@@ -374,15 +374,46 @@ class Bot extends Model
                 self::step0($telegram, $lang_id, $gram, $text);
             } elseif ($step == 1) {
                 self::step1($telegram, $lang_id, $gram, $text);
+            } elseif ($step == 2) {
+                self::step2($telegram, $lang_id, $gram, $text);
+            } elseif ($step == 3) {
+                self::step3($telegram, $lang_id, $gram, $text);
+            } elseif ($step == 4) {
+                self::step4($telegram, $lang_id, $gram, $text);
+            } elseif ($step == 5) {
+                self::step5($telegram, $lang_id, $gram, $text);
+            } elseif ($step == 6) {
+                self::step6($telegram, $lang_id, $gram, $text);
+            } elseif ($step == 7) {
+                self::step7($telegram, $lang_id, $gram, $text);
+            } elseif ($step == 8) {
+                self::step8($telegram, $lang_id, $gram, $text);
+            } elseif ($step == 9) {
+                self::step9($telegram, $lang_id, $gram, $text);
+            } elseif ($step == 10) {
+//                self::step10($telegram, $lang_id, $gram, $text);
+            } elseif ($step == 11) {
+//                self::step11($telegram, $lang_id, $gram, $text);
+            } elseif ($step == 12) {
+//                self::step12($telegram, $lang_id, $gram, $text);
+            } elseif ($step == 13) {
+//                self::step13($telegram, $lang_id, $gram, $text);
+            } elseif ($step == 14) {
+//                self::step14($telegram, $lang_id, $gram, $text);
             }
+            return $telegram->sendMessage([
+                'chat_id' => self::CHAT_ID,
+                'text' => 'Ik main :(): ',
+                'parse_mode' => 'HTML',
+            ]);
         } catch (\Exception $e) {
             return $telegram->sendMessage([
                 'chat_id' => self::CHAT_ID,
                 'text' => ['Ik main :( ' . $e->getMessage()],
+                'parse_mode' => 'HTML',
             ]);
         }
     }
-
 
     public static function step0($telegram, $lang_id, $gram, $text)
     {
@@ -490,6 +521,13 @@ class Bot extends Model
             if ($passport['is_ok']) {
                 $gram = $passport['gram'];
                 $gram->save(false);
+
+                return $telegram->sendMessage([
+                    'chat_id' => $gram->telegram_id,
+                    'text' => self::getT("a21", $lang_id), // Qabul turini tanlang
+                    'parse_mode' => 'HTML',
+                    'reply_markup' => self::eduType($lang_id)
+                ]);
             } else {
                 $telegram->sendMessage([
                     'chat_id' => $gram->telegram_id,
@@ -521,42 +559,707 @@ class Bot extends Model
             'text' => self::getT("a18", $lang_id), // Xatolik: noto‘g‘ri format
             'parse_mode' => 'HTML',
             'reply_markup' => json_encode([
-                'remove_keyboard' => true
+                'keyboard' => [
+                    [
+                        ['text' => $backText],
+                    ],
+                ],
+                'resize_keyboard' => true,
             ])
         ]);
     }
 
-
-    public static function step10($telegram, $lang_id, $text, $user, $student)
+    public static function step2($telegram, $lang_id, $gram, $text)
     {
+        $i = 2;
+        $backText = self::getT("a12", $lang_id); // "Orqaga" tugmasi matni
+
+        if ($text === '/signup' || $text === self::getT("a3", $lang_id)) {
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a21", $lang_id), // Qabul turini tanlang
+                'parse_mode' => 'HTML',
+                'reply_markup' => self::eduType($lang_id)
+            ]);
+        }
+
+        // Agar foydalanuvchi "Orqaga" tugmasini bosgan bo‘lsa
+        if ($text === $backText) {
+            $gram->step = ($i - 1);
+            $gram->save(false);
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a15", $lang_id), // Tug‘ilgan sanani kiriting
+                'parse_mode' => 'HTML',
+                'reply_markup' => json_encode([
+                    'keyboard' => [
+                        [
+                            ['text' => $backText],
+                        ],
+                    ],
+                    'resize_keyboard' => true,
+                ])
+            ]);
+        }
+
+        $backOptions = [
+            1 => self::getT("a22", $lang_id),
+            2 => self::getT("a23", $lang_id),
+        ];
+
+        // Agar qabul turini to‘g‘ri kiritgan bo‘lsa
+        if (in_array($text, $backOptions)) {
+            $eduTypeId = array_search($text, $backOptions); // index (1 yoki 2) ni topadi
+            $gram->edu_type_id = $eduTypeId;
+            $gram->save(false);
+
+
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a26", $lang_id), // Talim shaklini tanlang
+                'parse_mode' => 'HTML',
+                'reply_markup' => self::eduForm($lang_id)
+            ]);
+        }
+
+        // Talim turi noto'g'ri bo‘lsa
+        return $telegram->sendMessage([
+            'chat_id' => $gram->telegram_id,
+            'text' => self::getT("a33", $lang_id), // Xatolik: noto‘g‘ri
+            'parse_mode' => 'HTML',
+            'reply_markup' => self::eduType($lang_id)
+        ]);
+    }
+
+    public static function step3($telegram, $lang_id, $gram, $text)
+    {
+        $i = 3;
+        $backText = self::getT("a12", $lang_id); // "Orqaga" tugmasi matni
+
+        if ($text === '/signup' || $text === self::getT("a3", $lang_id)) {
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a26", $lang_id), // Talim shaklini tanlang
+                'parse_mode' => 'HTML',
+                'reply_markup' => self::eduForm($lang_id)
+            ]);
+        }
+
+        // Agar foydalanuvchi "Orqaga" tugmasini bosgan bo‘lsa
+        if ($text === $backText) {
+            $gram->step = ($i - 1);
+            $gram->save(false);
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a21", $lang_id), // Qabul turini tanlang
+                'parse_mode' => 'HTML',
+                'reply_markup' => self::eduType($lang_id)
+            ]);
+        }
+
+        $backOptions = [
+            1 => self::getT("a28", $lang_id),
+            2 => self::getT("a29", $lang_id),
+        ];
+
+        // Agar talim shakli to‘g‘ri kiritgan bo‘lsa
+        if (in_array($text, $backOptions)) {
+            $eduFormId = array_search($text, $backOptions); // index (1 yoki 2) ni topadi
+            $gram->edu_form_id = $eduFormId;
+            $gram->save(false);
+
+
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a27", $lang_id), // Talim tili tanlang
+                'parse_mode' => 'HTML',
+                'reply_markup' => self::eduLang($lang_id)
+            ]);
+        }
+
+        // Talim shakli noto'g'ri bo‘lsa
+        return $telegram->sendMessage([
+            'chat_id' => $gram->telegram_id,
+            'text' => self::getT("a34", $lang_id), // Xatolik: noto‘g‘ri
+            'parse_mode' => 'HTML',
+            'reply_markup' => self::eduForm($lang_id)
+        ]);
+    }
+
+    public static function step4($telegram, $lang_id, $gram, $text)
+    {
+        $i = 4;
+        $backText = self::getT("a12", $lang_id); // "Orqaga" tugmasi matni
+
+        if ($text === '/signup' || $text === self::getT("a3", $lang_id)) {
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a27", $lang_id), // Talim tili tanlang
+                'parse_mode' => 'HTML',
+                'reply_markup' => self::eduLang($lang_id)
+            ]);
+        }
+
+        // Agar foydalanuvchi "Orqaga" tugmasini bosgan bo‘lsa
+        if ($text === $backText) {
+            $gram->step = ($i - 1);
+            $gram->save(false);
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a26", $lang_id), // Talim shaklini tanlang
+                'parse_mode' => 'HTML',
+                'reply_markup' => self::eduForm($lang_id)
+            ]);
+        }
+
+        $backOptions = [
+            1 => self::getT("a37", $lang_id),
+            2 => self::getT("a39", $lang_id),
+            3 => self::getT("a38", $lang_id),
+        ];
+
+        // Agar talim tili to‘g‘ri kiritgan bo‘lsa
+        if (in_array($text, $backOptions)) {
+            $eduLangId = array_search($text, $backOptions); // index (1 yoki 2) ni topadi
+            $gram->edu_lang_id = $eduLangId;
+            $gram->save(false);
+
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a40", $lang_id), // Filial tanlang
+                'parse_mode' => 'HTML',
+                'reply_markup' => self::branch($lang_id)
+            ]);
+        }
+
+        // Talim tili noto'g'ri bo‘lsa
+        return $telegram->sendMessage([
+            'chat_id' => $gram->telegram_id,
+            'text' => self::getT("a35", $lang_id), // Xatolik: noto‘g‘ri
+            'parse_mode' => 'HTML',
+            'reply_markup' => self::eduLang($lang_id)
+        ]);
+    }
+
+    public static function step5($telegram, $lang_id, $gram, $text)
+    {
+        $i = 5;
+        $backText = self::getT("a12", $lang_id); // "Orqaga" tugmasi matni
+
+        if ($text === '/signup' || $text === self::getT("a3", $lang_id)) {
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a40", $lang_id), // Filial tanlang
+                'parse_mode' => 'HTML',
+                'reply_markup' => self::branch($lang_id)
+            ]);
+        }
+
+        // Agar foydalanuvchi "Orqaga" tugmasini bosgan bo‘lsa
+        if ($text === $backText) {
+            $gram->step = ($i - 1);
+            $gram->save(false);
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a26", $lang_id), // Talim shaklini tanlang
+                'parse_mode' => 'HTML',
+                'reply_markup' => self::eduForm($lang_id)
+            ]);
+        }
+
         $query = Branch::find()
             ->where(['status' => 1, 'is_deleted' => 0]);
 
-        $query->andWhere(['not in', 'cons_id', [null]]);
-
         if ($lang_id == 1) {
-            $query->andWhere(['name_uz' => $text]);
+            $query->andWhere(['name_uz' => $text])->andWhere(['not in', 'cons_id', [null]]);
         } elseif ($lang_id == 2) {
-            $query->andWhere(['name_en' => $text]);
+            $query->andWhere(['name_en' => $text])->andWhere(['not in', 'cons_id', [null]]);
         } elseif ($lang_id == 3) {
-            $query->andWhere(['name_ru' => $text]);
+            $query->andWhere(['name_ru' => $text])->andWhere(['not in', 'cons_id', [null]]);
         }
 
-        $branch = $query->limit(1)->one();
+        $branch = $query->one();
 
+        // Agar talim tili to‘g‘ri kiritgan bo‘lsa
         if ($branch) {
-            $student->branch_id = $branch->id;
+            $gram->step = ($i + 1);
+            $gram->branch_id = $branch->id;
             if (self::CONS == 0) {
-                $user->cons_id = $branch->cons_id;
+                $gram->cons_id = $branch->cons_id;
             }
-            $user->bot_status = 1;
-            $student->save(false);
-            $user->save(false);
+            $gram->save(false);
 
-
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a42", $lang_id), // Yonalish tanlang
+                'parse_mode' => 'HTML',
+                'reply_markup' => self::direction($lang_id, $gram)
+            ]);
         }
+
+        // Talim tili noto'g'ri bo‘lsa
+        return $telegram->sendMessage([
+            'chat_id' => $gram->telegram_id,
+            'text' => self::getT("a41", $lang_id), // Xatolik: noto‘g‘ri
+            'parse_mode' => 'HTML',
+            'reply_markup' => self::branch($lang_id)
+        ]);
     }
 
+    public static function step6($telegram, $lang_id, $gram, $text)
+    {
+        $i = 6;
+        $backText = self::getT("a12", $lang_id); // "Orqaga" tugmasi matni
+
+        if ($text === '/signup' || $text === self::getT("a3", $lang_id)) {
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a42", $lang_id), // Yonalish tanlang
+                'parse_mode' => 'HTML',
+                'reply_markup' => self::direction($lang_id, $gram)
+            ]);
+        }
+
+        // Agar foydalanuvchi "Orqaga" tugmasini bosgan bo‘lsa
+        if ($text === $backText) {
+            $gram->step = ($i - 1);
+            $gram->save(false);
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a40", $lang_id), // Filial tanlang
+                'parse_mode' => 'HTML',
+                'reply_markup' => self::branch($lang_id)
+            ]);
+        }
+
+        list($code, $name) = explode(' - ', $text, 2);
+        $code = trim($code);
+        $name = trim($name);
+
+        // 2. Lang_id bo‘yicha nom ustunini aniqlash
+        $nameColumn = 'name_uz';
+        if ($lang_id == 2) {
+            $nameColumn = 'name_en';
+        } elseif ($lang_id == 3) {
+            $nameColumn = 'name_ru';
+        }
+
+        // 3. Directionni code + name orqali topamiz
+        $eduDirection = EduDirection::find()
+            ->where([
+                'branch_id' => $gram->branch_id,
+                'edu_type_id' => $gram->edu_type_id,
+                'edu_form_id' => $gram->edu_form_id,
+                'lang_id' => $gram->lang_id,
+                'status' => 1,
+                'is_deleted' => 0
+            ])
+            ->andWhere([
+                'direction.code' => $code,
+                'direction.status' => 1,
+                'direction.is_deleted' => 0,
+                "direction.$nameColumn" => $name,
+                'direction.branch_id' => $gram->branch_id
+            ])
+            ->joinWith('direction') // direction bu EduDirection modelida belgilangan relation bo'lishi kerak
+            ->one();
+
+
+        // Agar talim tili to‘g‘ri kiritgan bo‘lsa
+        if ($eduDirection) {
+            $gram->edu_direction_id = $eduDirection->id;
+
+            if ($gram->edu_type_id == 1) {
+                $gram->step = 7;
+                return $telegram->sendMessage([
+                    'chat_id' => $gram->telegram_id,
+                    'text' => self::getT("a44", $lang_id), // Imtixon turi
+                    'parse_mode' => 'HTML',
+                    'reply_markup' => self::offline($lang_id, $eduDirection)
+                ]);
+            } elseif ($gram->edu_type_id == 2) {
+                $gram->step = 9;
+                return $telegram->sendMessage([
+                    'chat_id' => $gram->telegram_id,
+                    'text' => self::getT("a54", $lang_id), // Bosqichlari
+                    'parse_mode' => 'HTML',
+                    'reply_markup' => self::course($lang_id, $eduDirection)
+                ]);
+            } elseif ($gram->edu_type_id == 3) {
+                if ($eduDirection->is_oferta == 1) {
+                    $gram->step = 10;
+                    $gram->save(false);
+
+                    return $telegram->sendMessage([
+                        'chat_id' => $gram->telegram_id,
+                        'text' => self::getT("a49", $lang_id), // Oferta ma'lumotini yuklang
+                        'parse_mode' => 'HTML',
+                        'reply_markup' => json_encode([
+                            'keyboard' => [
+                                [
+                                    ['text' => $backText],
+                                ],
+                            ],
+                            'resize_keyboard' => true,
+                        ])
+                    ]);
+                }
+                $gram->step = 12;
+                return $telegram->sendMessage([
+                    'chat_id' => $gram->telegram_id,
+                    'text' => self::getT("a54", $lang_id), // DTM
+                    'parse_mode' => 'HTML',
+                    'reply_markup' => json_encode([
+                        'keyboard' => [
+                            [
+                                ['text' => $backText],
+                            ],
+                        ],
+                        'resize_keyboard' => true,
+                    ])
+                ]);
+            } elseif ($gram->edu_type_id == 4) {
+                if ($eduDirection->is_oferta == 1) {
+                    $gram->step = 10;
+                    $gram->save(false);
+
+                    return $telegram->sendMessage([
+                        'chat_id' => $gram->telegram_id,
+                        'text' => self::getT("a49", $lang_id), // Oferta ma'lumotini yuklang
+                        'parse_mode' => 'HTML',
+                        'reply_markup' => json_encode([
+                            'keyboard' => [
+                                [
+                                    ['text' => $backText],
+                                ],
+                            ],
+                            'resize_keyboard' => true,
+                        ])
+                    ]);
+                }
+                $gram->step = 13;
+                return $telegram->sendMessage([
+                    'chat_id' => $gram->telegram_id,
+                    'text' => self::getT("a54", $lang_id), // MASTER
+                    'parse_mode' => 'HTML',
+                    'reply_markup' => json_encode([
+                        'keyboard' => [
+                            [
+                                ['text' => $backText],
+                            ],
+                        ],
+                        'resize_keyboard' => true,
+                    ])
+                ]);
+            }
+        }
+
+        // Talim yonalishi noto'g'ri bo‘lsa
+        return $telegram->sendMessage([
+            'chat_id' => $gram->telegram_id,
+            'text' => self::getT("a43", $lang_id), // Xatolik: noto‘g‘ri
+            'parse_mode' => 'HTML',
+            'reply_markup' => self::direction($lang_id, $gram)
+        ]);
+    }
+
+    public static function step7($telegram, $lang_id, $gram, $text)
+    {
+        $i = 7;
+        $backText = self::getT("a12", $lang_id); // "Orqaga" tugmasi matni
+
+        $eduDirection = EduDirection::findOne($gram->edu_direction_id);
+        if ($text === '/signup' || $text === self::getT("a3", $lang_id)) {
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a44", $lang_id), // Imtixon turi
+                'parse_mode' => 'HTML',
+                'reply_markup' => self::offline($lang_id, $eduDirection)
+            ]);
+        }
+
+        // Agar foydalanuvchi "Orqaga" tugmasini bosgan bo‘lsa
+        if ($text === $backText) {
+            $gram->step = ($i - 1);
+            $gram->save(false);
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a42", $lang_id), // Yonalish tanlang
+                'parse_mode' => 'HTML',
+                'reply_markup' => self::direction($lang_id, $gram)
+            ]);
+        }
+
+        // Agar talim tili to‘g‘ri kiritgan bo‘lsa
+        if ($eduDirection) {
+            if ($eduDirection->exam_type != null) {
+                $examTypes = json_decode($eduDirection->exam_type, true);
+                foreach ($examTypes as $examType) {
+                    if (Status::getExamStatus($examType) == $text) {
+                        $gram->exam_type = $examType;
+                        if ($examType == 0) {
+                            if ($eduDirection->is_oferta == 1) {
+                                $gram->step = 10;
+                                $gram->save(false);
+                                return $telegram->sendMessage([
+                                    'chat_id' => $gram->telegram_id,
+                                    'text' => self::getT("a49", $lang_id), // Oferta ma'lumotini yuklang
+                                    'parse_mode' => 'HTML',
+                                    'reply_markup' => json_encode([
+                                        'keyboard' => [
+                                            [
+                                                ['text' => $backText],
+                                            ],
+                                        ],
+                                        'resize_keyboard' => true,
+                                    ])
+                                ]);
+                            }
+                            $gram->step = 14;
+                            $gram->save(false);
+                            return $telegram->sendMessage([
+                                'chat_id' => $gram->telegram_id,
+                                'text' => self::getT("a46", $lang_id), // Malumotlarni tasdiqlash
+                                'parse_mode' => 'HTML',
+                                'reply_markup' => self::confirm($lang_id)
+                            ]);
+                        } else {
+                            $gram->step = 8;
+                            $gram->save(false);
+                            return $telegram->sendMessage([
+                                'chat_id' => $gram->telegram_id,
+                                'text' => self::getT("a45", $lang_id), // Offline imtixon sanalari
+                                'parse_mode' => 'HTML',
+                                'reply_markup' => self::offlineDate($lang_id, $gram)
+                            ]);
+                        }
+                    }
+                }
+            }
+        }
+
+        // Imtixon turi noto'g'ri bo‘lsa
+        return $telegram->sendMessage([
+            'chat_id' => $gram->telegram_id,
+            'text' => self::getT("a53", $lang_id), // Xatolik: noto‘g‘ri
+            'parse_mode' => 'HTML',
+            'reply_markup' => self::offline($lang_id, $eduDirection)
+        ]);
+    }
+
+    public static function step8($telegram, $lang_id, $gram, $text)
+    {
+        $i = 8;
+        $backText = self::getT("a12", $lang_id); // "Orqaga" tugmasi matni
+
+        if ($text === '/signup' || $text === self::getT("a3", $lang_id)) {
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a45", $lang_id), // Offline imtixon sanalari
+                'parse_mode' => 'HTML',
+                'reply_markup' => self::offlineDate($lang_id, $gram)
+            ]);
+        }
+
+        $eduDirection = EduDirection::findOne($gram->edu_direction_id);
+        // Agar foydalanuvchi "Orqaga" tugmasini bosgan bo‘lsa
+        if ($text === $backText) {
+            $gram->step = ($i - 1);
+            $gram->save(false);
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a44", $lang_id), // Imtixon turi
+                'parse_mode' => 'HTML',
+                'reply_markup' => self::offline($lang_id, $eduDirection)
+            ]);
+        }
+
+
+        $examDates = ExamDate::findOne([
+            'is_deleted' => 0,
+            'status' => 1,
+            'branch_id' => $gram->branch_id,
+            'date' => $text
+        ]);
+        if ($examDates) {
+            $gram->exam_date_id = $examDates->id;
+            $gram->save(false);
+            if ($eduDirection->is_oferta == 1) {
+                $gram->step = 10;
+                $gram->save(false);
+                return $telegram->sendMessage([
+                    'chat_id' => $gram->telegram_id,
+                    'text' => self::getT("a49", $lang_id), // Oferta ma'lumotini yuklang
+                    'parse_mode' => 'HTML',
+                    'reply_markup' => json_encode([
+                        'keyboard' => [
+                            [
+                                ['text' => $backText],
+                            ],
+                        ],
+                        'resize_keyboard' => true,
+                    ])
+                ]);
+            }
+            $gram->step = 14;
+            $gram->save(false);
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a46", $lang_id), // Malumotlarni tasdiqlash
+                'parse_mode' => 'HTML',
+                'reply_markup' => self::confirm($lang_id)
+            ]);
+        }
+
+        // Imtixon sanasi noto'g'ri bo‘lsa
+        return $telegram->sendMessage([
+            'chat_id' => $gram->telegram_id,
+            'text' => self::getT("a50", $lang_id), // Xatolik: noto‘g‘ri
+            'parse_mode' => 'HTML',
+            'reply_markup' => self::offlineDate($lang_id, $gram)
+        ]);
+    }
+
+    public static function step9($telegram, $lang_id, $gram, $text)
+    {
+        $i = 9;
+        $backText = self::getT("a12", $lang_id); // "Orqaga" tugmasi matni
+
+        $eduDirection = EduDirection::findOne($gram->edu_direction_id);
+        if ($text === '/signup' || $text === self::getT("a3", $lang_id)) {
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a54", $lang_id), // Bosqichlari
+                'parse_mode' => 'HTML',
+                'reply_markup' => self::course($lang_id, $eduDirection)
+            ]);
+        }
+
+        // Agar foydalanuvchi "Orqaga" tugmasini bosgan bo‘lsa
+        if ($text === $backText) {
+            $gram->step = 6;
+            $gram->save(false);
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a42", $lang_id), // Yonalish tanlang
+                'parse_mode' => 'HTML',
+                'reply_markup' => self::direction($lang_id, $gram)
+            ]);
+        }
+
+        switch ($lang_id) {
+            case 1:
+                $nameColumn = 'name_uz';
+                break;
+            case 2:
+                $nameColumn = 'name_en';
+                break;
+            case 3:
+                $nameColumn = 'name_ru';
+                break;
+            default:
+                $nameColumn = 'name_uz';
+        }
+
+        $course = DirectionCourse::find()
+            ->where([
+                'status' => 1,
+                'is_deleted' => 0,
+                'edu_direction_id' => $eduDirection->id,
+                $nameColumn => $text,
+            ])->one();
+
+        if ($course) {
+            $gram->direction_course_id = $course->id;
+            $gram->course_id = $course->course_id;
+            $gram->step = 11;
+            $gram->save(false);
+
+            if ($eduDirection->is_oferta == 1) {
+                $gram->step = 10;
+                $gram->save(false);
+
+                return $telegram->sendMessage([
+                    'chat_id' => $gram->telegram_id,
+                    'text' => self::getT("a49", $lang_id), // Oferta ma'lumotini yuklang
+                    'parse_mode' => 'HTML',
+                    'reply_markup' => json_encode([
+                        'keyboard' => [
+                            [
+                                ['text' => $backText],
+                            ],
+                        ],
+                        'resize_keyboard' => true,
+                    ])
+                ]);
+            }
+
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a51", $lang_id), // Transkript yuklang
+                'parse_mode' => 'HTML',
+                'reply_markup' => json_encode([
+                    'keyboard' => [
+                        [
+                            ['text' => $backText],
+                        ],
+                    ],
+                    'resize_keyboard' => true,
+                ])
+            ]);
+        }
+
+
+        // Yonalish bosqichi noto'g'ri bo‘lsa
+        return $telegram->sendMessage([
+            'chat_id' => $gram->telegram_id,
+            'text' => self::getT("a52", $lang_id), // Xatolik: noto‘g‘ri
+            'parse_mode' => 'HTML',
+            'reply_markup' => self::course($lang_id, $eduDirection)
+        ]);
+    }
+
+    public static function course($lang_id, $eduDirection)
+    {
+        $backText = self::getT("a12", $lang_id);
+
+        $courses = DirectionCourse::find()
+            ->where([
+                'edu_direction_id' => $eduDirection->id ?? null,
+                'status' => 1,
+                'is_deleted' => 0
+            ])
+            ->all();
+
+        $keyboard = [];
+        $row = [];
+
+        foreach ($courses as $course) {
+            $row[] = ['text' => $course->name];
+
+            // Har 2 ta tugmadan keyin yangi qatorga o'tamiz
+            if (count($row) == 2) {
+                $keyboard[] = $row;
+                $row = [];
+            }
+        }
+
+        if (!empty($row)) {
+            // Agar toq bo‘lsa, orqaga qaytishni yonma-yon chiqaramiz
+            $row[] = ['text' => $backText];
+            $keyboard[] = $row;
+        } else {
+            // Juft bo‘lsa, orqaga qaytish alohida qatorda
+            $keyboard[] = [
+                ['text' => $backText]
+            ];
+        }
+
+        return json_encode([
+            'keyboard' => $keyboard,
+            'resize_keyboard' => true,
+        ]);
+    }
 
     public static function getSelectLanguageText($lang)
     {
@@ -613,6 +1316,253 @@ class Bot extends Model
         }
         return ['is_ok' => false];
     }
+
+    public static function eduType($lang_id)
+    {
+        $backText = self::getT("a12", $lang_id); // "Orqaga" tugmasi matni
+        return json_encode([
+            'keyboard' => [
+                [
+                    ['text' => self::getT("a22", $lang_id)],
+                    ['text' => self::getT("a23", $lang_id)],
+                ],
+                [
+                    ['text' => $backText],
+                ],
+            ],
+            'resize_keyboard' => true,
+        ]);
+    }
+
+    public static function eduForm($lang_id)
+    {
+        $backText = self::getT("a12", $lang_id); // "Orqaga" tugmasi matni
+        return json_encode([
+            'keyboard' => [
+                [
+                    ['text' => self::getT("a28", $lang_id)],
+                    ['text' => self::getT("a29", $lang_id)],
+                ],
+                [
+                    ['text' => $backText],
+                ],
+            ],
+            'resize_keyboard' => true,
+        ]);
+    }
+
+    public static function eduLang($lang_id)
+    {
+        $backText = self::getT("a12", $lang_id); // "Orqaga" tugmasi matni
+        return json_encode([
+            'keyboard' => [
+                [
+                    ['text' => self::getT("a37", $lang_id)],
+                    ['text' => self::getT("a38", $lang_id)],
+                ],
+                [
+                    ['text' => self::getT("a39", $lang_id)],
+                    ['text' => $backText],
+                ],
+            ],
+            'resize_keyboard' => true,
+        ]);
+    }
+
+    public static function branch($lang_id)
+    {
+        $branches = Branch::find()
+            ->where(['status' => 1, 'is_deleted' => 0])
+            ->andWhere(['not in', 'cons_id', [null]])
+            ->all();
+
+        $backText = self::getT("a12", $lang_id);
+
+        // PHP 7.4: tilga mos ustunni aniqlash
+        if ($lang_id == 1) {
+            $column = 'name_uz';
+        } elseif ($lang_id == 2) {
+            $column = 'name_en';
+        } elseif ($lang_id == 3) {
+            $column = 'name_ru';
+        } else {
+            $column = 'name_uz';
+        }
+
+        $keyboard = [];
+        $row = [];
+
+        foreach ($branches as $i => $branch) {
+            $row[] = ['text' => $branch->$column];
+
+            if (count($row) == 2) {
+                $keyboard[] = $row;
+                $row = [];
+            }
+        }
+
+        if (!empty($row)) {
+            $row[] = ['text' => $backText]; // oxirgi branch bilan yonma-yon
+            $keyboard[] = $row;
+        } else {
+            $keyboard[] = [
+                ['text' => $backText]
+            ];
+        }
+
+        return json_encode([
+            'keyboard' => $keyboard,
+            'resize_keyboard' => true,
+        ]);
+    }
+
+    public static function direction($lang_id, $gram)
+    {
+        $backText = self::getT("a12", $lang_id);
+
+        $directions = Direction::find()
+            ->alias('d')
+            ->innerJoin(['ed' => EduDirection::tableName()], 'ed.direction_id = d.id')
+            ->where([
+                'd.status' => 1,
+                'd.is_deleted' => 0,
+                'd.branch_id' => $gram->branch_id,
+                'ed.branch_id' => $gram->branch_id,
+                'ed.edu_type_id' => $gram->edu_type_id,
+                'ed.edu_form_id' => $gram->edu_form_id,
+                'ed.lang_id' => $gram->lang_id,
+                'ed.status' => 1,
+                'ed.is_deleted' => 0
+            ])
+            ->groupBy('d.id') // agarda bir nechta ed bo‘lsa takrorlanmaslik uchun
+            ->all();
+
+
+        // Tilga qarab ustun nomini aniqlash
+        if ($lang_id == 1) {
+            $column = 'name_uz';
+        } elseif ($lang_id == 2) {
+            $column = 'name_en';
+        } elseif ($lang_id == 3) {
+            $column = 'name_ru';
+        } else {
+            $column = 'name_uz';
+        }
+
+        // Har bir yo‘nalishni alohida qatorga qo‘shish
+        $keyboard = [];
+
+        foreach ($directions as $dir) {
+            $keyboard[] = [['text' => $dir->code. " - ". $dir->$column]];
+        }
+
+        // Oxiriga "Orqaga" tugmasini qo‘shamiz
+        $keyboard[] = [['text' => $backText]];
+
+        return json_encode([
+            'keyboard' => $keyboard,
+            'resize_keyboard' => true,
+        ]);
+    }
+
+    public static function offline($lang_id, $eduDirection)
+    {
+        $backText = self::getT("a12", $lang_id);
+
+        $exam = [];
+        if ($eduDirection->exam_type != null) {
+            $examTypes = json_decode($eduDirection->exam_type, true);
+            foreach ($examTypes as $examType) {
+                $exam[] = ['text' => Status::getExamStatus($examType)];
+            }
+        }
+
+        $keyboard = [];
+
+        $count = count($exam);
+
+        if ($count == 2) {
+            // 2 ta tugma bitta qatorda
+            $keyboard[] = $exam;
+            // Orqaga qaytish tugmasi alohida qatorda
+            $keyboard[] = [['text' => $backText]];
+        } elseif ($count == 1) {
+            // Bitta tugma + orqaga qaytish yonma-yon
+            $keyboard[] = [$exam[0], ['text' => $backText]];
+        } else {
+            // Faqat orqaga qaytish
+            $keyboard[] = [['text' => $backText]];
+        }
+
+        return json_encode([
+            'keyboard' => $keyboard,
+            'resize_keyboard' => true,
+        ]);
+
+    }
+
+    public static function offlineDate($lang_id, $gram)
+    {
+        $backText = self::getT("a12", $lang_id);
+
+        $examDates = ExamDate::find()
+            ->where([
+                'is_deleted' => 0,
+                'status' => 1,
+                'branch_id' => $gram->branch_id
+            ])
+            ->andWhere(['>=', 'date', date('Y-m-d')])
+            ->orderBy(['date' => SORT_ASC])
+            ->all();
+
+        $keyboard = [];
+        $row = [];
+
+        foreach ($examDates as $index => $examDate) {
+            $row[] = ['text' => date('d.m.Y', strtotime($examDate->date))];
+
+            // Har 2 ta elementdan keyin yangi qatorga o'tamiz
+            if (count($row) == 2) {
+                $keyboard[] = $row;
+                $row = [];
+            }
+        }
+
+        // Agar oxirida bitta element qolgan bo‘lsa
+        if (!empty($row)) {
+            // Orqaga qaytishni yonma-yon chiqaramiz
+            $row[] = ['text' => $backText];
+            $keyboard[] = $row;
+        } else {
+            // Aks holda, orqaga qaytish alohida qatorda
+            $keyboard[] = [
+                ['text' => $backText]
+            ];
+        }
+
+        return json_encode([
+            'keyboard' => $keyboard,
+            'resize_keyboard' => true,
+        ]);
+    }
+
+    public static function confirm($lang_id)
+    {
+        $backText = self::getT("a12", $lang_id); // "Orqaga" tugmasi matni
+        return json_encode([
+            'keyboard' => [
+                [
+                    ['text' => self::getT("a47", $lang_id)],
+                    ['text' => self::getT("a48", $lang_id)],
+                ],
+                [
+                    ['text' => $backText],
+                ],
+            ],
+            'resize_keyboard' => true,
+        ]);
+    }
+
 
     public static function getT($text, $lang_id)
     {
@@ -717,6 +1667,172 @@ class Bot extends Model
             ],
             "a20" => [
                 "uz" => "😊 Bosh sahifaga xush kelibsiz.",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a21" => [
+                "uz" => "Qabul turini tanlang",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a22" => [
+                "uz" => "Qabul 2025",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a23" => [
+                "uz" => "O'qishni ko'chirish",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a24" => [
+                "uz" => "UZBMB (DTM) natija",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a25" => [
+                "uz" => "Magistratura",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a26" => [
+                "uz" => "Ta'lim shaklini tanlang.",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a27" => [
+                "uz" => "Ta'lim tilini tanlang.",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a28" => [
+                "uz" => "Kunduzgi",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a29" => [
+                "uz" => "Sirtqi",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a30" => [
+                "uz" => "Kechki",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a31" => [
+                "uz" => "Masofaviy",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a32" => [
+                "uz" => "Masofaviy",
+                "ru" => "",
+                "en" => "",
+            ],
+
+            "a33" => [
+                "uz" => "❌:( Qabul turi noto'g'ri tanlandi .\n\n<i>Aloqa uchun: " . self::PHONE . "</i>",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a34" => [
+                "uz" => "❌:( Ta'lim shakli noto'g'ri tanlandi .\n\n<i>Aloqa uchun: " . self::PHONE . "</i>",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a35" => [
+                "uz" => "❌:( Ta'lim tili noto'g'ri tanlandi .\n\n<i>Aloqa uchun: " . self::PHONE . "</i>",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a37" => [
+                "uz" => "O‘zbek tili",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a38" => [
+                "uz" => "Rus tili",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a39" => [
+                "uz" => "Ingliz tili",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a40" => [
+                "uz" => "Filial tanlang",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a41" => [
+                "uz" => "❌:( Filial noto'g'ri tanlandi .\n\n<i>Aloqa uchun: " . self::PHONE . "</i>",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a42" => [
+                "uz" => "Ta'lim yo'nalishlaridan birini tanlang.",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a43" => [
+                "uz" => "❌:( Ta'lim yo'nalishi noto'g'ri tanlandi .\n\n<i>Aloqa uchun: " . self::PHONE . "</i>",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a44" => [
+                "uz" => "Imtixon turini tanlang.",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a45" => [
+                "uz" => "Offline imtixon sanasini tanlang.",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a46" => [
+                "uz" => "Ma'lumotni tasdiqlaysizmi?",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a47" => [
+                "uz" => "Ha",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a48" => [
+                "uz" => "Yo'q",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a49" => [
+                "uz" => "5 yillik staj faylini yuklang",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a50" => [
+                "uz" => "Imtixon sanasini noto'g'ri tanladingiz",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a51" => [
+                "uz" => "Transkript fayl yuboring",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a52" => [
+                "uz" => "Bosqichni noto'g'ri tanladingiz",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a53" => [
+                "uz" => "Imtixon turini noto'g'ri tanladingiz",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a54" => [
+                "uz" => "Bosqich tanlang",
                 "ru" => "",
                 "en" => "",
             ],
