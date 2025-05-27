@@ -59,13 +59,6 @@ $breadcrumbs['item'][] = [
                         return false;
                     },
                     'update' => function ($url, $model) {
-                        if (permission('telegram', 'update')) {
-                            $url = Url::to(['update', 'id' => $model->id]);
-                            return Html::a('<i class="fa-solid fa-pen-to-square"></i>', $url, [
-                                'title' => 'update',
-                                'class' => 'tableIcon',
-                            ]);
-                        }
                         return false;
                     },
                     'delete' => function ($url, $model) {
