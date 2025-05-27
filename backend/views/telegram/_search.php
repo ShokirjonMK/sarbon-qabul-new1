@@ -36,11 +36,6 @@ use yii\widgets\ActiveForm;
                 </div>
                 <div class="col-lg-2 col-md-6">
                     <div class="form-group">
-                        <?= $form->field($model, 'username') ?>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-6">
-                    <div class="form-group">
                         <?= $form->field($model, 'phone')
                             ->widget(\yii\widgets\MaskedInput::class, [
                                 'mask' => '+\9\9\8 (99) 999-99-99',
@@ -67,6 +62,11 @@ use yii\widgets\ActiveForm;
                                 'placeholder' => '_______',
                             ],
                         ]) ?>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <div class="form-group">
+                        <?= $form->field($model, 'username') ?>
                     </div>
                 </div>
             </div>
