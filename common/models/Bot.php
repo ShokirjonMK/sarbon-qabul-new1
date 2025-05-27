@@ -764,9 +764,9 @@ class Bot extends Model
             $gram->save(false);
             return $telegram->sendMessage([
                 'chat_id' => $gram->telegram_id,
-                'text' => self::getT("a26", $lang_id), // Talim shaklini tanlang
+                'text' => self::getT("a27", $lang_id), // Talim tili tanlang
                 'parse_mode' => 'HTML',
-                'reply_markup' => self::eduForm($lang_id)
+                'reply_markup' => self::eduLang($lang_id)
             ]);
         }
 
