@@ -15,67 +15,67 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
+    <div class="form-section mb-4">
+        <div class="form-section_item">
 
-    <?= $form->field($model, 'telegram_id') ?>
+            <div class="row">
+                <div class="col-lg-2 col-md-6">
+                    <div class="form-group">
+                        <?= $form->field($model, 'first_name') ?>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <div class="form-group">
+                        <?= $form->field($model, 'last_name') ?>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <div class="form-group">
+                        <?= $form->field($model, 'middle_name') ?>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <div class="form-group">
+                        <?= $form->field($model, 'username') ?>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <div class="form-group">
+                        <?= $form->field($model, 'phone')
+                            ->widget(\yii\widgets\MaskedInput::class, [
+                                'mask' => '+\9\9\8 (99) 999-99-99',
+                                'options' => [
+                                    'placeholder' => '+998 (__) ___-__-__',
+                                ],
+                            ]) ?>
+                    </div>
+                </div>
+                <div class="col-lg-1 col-md-6">
+                    <div class="form-group">
+                        <?= $form->field($model, 'passport_serial')->textInput([
+                            'maxlength' => true,
+                            'placeholder' => '__',
+                            'oninput' => "this.value = this.value.replace(/\\d/, '').toUpperCase()"
+                        ]) ?>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <div class="form-group">
+                        <?= $form->field($model, 'passport_number')->widget(\yii\widgets\MaskedInput::class, [
+                            'mask' => '9999999',
+                            'options' => [
+                                'placeholder' => '_______',
+                            ],
+                        ]) ?>
+                    </div>
+                </div>
+            </div>
 
-    <?= $form->field($model, 'phone') ?>
-
-    <?= $form->field($model, 'username') ?>
-
-    <?= $form->field($model, 'step') ?>
-
-    <?php // echo $form->field($model, 'lang_id') ?>
-
-    <?php // echo $form->field($model, 'birthday') ?>
-
-    <?php // echo $form->field($model, 'passport_number') ?>
-
-    <?php // echo $form->field($model, 'passport_serial') ?>
-
-    <?php // echo $form->field($model, 'passport_pin') ?>
-
-    <?php // echo $form->field($model, 'edu_type_id') ?>
-
-    <?php // echo $form->field($model, 'edu_form_id') ?>
-
-    <?php // echo $form->field($model, 'edu_lang_id') ?>
-
-    <?php // echo $form->field($model, 'edu_direction_id') ?>
-
-    <?php // echo $form->field($model, 'direction_course_id') ?>
-
-    <?php // echo $form->field($model, 'exam_type') ?>
-
-    <?php // echo $form->field($model, 'branch_id') ?>
-
-    <?php // echo $form->field($model, 'exam_date_id') ?>
-
-    <?php // echo $form->field($model, 'cons_id') ?>
-
-    <?php // echo $form->field($model, 'oferta') ?>
-
-    <?php // echo $form->field($model, 'tr') ?>
-
-    <?php // echo $form->field($model, 'dtm') ?>
-
-    <?php // echo $form->field($model, 'master') ?>
-
-    <?php // echo $form->field($model, 'status') ?>
-
-    <?php // echo $form->field($model, 'created_at') ?>
-
-    <?php // echo $form->field($model, 'updated_at') ?>
-
-    <?php // echo $form->field($model, 'created_by') ?>
-
-    <?php // echo $form->field($model, 'updated_by') ?>
-
-    <?php // echo $form->field($model, 'is_deleted') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-outline-secondary']) ?>
+            <div class="form-group d-flex justify-content-end gap-2">
+                <?= Html::submitButton(Yii::t('app', 'Qidirish'), ['class' => 'b-btn b-primary']) ?>
+                <?= Html::a(Yii::t('app', 'Reset'), ['index'], ['class' => 'b-btn b-secondary']) ?>
+            </div>
+        </div>
     </div>
 
     <?php ActiveForm::end(); ?>

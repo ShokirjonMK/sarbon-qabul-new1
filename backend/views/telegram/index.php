@@ -31,6 +31,8 @@ $breadcrumbs['item'][] = [
         </ol>
     </nav>
 
+    <?= $this->render('_search', ['model' => $searchModel]); ?>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
