@@ -21,8 +21,6 @@ class MenuController extends Controller
 
     public function actionIndex()
     {
-        Telegram::deleteAll();
-        dd(232323);
         $searchModel = new MenuSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
