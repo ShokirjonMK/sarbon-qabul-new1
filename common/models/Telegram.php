@@ -56,9 +56,9 @@ class Telegram extends \yii\db\ActiveRecord
     {
         return [
             [['telegram_id', 'phone', 'username', 'birthday', 'passport_number', 'passport_serial', 'passport_pin', 'edu_type_id', 'edu_form_id', 'edu_lang_id', 'edu_direction_id', 'direction_course_id', 'branch_id', 'exam_date_id', 'cons_id', 'oferta', 'tr', 'dtm', 'master', 'created_at', 'updated_at'], 'default', 'value' => null],
-            [['is_deleted'], 'default', 'value' => 0],
+            [['is_deleted', 'type'], 'default', 'value' => 0],
             [['status'], 'default', 'value' => 1],
-            [['step', 'lang_id', 'edu_type_id', 'edu_form_id', 'edu_lang_id', 'edu_direction_id', 'direction_course_id', 'exam_type', 'branch_id', 'exam_date_id', 'cons_id', 'status', 'created_at', 'updated_at', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
+            [['step', 'lang_id', 'edu_type_id', 'edu_form_id', 'edu_lang_id', 'edu_direction_id', 'direction_course_id', 'exam_type', 'branch_id', 'exam_date_id', 'cons_id', 'status', 'created_at', 'updated_at', 'created_by', 'updated_by', 'is_deleted', 'type'], 'integer'],
             [['telegram_id', 'phone', 'username', 'birthday', 'passport_number', 'passport_serial', 'passport_pin', 'oferta', 'tr', 'dtm', 'master', 'first_name', 'last_name', 'middle_name'], 'string', 'max' => 255],
         ];
     }
