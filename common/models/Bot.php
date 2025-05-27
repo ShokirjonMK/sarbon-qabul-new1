@@ -1433,7 +1433,7 @@ class Bot extends Model
                 'ed.branch_id' => $gram->branch_id,
                 'ed.edu_type_id' => $gram->edu_type_id,
                 'ed.edu_form_id' => $gram->edu_form_id,
-                'ed.lang_id' => $gram->lang_id,
+                'ed.lang_id' => $gram->edu_lang_id,
                 'ed.status' => 1,
                 'ed.is_deleted' => 0
             ])
