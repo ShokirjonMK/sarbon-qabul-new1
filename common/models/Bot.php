@@ -401,11 +401,11 @@ class Bot extends Model
             } elseif ($step == 14) {
 //                self::step14($telegram, $lang_id, $gram, $text);
             }
-            return $telegram->sendMessage([
-                'chat_id' => self::CHAT_ID,
-                'text' => 'Ik main :(): ',
-                'parse_mode' => 'HTML',
-            ]);
+//            return $telegram->sendMessage([
+//                'chat_id' => self::CHAT_ID,
+//                'text' => 'Ik main :(): ',
+//                'parse_mode' => 'HTML',
+//            ]);
         } catch (\Exception $e) {
             return $telegram->sendMessage([
                 'chat_id' => self::CHAT_ID,
