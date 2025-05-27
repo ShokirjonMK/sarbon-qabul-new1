@@ -1,5 +1,6 @@
 <?php
 
+use common\models\EduDirection;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\helpers\Url;
@@ -17,6 +18,27 @@ $breadcrumbs['item'][] = [
     'label' => Yii::t('app', 'Telegram bot'),
     'url' => ['index'],
 ];
+
+$eduDirection = EduDirection::find()
+    ->where([
+        'branch_id' => $model->branch_id,
+        'edu_type_id' => $model->edu_type_id,
+        'edu_form_id' => $model->edu_form_id,
+        'lang_id' => 1,
+        'status' => 1,
+        'is_deleted' => 0
+    ])
+    ->andWhere([
+        'direction.code' => '2323232',
+        'direction.status' => 1,
+        'direction.is_deleted' => 0,
+        "direction.name_uz" => '2232323',
+        'direction.branch_id' => $model->branch_id
+    ])
+    ->joinWith('direction') // direction bu EduDirection modelida belgilangan relation bo'lishi kerak
+    ->one();
+dd($eduDirection);
+
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="telegram-view">
