@@ -850,12 +850,12 @@ class Bot extends Model
         // 3. Directionni code + name orqali topamiz
         $eduDirection = EduDirection::find()
             ->where([
-                'branch_id' => $gram->branch_id,
-                'edu_type_id' => $gram->edu_type_id,
-                'edu_form_id' => $gram->edu_form_id,
-                'lang_id' => $gram->edu_lang_id,
-                'status' => 1,
-                'is_deleted' => 0
+                'edu_direction.branch_id' => $gram->branch_id,
+                'edu_direction.edu_type_id' => $gram->edu_type_id,
+                'edu_direction.edu_form_id' => $gram->edu_form_id,
+                'edu_direction.lang_id' => $gram->edu_lang_id,
+                'edu_direction.status' => 1,
+                'edu_direction.is_deleted' => 0
             ])
             ->andWhere([
                 'direction.code' => $code,
@@ -864,7 +864,7 @@ class Bot extends Model
                 "direction.$nameColumn" => $name,
                 'direction.branch_id' => $gram->branch_id
             ])
-            ->joinWith('direction') // direction bu EduDirection modelida belgilangan relation bo'lishi kerak
+            ->joinWith('direction')
             ->one();
 
 

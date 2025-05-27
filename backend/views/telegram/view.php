@@ -21,22 +21,23 @@ $breadcrumbs['item'][] = [
 
 $eduDirection = EduDirection::find()
     ->where([
-        'branch_id' => $model->branch_id,
-        'edu_type_id' => $model->edu_type_id,
-        'edu_form_id' => $model->edu_form_id,
-        'lang_id' => 1,
-        'status' => 1,
-        'is_deleted' => 0
+        'edu_direction.branch_id' => $model->branch_id,
+        'edu_direction.edu_type_id' => $model->edu_type_id,
+        'edu_direction.edu_form_id' => $model->edu_form_id,
+        'edu_direction.lang_id' => $model->edu_lang_id,
+        'edu_direction.status' => 1,
+        'edu_direction.is_deleted' => 0
     ])
     ->andWhere([
-        'direction.code' => '2323232',
+        'direction.code' => '2121212',
         'direction.status' => 1,
         'direction.is_deleted' => 0,
-        "direction.name_uz" => '2232323',
+        "direction.name_uz" => '121212',
         'direction.branch_id' => $model->branch_id
     ])
-    ->joinWith('direction') // direction bu EduDirection modelida belgilangan relation bo'lishi kerak
+    ->joinWith('direction')
     ->one();
+
 dd($eduDirection);
 
 \yii\web\YiiAsset::register($this);
