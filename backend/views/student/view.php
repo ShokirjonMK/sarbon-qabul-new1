@@ -638,7 +638,7 @@ if ($model->eduType != null) {
                                             </h6>
                                         </div>
                                     </div>
-                                    <?php if ($eduModel->status == 3) : ?>
+                                    <?php if ($eduModel->status > 2) : ?>
                                         <div class="col-md-4 col-12">
                                             <div class="view-info-right">
                                                 <p>To'plangan ball</p>
