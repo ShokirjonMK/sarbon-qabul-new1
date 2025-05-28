@@ -1736,7 +1736,7 @@ class Bot extends Model
         }
 
 
-        if ($text === self::getT("a49", $lang_id)) {
+        if ($text === self::getT("a47", $lang_id)) {
             $gram->step = 50;
             $gram->save(false);
 
@@ -1751,6 +1751,14 @@ class Bot extends Model
                 ])
             ]);
         }
+
+
+        return $telegram->sendMessage([
+            'chat_id' => $gram->telegram_id,
+            'text' => self::getT("a56", $lang_id), // Xatolik: noto‘g‘ri
+            'parse_mode' => 'HTML',
+            'reply_markup' => self::confirm($lang_id)
+        ]);
     }
 
     public static function allData($gram, $lang_id)
@@ -2223,8 +2231,8 @@ class Bot extends Model
         return json_encode([
             'keyboard' => [
                 [
-                    ['text' => self::getT("a47", $lang_id)],
                     ['text' => self::getT("a48", $lang_id)],
+                    ['text' => self::getT("a47", $lang_id)],
                 ],
                 [
                     ['text' => $backText],
@@ -2509,6 +2517,11 @@ class Bot extends Model
             ],
             "a55" => [
                 "uz" => "Fayl pdf formatda va 5 mbdan oshmagan holatda yuklanishi shart!",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a56" => [
+                "uz" => "Ma'lumot tasdiqlashda Ha yoki yo'q deb javob berishingiz kerak.",
                 "ru" => "",
                 "en" => "",
             ],
