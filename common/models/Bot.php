@@ -1773,7 +1773,7 @@ class Bot extends Model
             1 => [ // O'zbek tili
                 'title' => "🏫 <b>SARBON UNIVERSITETI</b>\n\n",
                 'success' => "Arizangiz muvaffaqiyatli yuborildi😊"."\n",
-                'description' => "<i>Arizangiz mazmuni:</i>\n",
+                'description' => "<i>Arizangiz mazmuni:</i>\n\n",
                 'fio' => "🎓 <b>F.I.O:</b> ",
                 'passport' => "📑 <b>Pasport ma'lumoti:</b> ",
                 'birthday' => "🗓 <b>Tug'ilgan sana:</b> ",
@@ -1789,7 +1789,7 @@ class Bot extends Model
             2 => [ // English
                 'title' => "🏫 <b>SARBON UNIVERSITETI</b>\n\n",
                 'success' => "Your application has been successfully submitted😊"."\n",
-                'description' => "<i>Application details:</i>\n",
+                'description' => "<i>Application details:</i>\n\n",
                 'fio' => "🎓 <b>Full Name:</b> ",
                 'passport' => "📑 <b>Passport Info:</b> ",
                 'birthday' => "🗓 <b>Date of Birth:</b> ",
@@ -1805,7 +1805,7 @@ class Bot extends Model
             3 => [ // Русский
                 'title' => "🏫 <b>SARBON UNIVERSITETI</b>\n\n",
                 'success' => "Ваша заявка успешно отправлена😊"."\n",
-                'description' => "<i>Детали заявки:</i>\n",
+                'description' => "<i>Детали заявки:</i>\n\n",
                 'fio' => "🎓 <b>Ф.И.О.:</b> ",
                 'passport' => "📑 <b>Паспортные данные:</b> ",
                 'birthday' => "🗓 <b>Дата рождения:</b> ",
@@ -1836,11 +1836,11 @@ class Bot extends Model
             $onOff = "Offline <i>(" . ($lang_id == 1 ? "imtixon sanasi" : ($lang_id == 2 ? "exam date" : "дата экзамена")) . ": " . $examDate->date . ")</i>";
         }
 
-        $text .= $t['direction'] . ($eduDirection->direction['name'.self::getSelectLanguageText($lang_id)] ?? '----') . "\n";
+        $text .= $t['direction'] . ($eduDirection->direction['name_'.self::getSelectLanguageText($lang_id)] ?? '----') . "\n";
         $text .= $t['code'] . ($eduDirection->direction->code ?? '----') . "\n";
-        $text .= $t['eduType'] . ($eduDirection->eduType['name'.self::getSelectLanguageText($lang_id)] ?? '----') . "\n";
-        $text .= $t['eduForm'] . ($eduDirection->eduForm['name'.self::getSelectLanguageText($lang_id)] ?? '----') . "\n";
-        $text .= $t['lang'] . ($eduDirection->lang['name'.self::getSelectLanguageText($lang_id)] ?? '----') . "\n";
+        $text .= $t['eduType'] . ($eduDirection->eduType['name_'.self::getSelectLanguageText($lang_id)] ?? '----') . "\n";
+        $text .= $t['eduForm'] . ($eduDirection->eduForm['name_'.self::getSelectLanguageText($lang_id)] ?? '----') . "\n";
+        $text .= $t['lang'] . ($eduDirection->lang['name_'.self::getSelectLanguageText($lang_id)] ?? '----') . "\n";
 
         if ($gram->edu_type_id == 1) {
             $text .= $t['examType'] . $onOff . "\n";
