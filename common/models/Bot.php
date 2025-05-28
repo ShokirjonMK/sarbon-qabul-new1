@@ -1828,8 +1828,8 @@ class Bot extends Model
         $text .= $t['fio'] . $fullName . "\n";
         $text .= $t['passport'] . $gram->passport_serial . " " . $gram->passport_number . "\n";
         $text .= $t['birthday'] . date("d-m-Y", strtotime($gram->birthday)) . "\n";
-        $text .= $t['phone'] . $phone . "\n\n";
-        $text .= "- - - - - -\n\n";
+        $text .= $t['phone'] . $phone . "\n";
+        $text .= "- - - - - -\n";
 
         if ($gram->exam_type == 1) {
             $examDate = ExamDate::findOne($gram->exam_date_id);
@@ -1846,7 +1846,7 @@ class Bot extends Model
             $text .= $t['examType'] . $onOff . "\n";
         }
 
-        $text .= "\n- - - - - -\n\n";
+        $text .= "- - - - - -\n";
         $text .= $t['note'];
 
         return $text;
