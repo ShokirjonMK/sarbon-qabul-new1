@@ -1773,7 +1773,6 @@ class Bot extends Model
             1 => [ // O'zbek tili
                 'title' => "🏫 <b>SARBON UNIVERSITETI</b>\n\n",
                 'success' => "Arizangiz muvaffaqiyatli yuborildi😊"."\n\n",
-                'description' => "<i>Arizangiz mazmuni:</i>\n",
                 'fio' => "🎓 <b>F.I.O:</b> ",
                 'passport' => "📑 <b>Pasport ma'lumoti:</b> ",
                 'birthday' => "🗓 <b>Tug'ilgan sana:</b> ",
@@ -1789,7 +1788,6 @@ class Bot extends Model
             2 => [ // English
                 'title' => "🏫 <b>SARBON UNIVERSITETI</b>\n\n",
                 'success' => "Your application has been successfully submitted😊"."\n\n",
-                'description' => "<i>Application details:</i>\n",
                 'fio' => "🎓 <b>Full Name:</b> ",
                 'passport' => "📑 <b>Passport Info:</b> ",
                 'birthday' => "🗓 <b>Date of Birth:</b> ",
@@ -1805,7 +1803,6 @@ class Bot extends Model
             3 => [ // Русский
                 'title' => "🏫 <b>SARBON UNIVERSITETI</b>\n\n",
                 'success' => "Ваша заявка успешно отправлена😊"."\n\n",
-                'description' => "<i>Детали заявки:</i>\n",
                 'fio' => "🎓 <b>Ф.И.О.:</b> ",
                 'passport' => "📑 <b>Паспортные данные:</b> ",
                 'birthday' => "🗓 <b>Дата рождения:</b> ",
@@ -1824,7 +1821,6 @@ class Bot extends Model
 
         $text = $t['title'];
         $text .= $t['success'];
-        $text .= $t['description'];
         $text .= $t['fio'] . $fullName . "\n";
         $text .= $t['passport'] . $gram->passport_serial . " " . $gram->passport_number . "\n";
         $text .= $t['birthday'] . date("d-m-Y", strtotime($gram->birthday)) . "\n";
