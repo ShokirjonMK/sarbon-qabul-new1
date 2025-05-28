@@ -1828,11 +1828,11 @@ class Bot extends Model
             $onOff = "Offline <i>(" . ($lang_id == 1 ? "imtixon sanasi" : ($lang_id == 2 ? "exam date" : "дата экзамена")) . ": " . $examDate->date . ")</i>";
         }
 
-        $text .= $t['direction'] . ($eduDirection->direction->{'name_' . self::getSelectLanguageText($lang_id)} ?? '----') . "\n";
+        $text .= $t['direction'] . ($eduDirection->direction['name'.self::getSelectLanguageText($lang_id)] ?? '----') . "\n";
         $text .= $t['code'] . ($eduDirection->direction->code ?? '----') . "\n";
-        $text .= $t['eduType'] . ($eduDirection->eduType->{'name_' . self::getSelectLanguageText($lang_id)} ?? '----') . "\n";
-        $text .= $t['eduForm'] . ($eduDirection->eduForm->{'name_' . self::getSelectLanguageText($lang_id)} ?? '----') . "\n";
-        $text .= $t['lang'] . ($eduDirection->lang->{'name_' . self::getSelectLanguageText($lang_id)} ?? '----') . "\n";
+        $text .= $t['eduType'] . ($eduDirection->eduType['name'.self::getSelectLanguageText($lang_id)] ?? '----') . "\n";
+        $text .= $t['eduForm'] . ($eduDirection->eduForm['name'.self::getSelectLanguageText($lang_id)] ?? '----') . "\n";
+        $text .= $t['lang'] . ($eduDirection->lang['name'.self::getSelectLanguageText($lang_id)] ?? '----') . "\n";
 
         if ($gram->edu_type_id == 1) {
             $text .= $t['examType'] . $onOff . "\n";
