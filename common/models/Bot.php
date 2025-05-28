@@ -1251,44 +1251,160 @@ class Bot extends Model
 
         // Agar foydalanuvchi "Orqaga" tugmasini bosgan bo‘lsa
         if ($text === $backText) {
-            $gram->step = 6;
+            if ($gram->edu_type_id == 1) {
+                if ($gram->exam_type == 0) {
+                    // Imtixon turlari
+                    $gram->step = 8;
+                    $gram->save(false);
+                    return $telegram->sendMessage([
+                        'chat_id' => $gram->telegram_id,
+                        'text' => self::getT("a44", $lang_id), // Imtixon turi
+                        'parse_mode' => 'HTML',
+                        'reply_markup' => self::offline($lang_id, $eduDirection)
+                    ]);
+                } else {
+                    // offline sanalari
+                    $gram->step = 8;
+                    $gram->save(false);
+                    return $telegram->sendMessage([
+                        'chat_id' => $gram->telegram_id,
+                        'text' => self::getT("a45", $lang_id), // Offline imtixon sanalari
+                        'parse_mode' => 'HTML',
+                        'reply_markup' => self::offlineDate($lang_id, $gram)
+                    ]);
+                }
+            } elseif ($gram->edu_type_id == 2) {
+                // Yonalish bosqichlariga
+                $gram->step = 9;
+                $gram->save(false);
+                return $telegram->sendMessage([
+                    'chat_id' => $gram->telegram_id,
+                    'text' => self::getT("a54", $lang_id), // Bosqichlari
+                    'parse_mode' => 'HTML',
+                    'reply_markup' => self::course($lang_id, $eduDirection)
+                ]);
+            } else {
+                $gram->step = 6;
+                $gram->save(false);
+                return $telegram->sendMessage([
+                    'chat_id' => $gram->telegram_id,
+                    'text' => self::getT("a42", $lang_id), // Yonalish tanlang
+                    'parse_mode' => 'HTML',
+                    'reply_markup' => self::direction($lang_id, $gram)
+                ]);
+            }
+        }
+
+        $result = self::fileUpload($telegram, $gram);
+        if ($result['is_ok']) {
+            $url = $result['data'];
+            $gram->oferta = $url;
             $gram->save(false);
+
+            if ($gram->edu_type_id == 1) {
+
+                $gram->step = 14;
+                $gram->save(false);
+                return $telegram->sendMessage([
+                    'chat_id' => $gram->telegram_id,
+                    'text' => self::getT("a46", $lang_id), // Malumotlarni tasdiqlash
+                    'parse_mode' => 'HTML',
+                    'reply_markup' => self::confirm($lang_id)
+                ]);
+
+            } elseif ($gram->edu_type_id == 2) {
+
+                $gram->step = 11;
+                $gram->save(false);
+                return $telegram->sendMessage([
+                    'chat_id' => $gram->telegram_id,
+                    'text' => self::getT("a51", $lang_id), // Transkript yuklang
+                    'parse_mode' => 'HTML',
+                    'reply_markup' => json_encode([
+                        'keyboard' => [
+                            [
+                                ['text' => $backText],
+                            ],
+                        ],
+                        'resize_keyboard' => true,
+                    ])
+                ]);
+
+            } elseif ($gram->edu_type_id == 3) {
+                $gram->step = 12;
+                $gram->save(false);
+                return $telegram->sendMessage([
+                    'chat_id' => $gram->telegram_id,
+                    'text' => self::getT("a54", $lang_id), // DTM
+                    'parse_mode' => 'HTML',
+                    'reply_markup' => json_encode([
+                        'keyboard' => [
+                            [
+                                ['text' => $backText],
+                            ],
+                        ],
+                        'resize_keyboard' => true,
+                    ])
+                ]);
+            }elseif ($gram->edu_type_id == 4) {
+
+                $gram->step = 13;
+                $gram->save(false);
+                return $telegram->sendMessage([
+                    'chat_id' => $gram->telegram_id,
+                    'text' => self::getT("a54", $lang_id), // MASTER
+                    'parse_mode' => 'HTML',
+                    'reply_markup' => json_encode([
+                        'keyboard' => [
+                            [
+                                ['text' => $backText],
+                            ],
+                        ],
+                        'resize_keyboard' => true,
+                    ])
+                ]);
+            }
+        } else {
             return $telegram->sendMessage([
                 'chat_id' => $gram->telegram_id,
-                'text' => self::getT("a42", $lang_id), // Yonalish tanlang
+                'text' => self::getT("a55", $lang_id), // Fayl noto'g'ri
                 'parse_mode' => 'HTML',
-                'reply_markup' => self::direction($lang_id, $gram)
+                'reply_markup' => json_encode([
+                    'keyboard' => [
+                        [
+                            ['text' => $backText],
+                        ],
+                    ],
+                    'resize_keyboard' => true,
+                ])
+            ]);
+        }
+    }
+
+
+    public static function step11($telegram, $lang_id, $gram, $text)
+    {
+        $backText = self::getT("a12", $lang_id); // "Orqaga" tugmasi matni
+
+        $eduDirection = EduDirection::findOne($gram->edu_direction_id);
+        if ($text === '/signup' || $text === self::getT("a3", $lang_id)) {
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a51", $lang_id), // Transkript yuklang
+                'parse_mode' => 'HTML',
+                'reply_markup' => json_encode([
+                    'keyboard' => [
+                        [
+                            ['text' => $backText],
+                        ],
+                    ],
+                    'resize_keyboard' => true,
+                ])
             ]);
         }
 
-        switch ($lang_id) {
-            case 1:
-                $nameColumn = 'name_uz';
-                break;
-            case 2:
-                $nameColumn = 'name_en';
-                break;
-            case 3:
-                $nameColumn = 'name_ru';
-                break;
-            default:
-                $nameColumn = 'name_uz';
-        }
-
-        $course = DirectionCourse::find()
-            ->where([
-                'status' => 1,
-                'is_deleted' => 0,
-                'edu_direction_id' => $eduDirection->id,
-                $nameColumn => $text,
-            ])->one();
-
-        if ($course) {
-            $gram->direction_course_id = $course->id;
-            $gram->course_id = $course->course_id;
-            $gram->step = 11;
-            $gram->save(false);
-
+        // Agar foydalanuvchi "Orqaga" tugmasini bosgan bo‘lsa
+        if ($text === $backText) {
             if ($eduDirection->is_oferta == 1) {
                 $gram->step = 10;
                 $gram->save(false);
@@ -1308,9 +1424,57 @@ class Bot extends Model
                 ]);
             }
 
+            $gram->step = 9;
+            $gram->save(false);
             return $telegram->sendMessage([
                 'chat_id' => $gram->telegram_id,
-                'text' => self::getT("a51", $lang_id), // Transkript yuklang
+                'text' => self::getT("a54", $lang_id), // Bosqichlari
+                'parse_mode' => 'HTML',
+                'reply_markup' => self::course($lang_id, $eduDirection)
+            ]);
+        }
+
+        $result = self::fileUpload($telegram, $gram);
+        if ($result['is_ok']) {
+            $url = $result['data'];
+            $gram->tr = $url;
+            $gram->save(false);
+
+            $gram->step = 14;
+            $gram->save(false);
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a46", $lang_id), // Malumotlarni tasdiqlash
+                'parse_mode' => 'HTML',
+                'reply_markup' => self::confirm($lang_id)
+            ]);
+        } else {
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a55", $lang_id), // Fayl noto'g'ri
+                'parse_mode' => 'HTML',
+                'reply_markup' => json_encode([
+                    'keyboard' => [
+                        [
+                            ['text' => $backText],
+                        ],
+                    ],
+                    'resize_keyboard' => true,
+                ])
+            ]);
+        }
+    }
+
+
+    public static function step12($telegram, $lang_id, $gram, $text)
+    {
+        $backText = self::getT("a12", $lang_id); // "Orqaga" tugmasi matni
+
+        $eduDirection = EduDirection::findOne($gram->edu_direction_id);
+        if ($text === '/signup' || $text === self::getT("a3", $lang_id)) {
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a54", $lang_id), // DTM
                 'parse_mode' => 'HTML',
                 'reply_markup' => json_encode([
                     'keyboard' => [
@@ -1323,16 +1487,200 @@ class Bot extends Model
             ]);
         }
 
+        // Agar foydalanuvchi "Orqaga" tugmasini bosgan bo‘lsa
+        if ($text === $backText) {
+            if ($eduDirection->is_oferta == 1) {
+                $gram->step = 10;
+                $gram->save(false);
 
-        // Yonalish bosqichi noto'g'ri bo‘lsa
-        return $telegram->sendMessage([
-            'chat_id' => $gram->telegram_id,
-            'text' => self::getT("a52", $lang_id), // Xatolik: noto‘g‘ri
-            'parse_mode' => 'HTML',
-            'reply_markup' => self::course($lang_id, $eduDirection)
-        ]);
+                return $telegram->sendMessage([
+                    'chat_id' => $gram->telegram_id,
+                    'text' => self::getT("a49", $lang_id), // Oferta ma'lumotini yuklang
+                    'parse_mode' => 'HTML',
+                    'reply_markup' => json_encode([
+                        'keyboard' => [
+                            [
+                                ['text' => $backText],
+                            ],
+                        ],
+                        'resize_keyboard' => true,
+                    ])
+                ]);
+            }
+
+            $gram->step = 6;
+            $gram->save(false);
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a42", $lang_id), // Yonalish tanlang
+                'parse_mode' => 'HTML',
+                'reply_markup' => self::direction($lang_id, $gram)
+            ]);
+        }
+
+        $result = self::fileUpload($telegram, $gram);
+        if ($result['is_ok']) {
+            $url = $result['data'];
+            $gram->dtm = $url;
+            $gram->save(false);
+
+            $gram->step = 14;
+            $gram->save(false);
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a46", $lang_id), // Malumotlarni tasdiqlash
+                'parse_mode' => 'HTML',
+                'reply_markup' => self::confirm($lang_id)
+            ]);
+        } else {
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a55", $lang_id), // Fayl noto'g'ri
+                'parse_mode' => 'HTML',
+                'reply_markup' => json_encode([
+                    'keyboard' => [
+                        [
+                            ['text' => $backText],
+                        ],
+                    ],
+                    'resize_keyboard' => true,
+                ])
+            ]);
+        }
     }
 
+
+    public static function step13($telegram, $lang_id, $gram, $text)
+    {
+        $backText = self::getT("a12", $lang_id); // "Orqaga" tugmasi matni
+
+        $eduDirection = EduDirection::findOne($gram->edu_direction_id);
+        if ($text === '/signup' || $text === self::getT("a3", $lang_id)) {
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a54", $lang_id), // MASTER
+                'parse_mode' => 'HTML',
+                'reply_markup' => json_encode([
+                    'keyboard' => [
+                        [
+                            ['text' => $backText],
+                        ],
+                    ],
+                    'resize_keyboard' => true,
+                ])
+            ]);
+        }
+
+        // Agar foydalanuvchi "Orqaga" tugmasini bosgan bo‘lsa
+        if ($text === $backText) {
+            if ($eduDirection->is_oferta == 1) {
+                $gram->step = 10;
+                $gram->save(false);
+
+                return $telegram->sendMessage([
+                    'chat_id' => $gram->telegram_id,
+                    'text' => self::getT("a49", $lang_id), // Oferta ma'lumotini yuklang
+                    'parse_mode' => 'HTML',
+                    'reply_markup' => json_encode([
+                        'keyboard' => [
+                            [
+                                ['text' => $backText],
+                            ],
+                        ],
+                        'resize_keyboard' => true,
+                    ])
+                ]);
+            }
+
+            $gram->step = 6;
+            $gram->save(false);
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a42", $lang_id), // Yonalish tanlang
+                'parse_mode' => 'HTML',
+                'reply_markup' => self::direction($lang_id, $gram)
+            ]);
+        }
+
+        $result = self::fileUpload($telegram, $gram);
+        if ($result['is_ok']) {
+            $url = $result['data'];
+            $gram->master = $url;
+            $gram->save(false);
+
+            $gram->step = 14;
+            $gram->save(false);
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a46", $lang_id), // Malumotlarni tasdiqlash
+                'parse_mode' => 'HTML',
+                'reply_markup' => self::confirm($lang_id)
+            ]);
+        } else {
+            return $telegram->sendMessage([
+                'chat_id' => $gram->telegram_id,
+                'text' => self::getT("a55", $lang_id), // Fayl noto'g'ri
+                'parse_mode' => 'HTML',
+                'reply_markup' => json_encode([
+                    'keyboard' => [
+                        [
+                            ['text' => $backText],
+                        ],
+                    ],
+                    'resize_keyboard' => true,
+                ])
+            ]);
+        }
+    }
+
+
+
+
+    public static function fileUpload($telegram, $gram)
+    {
+        $botToken = $telegram->botToken;
+        $document = json_encode($telegram->input->message->document);
+        $document_new = json_decode($document, true);
+
+        if ($document_new == null) {
+            return ['is_ok' => false, 'data' => 0];
+        }
+
+        $data = json_decode(file_get_contents("https://api.telegram.org/bot".$botToken."/getFile?file_id=" . $document_new['file_id']), false);
+        $url = "https://api.telegram.org/file/bot".$botToken."/" . $data->result->file_path;
+        $arr = (explode("documents/", $data->result->file_path));
+        $fileName = $arr[1];
+        $photoExten = (explode(".", $fileName));
+        $ext = $photoExten[1];
+
+        $fileSize = 1024 * 1024 * 5;
+        if ($document_new['file_size'] > $fileSize) {
+            return ['is_ok' => false, 'data' => 1];
+        }
+
+        if ($ext != 'pdf') {
+            return ['is_ok' => false, 'data' => 2];
+        }
+
+
+        $backendUploadPath = dirname(Yii::getAlias('@frontend')) . '/frontend/web/uploads/'. $gram->id .'/';
+        if (!is_dir($backendUploadPath)) {
+            mkdir($backendUploadPath, 0775, true);
+        }
+
+        $uniqueName = sha1($fileName) . "_" . time() . "." . $ext;
+        $fullPath = $backendUploadPath . $uniqueName;
+
+        $stream = fopen($url, 'r');
+        if ($stream) {
+            file_put_contents($fullPath, $stream);
+            fclose($stream);
+
+            return ['is_ok' => true, 'data' => $uniqueName];
+        } else {
+            return ['is_ok' => false, 'data' => 3];
+        }
+    }
 
     public static function course($lang_id, $eduDirection)
     {
@@ -1948,6 +2296,11 @@ class Bot extends Model
             ],
             "a54" => [
                 "uz" => "Bosqich tanlang",
+                "ru" => "",
+                "en" => "",
+            ],
+            "a55" => [
+                "uz" => "Fayl pdf formatda va 5 mbdan oshmagan holatda yuklanishi shart!",
                 "ru" => "",
                 "en" => "",
             ],
