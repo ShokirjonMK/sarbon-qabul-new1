@@ -1772,7 +1772,7 @@ class Bot extends Model
         $messages = [
             1 => [ // O'zbek tili
                 'title' => "🏫 <b>SARBON UNIVERSITETI</b>\n\n",
-                'success' => "Arizangiz muvaffaqiyatli yuborildi😊.".'\n',
+                'success' => "Arizangiz muvaffaqiyatli yuborildi😊"."\n",
                 'description' => "<i>Arizangiz mazmuni:</i>\n",
                 'fio' => "🎓 <b>F.I.O:</b> ",
                 'passport' => "📑 <b>Pasport ma'lumoti:</b> ",
@@ -1788,7 +1788,7 @@ class Bot extends Model
             ],
             2 => [ // English
                 'title' => "🏫 <b>SARBON UNIVERSITETI</b>\n\n",
-                'success' => "Your application has been successfully submitted😊.".'\n',
+                'success' => "Your application has been successfully submitted😊"."\n",
                 'description' => "<i>Application details:</i>\n",
                 'fio' => "🎓 <b>Full Name:</b> ",
                 'passport' => "📑 <b>Passport Info:</b> ",
@@ -1804,7 +1804,7 @@ class Bot extends Model
             ],
             3 => [ // Русский
                 'title' => "🏫 <b>SARBON UNIVERSITETI</b>\n\n",
-                'success' => "Ваша заявка успешно отправлена😊.".'\n',
+                'success' => "Ваша заявка успешно отправлена😊"."\n",
                 'description' => "<i>Детали заявки:</i>\n",
                 'fio' => "🎓 <b>Ф.И.О.:</b> ",
                 'passport' => "📑 <b>Паспортные данные:</b> ",
