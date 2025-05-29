@@ -180,7 +180,7 @@ class StudentController extends Controller
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModelView($id),
         ]);
     }
 
@@ -800,6 +800,18 @@ class StudentController extends Controller
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
+    {
+        if (($model = Student::findOne(['id' => $id])) !== null) {
+            $user = $model->student->user;
+            if ($user->status == 10) {
+                return $model;
+            }
+        }
+
+        throw new NotFoundHttpException(\Yii::t('app', 'The requested page does not exist.'));
+    }
+
+    protected function findModelView($id)
     {
         if (($model = Student::findOne(['id' => $id])) !== null) {
             return $model;
