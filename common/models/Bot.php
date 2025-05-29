@@ -12,6 +12,7 @@ use yii\httpclient\Client;
 class Bot extends Model
 {
     const CHAT_ID = 1841508935;
+
     const PHONE = '+998 94 505 52 50';
 
     const IMG = '/frontend/web/images/bot_univer.jpg';
@@ -1151,29 +1152,30 @@ class Bot extends Model
 
         switch ($lang_id) {
             case 1:
-                $nameColumn = 'name_uz';
+                $nameColumn = 'course.name_uz';
                 break;
             case 2:
-                $nameColumn = 'name_en';
+                $nameColumn = 'course.name_en';
                 break;
             case 3:
-                $nameColumn = 'name_ru';
+                $nameColumn = 'course.name_ru';
                 break;
             default:
-                $nameColumn = 'name_uz';
+                $nameColumn = 'course.name_uz';
         }
 
         $course = DirectionCourse::find()
+            ->joinWith('course')
             ->where([
-                'status' => 1,
-                'is_deleted' => 0,
-                'edu_direction_id' => $eduDirection->id,
-                $nameColumn => $text,
-            ])->one();
+                'direction_course.status' => 1,
+                'direction_course.is_deleted' => 0,
+                'direction_course.edu_direction_id' => $eduDirection->id,
+            ])
+            ->andWhere([$nameColumn => $text])
+            ->one();
 
         if ($course) {
             $gram->direction_course_id = $course->id;
-            $gram->course_id = $course->course_id;
             $gram->step = 11;
             $gram->save(false);
 
@@ -1906,13 +1908,27 @@ class Bot extends Model
             ])
             ->all();
 
+        // Tilga qarab ustun nomi
+        switch ($lang_id) {
+            case 1:
+                $nameColumn = 'name_uz';
+                break;
+            case 2:
+                $nameColumn = 'name_en';
+                break;
+            case 3:
+                $nameColumn = 'name_ru';
+                break;
+            default:
+                $nameColumn = 'name_uz';
+        }
+
         $keyboard = [];
         $row = [];
 
         foreach ($courses as $course) {
-            $row[] = ['text' => $course->name];
+            $row[] = ['text' => $course->course->$nameColumn];
 
-            // Har 2 ta tugmadan keyin yangi qatorga o'tamiz
             if (count($row) == 2) {
                 $keyboard[] = $row;
                 $row = [];
@@ -1920,11 +1936,9 @@ class Bot extends Model
         }
 
         if (!empty($row)) {
-            // Agar toq bo‘lsa, orqaga qaytishni yonma-yon chiqaramiz
             $row[] = ['text' => $backText];
             $keyboard[] = $row;
         } else {
-            // Juft bo‘lsa, orqaga qaytish alohida qatorda
             $keyboard[] = [
                 ['text' => $backText]
             ];

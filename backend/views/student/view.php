@@ -15,8 +15,8 @@ use common\models\ExamDate;
 /** @var yii\web\View $this */
 /** @var common\models\Student $model */
 
-$cons = $model->user->cons;
 $user = $model->user;
+$cons = $user->cons;
 $eduDirection = $model->eduDirection;
 $direction = $eduDirection->direction ?? false;
 $this->title = 'Ma\'lumotlar tahlili';
@@ -251,7 +251,7 @@ if ($model->eduType != null) {
 
         <div class="page_title mt-5 mb-3">
             <h6 class="title-h5">Pasport ma'lumoti</h6>
-            <?php if (permission('student', 'info')): ?>
+            <?php if (permission('student', 'info') && $user->step >= 1): ?>
                 <h6 class="title-link">
                     <?= Html::a(
                         Yii::t('app', 'Tahrirlash'),
@@ -333,7 +333,7 @@ if ($model->eduType != null) {
     <div class="page-item mb-4">
         <div class="page_title mt-5 mb-3">
             <h6 class="title-h5">Qabul turi</h6>
-            <?php if (permission('student', 'edu-type')): ?>
+            <?php if (permission('student', 'edu-type') && $user->step >= 2): ?>
                 <h6 class="title-link">
                     <?= Html::a(
                         Yii::t('app', 'Tahrirlash'),
@@ -461,7 +461,7 @@ if ($model->eduType != null) {
                                         echo "Chala user";
                                     } ?> ma'lumotlari</h6>
             <div class="d-flex gap-3">
-                <?php if (isset($eduModel) && $eduType->id == 1 && $eduModel->status > 1) : ?>
+                <?php if (isset($eduModel) && $eduType->id == 1 && $eduModel->status > 1 && $user->step >= 3) : ?>
                     <?php if (permission('student', 'exam-change')): ?>
                         <h6 class="title-link">
                             <?= Html::a(
@@ -477,7 +477,7 @@ if ($model->eduType != null) {
                         </h6>
                     <?php endif; ?>
                 <?php endif; ?>
-                <?php if (permission('student', 'direction')): ?>
+                <?php if (permission('student', 'direction') && $user->step >= 3): ?>
                     <h6 class="title-link">
                         <?= Html::a(
                             Yii::t('app', 'Tahrirlash'),
