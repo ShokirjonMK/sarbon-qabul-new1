@@ -612,25 +612,26 @@ class StudentController extends Controller
     {
         $studentFile = $this->sertificateFindModel($id);
 
-        $model = new UploadPdf();
-
-        if ($this->request->isPost) {
-            $post = $this->request->post();
-            if ($model->load($post)) {
-                $result = UploadPdf::upload($model, $studentFile);
-                if ($result['is_ok']) {
-                    \Yii::$app->session->setFlash('success');
-                } else {
-                    \Yii::$app->session->setFlash('error', $result['errors']);
+        if ($studentFile) {
+            $model = new UploadPdf();
+            if ($this->request->isPost) {
+                $post = $this->request->post();
+                if ($model->load($post)) {
+                    $result = UploadPdf::upload($model, $studentFile);
+                    if ($result['is_ok']) {
+                        \Yii::$app->session->setFlash('success');
+                    } else {
+                        \Yii::$app->session->setFlash('error', $result['errors']);
+                    }
+                    return $this->redirect(['view', 'id' => $studentFile->student_id]);
                 }
-                return $this->redirect(['view', 'id' => $studentFile->student_id]);
             }
-        }
 
-        return $this->renderAjax('oferta-upload', [
-            'model' => $model,
-            'studentFile' => $studentFile,
-        ]);
+            return $this->renderAjax('oferta-upload', [
+                'model' => $model,
+                'studentFile' => $studentFile,
+            ]);
+        }
     }
 
     public function actionSertificateConfirm($id)
