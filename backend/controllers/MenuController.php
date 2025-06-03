@@ -21,18 +21,15 @@ class MenuController extends Controller
 
     public function actionIndex()
     {
-        $stds = CrmPush::find()
-            ->where([
-                'status' => 1,
-                'student_id' => 1137
-            ])
-            ->andWhere(['<>', 'type', [1]])
-            ->all();
-        foreach ($stds as $std) {
-            $std->status = 0;
-            $std->save(false);
-        }
-        dd(232323);
+        CrmPush::updateAll(
+            ['status' => 0],
+            [
+                'and',
+                ['status' => 1, 'student_id' => 1137],
+                ['<>', 'type', 1]
+            ]
+        );
+        dd(232232111111);
         $searchModel = new MenuSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
