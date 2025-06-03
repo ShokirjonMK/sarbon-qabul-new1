@@ -21,7 +21,6 @@ class MenuController extends Controller
 
     public function actionIndex()
     {
-        dd(23232321111);
         $stds = CrmPush::find()
             ->where([
                 'status' => 1,
