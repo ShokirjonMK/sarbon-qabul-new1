@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /** @var yii\web\View $this */
 /** @var app\models\ArchiveDocSearch $searchModel */
@@ -106,8 +107,14 @@ $breadcrumbs['item'][] = [
                 'format' => 'raw',
                 'value' => fn($model) => $model->payment_receipt ? '✅' : '❌',
             ],
-
-
+            [
+                'attribute' => 'PDF',
+                'label' => 'PDF',
+                'format' => 'raw',
+                'value' => function($model) {
+                    return "<a class='badge-table-div active' href='".Url::to(['archive-doc/pdf', 'id' => $model->id])."'><i class='fa fa-file-pdf'></i></a>";
+                },
+            ],
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{view}', // faqat ko‘rish
