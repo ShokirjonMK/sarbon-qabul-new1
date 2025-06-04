@@ -22,8 +22,6 @@ class MenuController extends Controller
 
     public function actionIndex()
     {
-        Questions::updateAll(['status' => 0], ['subject_id' => 6]);
-        dd(323232323);
         $searchModel = new MenuSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
