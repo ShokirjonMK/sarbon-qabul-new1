@@ -112,7 +112,7 @@ $breadcrumbs['item'][] = [
                 'label' => 'PDF',
                 'format' => 'raw',
                 'value' => function($model) {
-                    return "<a class='btn btn-sm btn-outline-danger' href='".Url::to(['archive-doc/pdf', 'id' => $model->id])."'><i class='fa fa-file-pdf'></i></a>";
+                    return "<a class='btn btn-sm btn-outline-danger' target='_blank' href='".Url::to(['archive-doc/pdf', 'id' => $model->id])."'><i class='fa fa-file-pdf'></i></a>";
                 },
             ],
             [
