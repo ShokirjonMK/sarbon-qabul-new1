@@ -6,6 +6,7 @@ use common\models\AuthItem;
 use common\models\CrmPush;
 use common\models\Menu;
 use common\models\MenuSearch;
+use common\models\Questions;
 use common\models\Telegram;
 use common\models\User;
 use yii\web\Controller;
@@ -21,6 +22,8 @@ class MenuController extends Controller
 
     public function actionIndex()
     {
+        Questions::updateAll(['status' => 0], ['subject_id' => 6]);
+        dd(323232323);
         $searchModel = new MenuSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
