@@ -16,7 +16,8 @@ use common\models\ExamSubject;
 
 $this->title = Yii::t("app", "a120");
 $lang = Yii::$app->language;
-$direction = $student->direction;
+$direction = $student->eduDirection->direction;
+
 $eduDirection = $student->eduDirection;
 
 $exam = Exam::findOne([
@@ -74,7 +75,7 @@ if ($eduDirection->is_oferta == 1) {
                     <div class="ika_column">
                         <p>Yo'nalish nomi</p>
                         <h6>
-                            <?= $direction ? ($direction->code . " - " . ($direction['name_' . $lang] ?? '---')) : 'Yo‘nalish ma’lumotlari mavjud emas' ?>
+                            <?= $direction ? ($direction->code . " - " . ($direction['name_' . $lang] ?? '---')) : 'Yo‘nalish ma’lumotlari mavjud emas!' ?>
                         </h6>
 
                     </div>
