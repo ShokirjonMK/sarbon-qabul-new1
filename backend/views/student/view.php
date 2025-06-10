@@ -114,7 +114,7 @@ if ($model->eduType != null) {
                                                 <p>Student id:</p>
                                             </div>
                                             <div class="subject_box_right">
-                                                <h6>ID: <?= $model->user_id ?></h6>
+                                                <h6>ID: <?= $model->user_id ?> | <?= $model->is_down ?></h6>
                                             </div>
                                         </div>
 

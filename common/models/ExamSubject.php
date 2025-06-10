@@ -401,7 +401,7 @@ class ExamSubject extends \yii\db\ActiveRecord
         $exam->save(false);
 
         $student->is_down = 0;
-        $student->update(false);
+        $student->save(false);
 
         if (count($errors) == 0) {
 
