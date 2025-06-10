@@ -631,7 +631,11 @@ if ($model->eduType != null) {
                                                 <?php elseif ($eduModel->status == 2): ?>
                                                     Test ishlamoqda
                                                 <?php elseif ($eduModel->status == 3): ?>
-                                                    Testni yakunlab shartnoma tasdiqlandi
+                                                    <?php if ($model->is_down == 0) : ?>
+                                                        Shartnoma yuklab olmagan
+                                                    <?php else: ?>
+                                                        Shartnoma oldi
+                                                    <?php endif; ?>
                                                 <?php elseif ($eduModel->status == 4): ?>
                                                     Testdan o'ta olmadi
                                                 <?php endif; ?>
