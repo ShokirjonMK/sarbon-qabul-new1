@@ -45,6 +45,7 @@ $breadcrumbs['item'][] = [
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+            'id',
             [
                'attribute' => 'student_id',
                'contentOptions' => ['date-label' => 'student_id'],
