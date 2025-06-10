@@ -594,7 +594,7 @@ class Student extends \yii\db\ActiveRecord
                 case 2:
                     return "Testda";
                 case 3:
-                    return $eduRecord->down_time !== null ? "Yakunlab shartnoma oldi" : "Yakunlab shartnoma olmadi";
+                    return $eduRecord->down_time == 1 ? "Yakunlab shartnoma oldi" : "Yakunlab shartnoma olmadi";
                 case 4:
                     return "Testdan o'tolmadi";
             }
