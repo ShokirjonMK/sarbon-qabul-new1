@@ -873,7 +873,7 @@ class StudentController extends Controller
     {
         if (($model = ExamSubject::findOne(['id' => $id, 'is_deleted' => 0])) !== null) {
             $user = $model->student->user;
-            if ($user->status == 10) {
+            if ($user->status == 10 && $user->step == 5) {
                 return $model;
             }
         }
