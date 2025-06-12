@@ -27,7 +27,7 @@ SQL_FILE="$BACKUP_DIR/$PROJECT_NAME-$now.sql"
 ARCHIVE_FILE="$BACKUP_DIR/$PROJECT_NAME-$now.tar.gz"
 
 # === MySQL zaxiralash ===
-docker compose -f "$DOCKERFILE" exec mysql sh -c "mysqldump -uroot -p$MYSQL_PASSWORD $DB_NAME" > "$SQL_FILE"
+docker-compose -f "$DOCKERFILE" exec mysql sh -c "mysqldump -uroot -p$MYSQL_PASSWORD $DB_NAME" > "$SQL_FILE"
 
 if [ $? -ne 0 ]; then
     echo "[XATO] Zaxiralashda muammo bo‘ldi."
