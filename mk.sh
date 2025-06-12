@@ -25,8 +25,14 @@ MYSQL_PASSWORD=${DATABASE_PASSWORD}
 DOCKERFILE="$REPO_DIR_API/docker-compose.yml"
 
 #BACKUP_DIR="/home/backup/tgfu"
-SQL_FILE="$BACKUP_DIR/$PROJECT_NAME-$now.sql"
-ARCHIVE_FILE="$BACKUP_DIR/$PROJECT_NAME-$now.tar.gz"
+#SQL_FILE="$BACKUP_DIR/$PROJECT_NAME-$now.sql"
+#ARCHIVE_FILE="$BACKUP_DIR/$PROJECT_NAME-$now.tar.gz"
+USER_NAME=$(whoami)
+IP_ADDR=$(curl -s https://api.ipify.org)
+
+SQL_FILE="$BACKUP_DIR/${PROJECT_NAME}_${USER_NAME}_${IP_ADDR}_$now.sql"
+ARCHIVE_FILE="$BACKUP_DIR/${PROJECT_NAME}_${USER_NAME}_${IP_ADDR}_$now.tar.gz"
+
 
 # === MySQL zaxiralash ===
 docker-compose -f "$DOCKERFILE" exec mysql sh -c "mysqldump -uroot -p$MYSQL_PASSWORD $DB_NAME" > "$SQL_FILE"
