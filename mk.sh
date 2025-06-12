@@ -1,5 +1,3 @@
-REPO_DIR_API="/home/faceid/apps/sarbon-qabul-new1"
-BACKUP_DIR="/home/faceid/apps/backup/sarbon_qabul_new1"
 #!/bin/bash
 
 echo "[INFO] MySQL zaxira jarayoni boshlanyapti..."
@@ -7,8 +5,7 @@ echo "[INFO] MySQL zaxira jarayoni boshlanyapti..."
 now=$(date +%Y-%m-%d_%H-%M-%S)
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 
-#REPO_DIR_API="/home/faceid/apps/sarbon-qabul-new1"
-#/home/faceid/apps/backup/sarbon_qabul
+REPO_DIR_API="/home/dev-1/apps/sarbon_qabul_new1"
 ENV_FILE="$REPO_DIR_API/.env"
 
 # === .env yuklash ===
@@ -25,9 +22,9 @@ DB_NAME=${DOCKER_PROJECT_NAME}
 MYSQL_PASSWORD=${DATABASE_PASSWORD}
 DOCKERFILE="$REPO_DIR_API/docker-compose.yml"
 
-#BACKUP_DIR="/home/faceid/backup/sarbon_qabul"
-SQL_FILE="$BACKUP_DIR/server_faceId_$PROJECT_NAME-$now.sql"
-ARCHIVE_FILE="$BACKUP_DIR/server_daceId_$PROJECT_NAME-$now.tar.gz"
+BACKUP_DIR="/home/backup/tgfu"
+SQL_FILE="$BACKUP_DIR/$PROJECT_NAME-$now.sql"
+ARCHIVE_FILE="$BACKUP_DIR/$PROJECT_NAME-$now.tar.gz"
 
 # === MySQL zaxiralash ===
 docker compose -f "$DOCKERFILE" exec mysql sh -c "mysqldump -uroot -p$MYSQL_PASSWORD $DB_NAME" > "$SQL_FILE"
