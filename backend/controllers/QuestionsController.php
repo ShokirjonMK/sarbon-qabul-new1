@@ -91,7 +91,7 @@ class QuestionsController extends Controller
                     Yii::$app->session->setFlash('success');
                     return $this->redirect(['view', 'id' => $model->id]);
                 } else {
-                    Yii::$app->session->setFlash('error' , $result['errors']);
+                    Yii::$app->session->setFlash('error', $result['errors']);
                     $model->loadDefaultValues();
                 }
             }
@@ -113,11 +113,13 @@ class QuestionsController extends Controller
         if ($this->request->isPost) {
             $post = $this->request->post();
             if ($model->load($post)) {
-                $result = Upload::upload($model , $subject);
+
+                dd($model);
+                $result = Upload::upload($model, $subject);
                 if ($result['is_ok']) {
                     \Yii::$app->session->setFlash('success');
                 } else {
-                    \Yii::$app->session->setFlash('error' , $result['errors']);
+                    \Yii::$app->session->setFlash('error', $result['errors']);
                 }
                 return $this->redirect(['index', 'id' => $subject->id]);
             }
@@ -143,7 +145,7 @@ class QuestionsController extends Controller
                     Yii::$app->session->setFlash('success');
                     return $this->redirect(['bot', 'id' => $subject->id]);
                 } else {
-                    Yii::$app->session->setFlash('error' , $result['errors']);
+                    Yii::$app->session->setFlash('error', $result['errors']);
                     $model->loadDefaultValues();
                 }
             }
@@ -173,12 +175,12 @@ class QuestionsController extends Controller
             $post = $this->request->post();
             if ($model->load($post)) {
                 $model->subject_id = $oldModel->subject_id;
-                $result = Questions::updateItem($model, $post , $oldModel);
+                $result = Questions::updateItem($model, $post, $oldModel);
                 if ($result['is_ok']) {
                     Yii::$app->session->setFlash('success');
                     return $this->redirect(['view', 'id' => $model->id]);
                 } else {
-                    Yii::$app->session->setFlash('error' , $result['errors']);
+                    Yii::$app->session->setFlash('error', $result['errors']);
                     $model->loadDefaultValues();
                 }
             }
@@ -201,12 +203,12 @@ class QuestionsController extends Controller
             if ($model->load($post)) {
                 $model->subject_id = $oldModel->subject_id;
                 $model->type = 1;
-                $result = Questions::updateBotItem($model, $post , $oldModel);
+                $result = Questions::updateBotItem($model, $post, $oldModel);
                 if ($result['is_ok']) {
                     Yii::$app->session->setFlash('success');
                     return $this->redirect(['bot', 'id' => $model->subject_id]);
                 } else {
-                    Yii::$app->session->setFlash('error' , $result['errors']);
+                    Yii::$app->session->setFlash('error', $result['errors']);
                     $model->loadDefaultValues();
                 }
             }
@@ -232,14 +234,14 @@ class QuestionsController extends Controller
 
         if ($model->status == 1) {
             $errors[] = ['Tasdiqlangan savolni tahrirlab bo\'lmaydi.'];
-            \Yii::$app->session->setFlash('error' , $errors);
+            \Yii::$app->session->setFlash('error', $errors);
         } else {
             $model->is_deleted = 1;
             $model->save(false);
             Yii::$app->session->setFlash('success');
         }
 
-        return $this->redirect(['index' , 'id' => $model->subject_id]);
+        return $this->redirect(['index', 'id' => $model->subject_id]);
     }
 
     public function actionImgDelete($id)
@@ -249,7 +251,7 @@ class QuestionsController extends Controller
         if ($model->status != 0) {
             $errors[] = ['Bu savol tasdiqlangan'];
         } else {
-            $fileName = \Yii::getAlias('@backend/web/uploads/questions/'.$model->image);
+            $fileName = \Yii::getAlias('@backend/web/uploads/questions/' . $model->image);
             $model->image = null;
         }
 
@@ -260,9 +262,9 @@ class QuestionsController extends Controller
             }
             $model->save(false);
         } else {
-            \Yii::$app->session->setFlash('error' , $errors);
+            \Yii::$app->session->setFlash('error', $errors);
         }
-        return $this->redirect(['questions/view' , 'id' => $model->id]);
+        return $this->redirect(['questions/view', 'id' => $model->id]);
     }
 
     public function actionCheck($id)
@@ -273,7 +275,7 @@ class QuestionsController extends Controller
         if ($result['is_ok']) {
             Yii::$app->session->setFlash('success');
         } else {
-            Yii::$app->session->setFlash('error' , $result['errors']);
+            Yii::$app->session->setFlash('error', $result['errors']);
         }
         return $this->redirect(['index', 'id' => $model->subject_id]);
     }
@@ -287,7 +289,7 @@ class QuestionsController extends Controller
         if ($result['is_ok']) {
             Yii::$app->session->setFlash('success');
         } else {
-            Yii::$app->session->setFlash('error' , $result['errors']);
+            Yii::$app->session->setFlash('error', $result['errors']);
         }
         return $this->redirect(['bot', 'id' => $model->subject_id]);
     }
@@ -301,7 +303,7 @@ class QuestionsController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Questions::findOne(['id' => $id , 'is_deleted' => 0])) !== null) {
+        if (($model = Questions::findOne(['id' => $id, 'is_deleted' => 0])) !== null) {
             return $model;
         }
 
@@ -310,7 +312,7 @@ class QuestionsController extends Controller
 
     protected function findSubjectModel($id)
     {
-        if (($model = Subjects::findOne(['id' => $id , 'is_deleted' => 0])) !== null) {
+        if (($model = Subjects::findOne(['id' => $id, 'is_deleted' => 0])) !== null) {
             return $model;
         }
 
