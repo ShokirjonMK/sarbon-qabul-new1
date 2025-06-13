@@ -835,7 +835,7 @@ class StudentController extends Controller
     {
         if (($model = StudentOferta::findOne(['id' => $id, 'is_deleted' => 0])) !== null) {
             $user = $model->student->user;
-            $isPermission = $model->contractCheck;
+            $isPermission = $model->student->contractCheck;
             if ($isPermission && $user->status == 10) {
                 return $model;
             }
@@ -848,7 +848,7 @@ class StudentController extends Controller
     {
         if (($model = StudentPerevot::findOne(['id' => $id, 'is_deleted' => 0])) !== null) {
             $user = $model->student->user;
-            $isPermission = $model->contractCheck;
+            $isPermission = $model->student->contractCheck;
             if ($isPermission && $user->status == 10) {
                 return $model;
             }
@@ -861,7 +861,7 @@ class StudentController extends Controller
     {
         if (($model = StudentDtm::findOne(['id' => $id, 'is_deleted' => 0])) !== null) {
             $user = $model->student->user;
-            $isPermission = $model->contractCheck;
+            $isPermission = $model->student->contractCheck;
             if ($isPermission && $user->status == 10) {
                 return $model;
             }
@@ -874,7 +874,7 @@ class StudentController extends Controller
     {
         if (($model = StudentMaster::findOne(['id' => $id, 'is_deleted' => 0])) !== null) {
             $user = $model->student->user;
-            $isPermission = $model->contractCheck;
+            $isPermission = $model->student->contractCheck;
             if ($isPermission && $user->status == 10) {
                 return $model;
             }
@@ -887,7 +887,7 @@ class StudentController extends Controller
     {
         if (($model = ExamSubject::findOne(['id' => $id, 'is_deleted' => 0])) !== null) {
             $user = $model->student->user;
-            $isPermission = $model->contractCheck;
+            $isPermission = $model->student->contractCheck;
             if ($isPermission && $user->status == 10 && $user->step == 5) {
                 return $model;
             }
@@ -900,7 +900,7 @@ class StudentController extends Controller
     {
         if (($model = Exam::findOne(['id' => $id, 'is_deleted' => 0])) !== null) {
             $user = $model->student->user;
-            $isPermission = $model->contractCheck;
+            $isPermission = $model->student->contractCheck;
             if ($isPermission && $user->status == 10) {
                 return $model;
             }
