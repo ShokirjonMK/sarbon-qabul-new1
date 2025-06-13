@@ -22,6 +22,17 @@ class MenuController extends Controller
 
     public function actionIndex()
     {
+        $startTime = strtotime('2025-05-01 00:00:00');
+        $endTime = strtotime('2025-05-24 23:59:59');
+
+        $users = User::find()
+            ->where(['cons_id' => 1, 'user_role' => 'student'])
+            ->andWhere(['between', 'created_at', $startTime, $endTime])
+            ->andWhere(['<>', 'status', [0]])
+            ->all();
+
+        dd(count($users));
+
         $searchModel = new MenuSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
