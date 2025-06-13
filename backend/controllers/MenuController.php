@@ -22,6 +22,36 @@ class MenuController extends Controller
 
     public function actionIndex()
     {
+        $transaction = \Yii::$app->db->beginTransaction();
+
+        $startTime = strtotime('2025-05-01 00:00:00');
+        $endTime = strtotime('2025-05-24 23:59:59');
+
+        $users = User::find()
+            ->where(['cons_id' => 1])
+            ->andWhere(['user_role' => 'student'])
+            ->andWhere(['between', 'created_at', $startTime, $endTime])
+            ->andWhere(['=', 'status', 0])
+            ->andWhere(['<', 'step', 5])
+            ->all();
+
+        $t = 0;
+        foreach ($users as $user) {
+            $student = $user->student;
+            $crm = CrmPush::find()
+                ->where([
+                    'student_id' => $student->id,
+                    'type' => 12
+                ])
+                ->one();
+            if (!$crm) {
+                $t++;
+            }
+        }
+
+        dd($t);
+        $transaction->commit();
+
         $searchModel = new MenuSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
