@@ -26,6 +26,7 @@ use common\models\Student;
 use common\models\StudentDtm;
 use common\models\StudentMaster;
 use common\models\StudentOferta;
+use common\models\StudentPaymentSearch;
 use common\models\StudentPerevot;
 use common\models\StudentSearch;
 use kartik\mpdf\Pdf;
@@ -179,8 +180,14 @@ class StudentController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModelView($id);
+        $searchModel = new StudentPaymentSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams, $id);
+
         return $this->render('view', [
-            'model' => $this->findModelView($id),
+            'model' => $model,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 

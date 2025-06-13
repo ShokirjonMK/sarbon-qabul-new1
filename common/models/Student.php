@@ -55,6 +55,7 @@ use Yii;
  * @property User $branch
  * @property ExamDate $examDate
  * @property $ipCheck
+ * @property StudentPayment $payment
  */
 class Student extends \yii\db\ActiveRecord
 {
@@ -145,6 +146,20 @@ class Student extends \yii\db\ActiveRecord
             'edu_direction' => Yii::t('app', 'Edu Direction'),
         ];
     }
+
+    public function getPayment()
+    {
+        $sum = StudentPayment::find()
+            ->where([
+                'is_deleted' => 0,
+                'status' => 1,
+                'student_id' => $this->id,
+            ])
+            ->sum('price');
+
+        return $sum ?? 0;
+    }
+
 
     /**
      * Gets query for [[Course]].
@@ -316,8 +331,13 @@ class Student extends \yii\db\ActiveRecord
 
 
     public function getContractCheck() {
+        $payment = $this->payment;
 
-        if ($this->exam_type == 0 || isRole('super_admin')) {
+        if ($payment == 0 || isRole('super_admin')) {
+            return true;
+        }
+
+        if ($this->exam_type == 0) {
             return true;
         }
 
@@ -327,10 +347,9 @@ class Student extends \yii\db\ActiveRecord
                 'edu_direction_id' => $this->edu_direction_id,
                 'is_deleted' => 0
             ]);
-            if ($record) {
-                if ($record->status > 2) {
-                    return false;
-                }
+
+            if ($record && $record->status > 2) {
+                return false;
             }
         }
         return true;
