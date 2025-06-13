@@ -315,6 +315,28 @@ class Student extends \yii\db\ActiveRecord
     }
 
 
+    public function getContractCheck() {
+
+        if ($this->exam_type == 0 || isRole('super_admin')) {
+            return true;
+        }
+
+        if ($this->edu_type_id == 1) {
+            $record = Exam::findOne([
+                'student_id' => $this->id,
+                'edu_direction_id' => $this->edu_direction_id,
+                'is_deleted' => 0
+            ]);
+            if ($record) {
+                if ($record->status > 2) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+
     public function getContractPrice() {
         $text = 'Shartnoma yo\'q';
 
