@@ -22,6 +22,8 @@ class MenuController extends Controller
 
     public function actionIndex()
     {
+        $transaction = \Yii::$app->db->beginTransaction();
+        
         $startTime = strtotime('2025-05-01 00:00:00');
         $endTime = strtotime('2025-05-24 23:59:59');
 
@@ -33,6 +35,18 @@ class MenuController extends Controller
             ->andWhere(['<', 'step', 5])
             ->all();
 
+        foreach ($users as $user) {
+            $student = $user->student;
+            $user->username = $user->username."__".time();
+            $user->generateAuthKey();
+            $user->generateEmailVerificationToken();
+            $user->generatePasswordResetToken();
+            $user->update(false);
+            $student->username = $user->username;
+            $student->save(false);
+        }
+
+        $transaction->commit();
         dd(count($users));
 
         $searchModel = new MenuSearch();

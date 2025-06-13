@@ -681,6 +681,9 @@ class Student extends \yii\db\ActiveRecord
 
         if ($user->status == User::STATUS_DELETED) {
             $user->username = $user->username."__".$time;
+            $user->generateAuthKey();
+            $user->generateEmailVerificationToken();
+            $user->generatePasswordResetToken();
             $user->update(false);
             $model->username = $user->username;
             $model->save(false);
