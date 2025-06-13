@@ -30,6 +30,7 @@ class MenuController extends Controller
             ->andWhere(['user_role' => 'student'])
             ->andWhere(['between', 'created_at', $startTime, $endTime])
             ->andWhere(['<>', 'status', 0])
+            ->andWhere(['<', 'step', 5])
             ->all();
 
         dd(count($users));
