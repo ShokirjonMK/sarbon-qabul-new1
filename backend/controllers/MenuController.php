@@ -26,9 +26,10 @@ class MenuController extends Controller
         $endTime = strtotime('2025-05-24 23:59:59');
 
         $users = User::find()
-            ->where(['cons_id' => 1, 'user_role' => 'student'])
+            ->where(['cons_id' => 1])
+            ->andWhere(['user_role' => 'student'])
             ->andWhere(['between', 'created_at', $startTime, $endTime])
-            ->andWhere(['<>', 'status', [0]])
+            ->andWhere(['<>', 'status', 0])
             ->all();
 
         dd(count($users));
