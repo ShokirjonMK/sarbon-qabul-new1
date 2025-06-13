@@ -113,8 +113,6 @@ class QuestionsController extends Controller
         if ($this->request->isPost) {
             $post = $this->request->post();
             if ($model->load($post)) {
-
-                dd($model);
                 $result = Upload::upload($model, $subject);
                 if ($result['is_ok']) {
                     \Yii::$app->session->setFlash('success');
