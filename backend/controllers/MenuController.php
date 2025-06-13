@@ -32,9 +32,9 @@ class MenuController extends Controller
             ->andWhere(['user_role' => 'student'])
             ->andWhere(['between', 'created_at', $startTime, $endTime])
             ->andWhere(['<', 'step', 5])
+            ->andWhere(['<>', 'status', 0])
             ->andWhere(['not regexp', 'username', '^\\+998 \\(\\d{2}\\) \\d{3}-\\d{2}-\\d{2}$'])
             ->all();
-        
         dd(count($users));
 
         foreach ($users as $user) {
