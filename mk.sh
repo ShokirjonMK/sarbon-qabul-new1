@@ -1,3 +1,5 @@
+REPO_DIR_API="/home/faceid/apps/sarbon-qabul-new1"
+BACKUP_DIR="/home/faceid/apps/backup/sarbon_qabul_new1"
 #!/bin/bash
 
 echo "[INFO] MySQL zaxira jarayoni boshlanyapti..."
@@ -5,7 +7,7 @@ echo "[INFO] MySQL zaxira jarayoni boshlanyapti..."
 now=$(date +%Y-%m-%d_%H-%M-%S)
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 
-REPO_DIR_API="/home/dev-1/apps/sarbon_qabul_new1"
+#REPO_DIR_API="/home/dev-1/apps/sarbon_qabul_new1"
 ENV_FILE="$REPO_DIR_API/.env"
 
 # === .env yuklash ===
@@ -22,12 +24,18 @@ DB_NAME=${DOCKER_PROJECT_NAME}
 MYSQL_PASSWORD=${DATABASE_PASSWORD}
 DOCKERFILE="$REPO_DIR_API/docker-compose.yml"
 
-BACKUP_DIR="/home/backup/tgfu"
-SQL_FILE="$BACKUP_DIR/$PROJECT_NAME-$now.sql"
-ARCHIVE_FILE="$BACKUP_DIR/$PROJECT_NAME-$now.tar.gz"
+#BACKUP_DIR="/home/backup/tgfu"
+#SQL_FILE="$BACKUP_DIR/$PROJECT_NAME-$now.sql"
+#ARCHIVE_FILE="$BACKUP_DIR/$PROJECT_NAME-$now.tar.gz"
+USER_NAME=$(whoami)
+IP_ADDR=$(curl -s https://api.ipify.org)
+
+SQL_FILE="$BACKUP_DIR/${PROJECT_NAME}_${USER_NAME}_${IP_ADDR}_$now.sql"
+ARCHIVE_FILE="$BACKUP_DIR/${PROJECT_NAME}_${USER_NAME}_${IP_ADDR}_$now.tar.gz"
+
 
 # === MySQL zaxiralash ===
-docker compose -f "$DOCKERFILE" exec mysql sh -c "mysqldump -uroot -p$MYSQL_PASSWORD $DB_NAME" > "$SQL_FILE"
+docker-compose -f "$DOCKERFILE" exec mysql sh -c "mysqldump -uroot -p$MYSQL_PASSWORD $DB_NAME" > "$SQL_FILE"
 
 if [ $? -ne 0 ]; then
     echo "[XATO] Zaxiralashda muammo bo‘ldi."
