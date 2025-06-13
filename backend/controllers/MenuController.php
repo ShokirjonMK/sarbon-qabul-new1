@@ -35,7 +35,6 @@ class MenuController extends Controller
             ->andWhere(['<>', 'status', 0])
             ->andWhere(['not regexp', 'username', '^\\+998 \\(\\d{2}\\) \\d{3}-\\d{2}-\\d{2}$'])
             ->all();
-        dd(count($users));
 
         foreach ($users as $user) {
             $student = $user->student;
@@ -43,10 +42,17 @@ class MenuController extends Controller
             $user->generateAuthKey();
             $user->generateEmailVerificationToken();
             $user->generatePasswordResetToken();
+            $user->status = 0;
             $user->update(false);
             $student->username = $user->username;
             $student->save(false);
+
+            CrmPush::processType(12, $student, $user);
         }
+
+        $transaction->commit();
+        dd(count($users));
+
 
         $searchModel = new MenuSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
