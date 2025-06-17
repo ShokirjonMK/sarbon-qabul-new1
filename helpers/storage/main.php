@@ -1,10 +1,11 @@
 <?php
+
 use common\models\AuthItem;
 use common\models\Consulting;
 use common\models\Branch;
 use common\models\Actions;
 use common\models\Permission;
-
+use Detection\MobileDetect;
 
 function current_user()
 {
@@ -16,7 +17,8 @@ function current_user_id()
 {
     return (int)Yii::$app->user->id;
 }
-function isRole($string) {
+function isRole($string)
+{
     $user = Yii::$app->user->identity;
     if ($user->user_role == $string) {
         return true;
@@ -25,7 +27,8 @@ function isRole($string) {
 }
 
 
-function custom_shuffle($my_array = array()) {
+function custom_shuffle($my_array = array())
+{
     $copy = array();
     while (count($my_array)) {
         // takes a rand array elements by its key
@@ -62,7 +65,8 @@ function formatPhoneNumber($number)
     return $normalizedPhoneNumber;
 }
 
-function getDomainFromURL($url) {
+function getDomainFromURL($url)
+{
     // URL dan domen nomini ajratib olish
     $parsedUrl = parse_url($url);
     $domain = $parsedUrl['host'];
@@ -75,6 +79,117 @@ function getIpAddress()
     return \Yii::$app->request->getUserIP();
 }
 
+// Get browser
+function getBrowser()
+{
+    $mob_detect = new MobileDetect();
+    $user_agent = $_SERVER['HTTP_USER_AGENT'];
+    $browser_name = 'Unknown Browser';
+    $platform = 'Unknown OS';
+    $version = "";
+    $ub = "";
+
+    // First get the platform
+    $os_array = array(
+        '/windows nt 10/i' => 'Windows 10',
+        '/windows nt 6.3/i' => 'Windows 8.1',
+        '/windows nt 6.2/i' => 'Windows 8',
+        '/windows nt 6.1/i' => 'Windows 7',
+        '/windows nt 6.0/i' => 'Windows Vista',
+        '/windows nt 5.2/i' => 'Windows Server 2003/XP x64',
+        '/windows nt 5.1/i' => 'Windows XP',
+        '/windows xp/i' => 'Windows XP',
+        '/windows nt 5.0/i' => 'Windows 2000',
+        '/windows me/i' => 'Windows ME',
+        '/win98/i' => 'Windows 98',
+        '/win95/i' => 'Windows 95',
+        '/win16/i' => 'Windows 3.11',
+        '/macintosh|mac os x/i' => 'Mac OS X',
+        '/mac_powerpc/i' => 'Mac OS 9',
+        '/linux/i' => 'Linux',
+        '/ubuntu/i' => 'Ubuntu',
+        '/iphone/i' => 'iPhone',
+        '/ipod/i' => 'iPod',
+        '/ipad/i' => 'iPad',
+        '/android/i' => 'Android',
+        '/blackberry/i' => 'BlackBerry',
+        '/webos/i' => 'Mobile',
+    );
+
+    foreach ($os_array as $regex => $value) {
+        if (preg_match($regex, $user_agent)) {
+            $platform = $value;
+        }
+    }
+
+    // Next get the name of the useragent yes seperately and for good reason
+    if (preg_match('/MSIE/i', $user_agent) && !preg_match('/Opera/i', $user_agent)) {
+        $browser_name = 'Internet Explorer';
+        $ub = "MSIE";
+    } elseif (preg_match('/Firefox/i', $user_agent)) {
+        $browser_name = 'Mozilla Firefox';
+        $ub = "Firefox";
+    } elseif (preg_match('/OPR/i', $user_agent)) {
+        $browser_name = 'Opera';
+        $ub = "Opera";
+    } elseif (preg_match('/Chrome/i', $user_agent) && !preg_match('/Edge/i', $user_agent)) {
+        $browser_name = 'Google Chrome';
+        $ub = "Chrome";
+    } elseif (preg_match('/Safari/i', $user_agent) && !preg_match('/Edge/i', $user_agent)) {
+        $browser_name = 'Apple Safari';
+        $ub = "Safari";
+    } elseif (preg_match('/Netscape/i', $user_agent)) {
+        $browser_name = 'Netscape';
+        $ub = "Netscape";
+    } elseif (preg_match('/Edge/i', $user_agent)) {
+        $browser_name = 'Edge';
+        $ub = "Edge";
+    } elseif (preg_match('/Trident/i', $user_agent)) {
+        $browser_name = 'Internet Explorer';
+        $ub = "MSIE";
+    }
+
+    // Finally get the correct browser version number
+    $known = array('Version', $ub, 'other');
+    $pattern = '#(?<browser>' . join('|', $known) . ')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
+    preg_match_all($pattern, $user_agent, $matches);
+
+    // see how many we have
+    $i = count($matches['browser']);
+    if ($i != 1) {
+        if (strripos($user_agent, "Version") < strripos($user_agent, $ub)) {
+            $version = $matches['version'][0];
+        } else {
+            $version = $matches['version'][1];
+        }
+    } else {
+        $version = $matches['version'][0];
+    }
+
+    // check if we have a number
+    if ($version == null || $version == "") {
+        $version = "?";
+    }
+
+    // check device type
+    $device = 'desktop';
+
+    if ($mob_detect->isMobile()) {
+        $device = 'mobile';
+    } elseif ($mob_detect->isTablet()) {
+        $device = 'tablet';
+    }
+
+    return [
+        'ip' => getIpMK(),
+        'user_agent' => $user_agent,
+        'browser_name' => $browser_name,
+        'browser_version' => $version,
+        'platform' => $platform,
+        'device' => $device,
+        'session' => "{$browser_name} {$version} / {$platform}",
+    ];
+}
 
 function getIpMK()
 {
@@ -124,7 +239,7 @@ function checkAllowedIP()
     // return true;
     $userIp = getIpMK();
     $sam = '10.0';
-   
+
     $allowedIps = [
         '45.150.24.183',
         '89.104.102.200',
