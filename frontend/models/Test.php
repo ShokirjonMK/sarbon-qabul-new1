@@ -168,7 +168,7 @@ class Test extends Model
             $one_ball = $directionSubject->ball;
             if ($examSubject->file_status == 2) {
                 $examSubject->ball = $directionSubject->count * $one_ball;
-                ExamStudentQuestions::updateAll(['is_correct' => 1, 'updated_by' => Yii::$app->user->identity->id ?? 0, 'updated_at' => time()], ['exam_subject_id' => $examSubject->id, 'status' => 1, 'is_deleted' => 0]);
+                ExamStudentQuestions::updateAll(['is_correct' => 1, 'updated_at' => time()], ['exam_subject_id' => $examSubject->id, 'status' => 1, 'is_deleted' => 0]);
             } else {
                 $questions = ExamStudentQuestions::find()
                     ->where([
