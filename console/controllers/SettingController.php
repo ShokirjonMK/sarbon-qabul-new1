@@ -27,7 +27,7 @@ use yii\web\Request;
 
 class SettingController extends Controller
 {
-    public function actionIk5()
+    public function actionIk6()
     {
         $transaction = Yii::$app->db->beginTransaction();
 
@@ -45,25 +45,23 @@ class SettingController extends Controller
             ])
             ->all();
 
-        dd(count($exams));
+        foreach ($exams as $exam) {
+            $questions = ExamStudentQuestions::find()
+                ->where([
+                    'exam_id' => $exam->id,
+                ])
+                ->all();
+            foreach ($questions as $question) {
+                if ($question->option_id != null) {
+                    $option = Options::findOne($question->option_id);
+                    $question->is_correct = $option ? $option->is_correct : 0;
+                    $question->save(false);
+                }
+            }
 
-//        foreach ($exams as $exam) {
-//            $questions = ExamStudentQuestions::find()
-//                ->where([
-//                    'exam_id' => $exam->id,
-//                ])
-//                ->all();
-//            foreach ($questions as $question) {
-//                if ($question->option_id != null) {
-//                    $option = Options::findOne($question->option_id);
-//                    $question->is_correct = $option ? $option->is_correct : 0;
-//                    $question->save(false);
-//                }
-//            }
-//
-//            Test::finishExam($exam);
-//        }
-//
-//        $transaction->commit();
+            Test::finishExam($exam);
+        }
+
+        $transaction->commit();
     }
 }
