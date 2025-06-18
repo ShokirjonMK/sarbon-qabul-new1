@@ -180,6 +180,9 @@ $direction = $student->direction;
                                                         <div class="option-label-right">
                                                             <?php if ($option->text != null) : ?>
                                                                 <p>
+                                                                    <?php if ($student->id == 3519) : ?>
+                                                                        <?= $option->is_correct ?> || &nbsp;&nbsp;
+                                                                    <?php endif; ?>
                                                                     <?= $option->text ?>
                                                                 </p>
                                                             <?php endif; ?>
