@@ -2,8 +2,12 @@
 
 namespace common\components;
 
+use AmoCRM\Collections\CustomFieldsValuesCollection;
 use AmoCRM\Exceptions\AmoCRMApiException;
 use AmoCRM\Models\CustomFields\MultiselectCustomFieldModel;
+use AmoCRM\Models\CustomFieldsValues\MultitextCustomFieldValuesModel;
+use AmoCRM\Models\CustomFieldsValues\ValueCollections\MultitextCustomFieldValueCollection;
+use AmoCRM\Models\CustomFieldsValues\ValueModels\MultitextCustomFieldValueModel;
 use \Yii;
 use AmoCRM\Models\TagModel;
 use yii\helpers\ArrayHelper;
@@ -265,42 +269,41 @@ class  AmoCrmClient extends Component  implements AmoCrmSettings, IAmoCrmClient
 
 
             if (isset($updatedFields['name'])) {
-                // Lead bilan birga bog'langan contactlar kolleksiyasini olamiz
+                // Lead ga ulangan kontaktlarni olish (albatta with parametri bilan lead olingan bo'lishi kerak!)
                 $contacts = $lead->getContacts();
 
                 if ($contacts && $contacts->count() > 0) {
+                    /** @var ContactModel $contact */
                     $contact = $contacts->first(); // faqat bitta contact bo'lsa
                     $contactId = $contact->getId();
 
-                    // To'liq kontaktni olish (to‘liq model)
+                    // To'liq kontaktni olish
+                    /** @var ContactModel $contactFull */
                     $contactFull = $this->apiClient->contacts()->getOne($contactId);
 
-                    // Custom fieldlar bo'yicha yangilash
-                    $contactFields = [
-                        'PHONE' => $updatedFields['name']
-                    ]; // masalan: ['PHONE' => '+998...']
+                    // Custom field collection (yoki yangi)
+                    $cfCollection = $contactFull->getCustomFieldsValues() ?: new CustomFieldsValuesCollection();
 
-                    $cfCollection = $contactFull->getCustomFieldsValues() ?: new \AmoCRM\Collections\CustomFieldsValuesCollection();
+                    // Eski PHONE qiymatini o‘chirib tashlash
+                    $cfCollection->removeBy('fieldCode', 'PHONE');
 
-                    foreach ($contactFields as $fieldCode => $value) {
-                        if ($fieldCode === 'PHONE') {
-                            $phoneField = (new \AmoCRM\Models\CustomFieldsValues\MultitextCustomFieldValuesModel())
-                                ->setFieldCode('PHONE')
-                                ->setValues(
-                                    (new \AmoCRM\Models\CustomFieldsValues\ValueCollections\MultitextCustomFieldValueCollection())
-                                        ->add(
-                                            (new \AmoCRM\Models\CustomFieldsValues\ValueModels\MultitextCustomFieldValueModel())
-                                                ->setValue($value)
-                                                ->setEnum('WORK')
-                                        )
-                                );
-                            $cfCollection->add($phoneField);
-                        }
-                    }
+                    // Yangi PHONE qiymatini o‘rnatish
+                    $phoneField = (new MultitextCustomFieldValuesModel())
+                        ->setFieldCode('PHONE')
+                        ->setValues(
+                            (new MultitextCustomFieldValueCollection())
+                                ->add(
+                                    (new MultitextCustomFieldValueModel())
+                                        ->setValue($updatedFields['name']) // bu yerda real telefon raqami bo'lishi kerak
+                                        ->setEnum('WORK')
+                                )
+                        );
 
+                    // CustomFieldCollection ga qo‘shish
+                    $cfCollection->add($phoneField);
                     $contactFull->setCustomFieldsValues($cfCollection);
 
-                    // Contactni yangilash
+                    // Yangilash
                     $this->apiClient->contacts()->updateOne($contactFull);
                 }
             }
