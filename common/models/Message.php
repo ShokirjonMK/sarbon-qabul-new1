@@ -60,6 +60,7 @@ class Message extends \yii\db\ActiveRecord
         $response = curl_exec($curl);
         $err = curl_error($curl);
         curl_close($curl);
+        dd($phone." --- ".$response);
         return $phone." --- ".$response;
 
 
