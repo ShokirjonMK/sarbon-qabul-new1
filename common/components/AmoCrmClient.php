@@ -276,7 +276,9 @@ class  AmoCrmClient extends Component  implements AmoCrmSettings, IAmoCrmClient
                     $contactFull = $this->apiClient->contacts()->getOne($contactId);
 
                     // Custom fieldlar bo'yicha yangilash
-                    $contactFields = ['PHONE' => (string)$updatedFields['name']]; // masalan: ['PHONE' => '+998...']
+                    $contactFields = [
+                        'PHONE' => $updatedFields['name']
+                    ]; // masalan: ['PHONE' => '+998...']
 
                     $cfCollection = $contactFull->getCustomFieldsValues() ?: new \AmoCRM\Collections\CustomFieldsValuesCollection();
 
