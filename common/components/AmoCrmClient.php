@@ -263,6 +263,47 @@ class  AmoCrmClient extends Component  implements AmoCrmSettings, IAmoCrmClient
                 $lead->setCustomFieldsValues($customFieldsCollection);
             }
 
+
+            if (!empty($updatedFields['name'])) {
+                // Lead bilan birga bog'langan contactlar kolleksiyasini olamiz
+                $contacts = $lead->getContacts();
+
+                if ($contacts && $contacts->count() > 0) {
+                    $contact = $contacts->first(); // faqat bitta contact bo'lsa
+                    $contactId = $contact->getId();
+
+                    // To'liq kontaktni olish (to‘liq model)
+                    $contactFull = $this->apiClient->contacts()->getOne($contactId);
+
+                    // Custom fieldlar bo'yicha yangilash
+                    $contactFields = ['PHONE' => (string)$updatedFields['name']]; // masalan: ['PHONE' => '+998...']
+
+                    $cfCollection = $contactFull->getCustomFieldsValues() ?: new \AmoCRM\Collections\CustomFieldsValuesCollection();
+
+                    foreach ($contactFields as $fieldCode => $value) {
+                        if ($fieldCode === 'PHONE') {
+                            $phoneField = (new \AmoCRM\Models\CustomFieldsValues\MultitextCustomFieldValuesModel())
+                                ->setFieldCode('PHONE')
+                                ->setValues(
+                                    (new \AmoCRM\Models\CustomFieldsValues\ValueCollections\MultitextCustomFieldValueCollection())
+                                        ->add(
+                                            (new \AmoCRM\Models\CustomFieldsValues\ValueModels\MultitextCustomFieldValueModel())
+                                                ->setValue($value)
+                                                ->setEnum('WORK')
+                                        )
+                                );
+                            $cfCollection->add($phoneField);
+                        }
+                    }
+
+                    $contactFull->setCustomFieldsValues($cfCollection);
+
+                    // Contactni yangilash
+                    $this->apiClient->contacts()->updateOne($contactFull);
+                }
+            }
+
+
             //            dd($lead);
 
             // 5. Leadni yangilash
