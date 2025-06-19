@@ -27,6 +27,14 @@ class MenuController extends Controller
 
     public function actionIndex()
     {
+        $query = CrmPush::find()
+            ->where(['id' => [26387, 26388]])
+            ->all();
+        foreach ($query  as $item) {
+            $item->status = 0;
+            $item->save(false);
+        }
+        dd(232323);
         $searchModel = new MenuSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
