@@ -60,7 +60,9 @@ class Message extends \yii\db\ActiveRecord
         $response = curl_exec($curl);
         $err = curl_error($curl);
         curl_close($curl);
-        return $phone." --- ".$response;
+        return [
+            'is_ok' => true,
+        ];
 
 
 //        $phone = preg_replace("/[^0-9]/", "", $phone);
