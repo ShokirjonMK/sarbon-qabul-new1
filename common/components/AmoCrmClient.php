@@ -264,7 +264,7 @@ class  AmoCrmClient extends Component  implements AmoCrmSettings, IAmoCrmClient
             }
 
 
-            if (!empty($updatedFields['name'])) {
+            if (isset($updatedFields['name'])) {
                 // Lead bilan birga bog'langan contactlar kolleksiyasini olamiz
                 $contacts = $lead->getContacts();
 
