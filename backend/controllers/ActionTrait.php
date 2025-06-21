@@ -5,6 +5,7 @@ use backend\components\HttpBearerAuth;
 use backend\components\PermissonCheck;
 //use base\ResponseStatus;
 use common\models\Actions;
+use common\models\Menu;
 use common\models\Permission;
 use common\models\RoleRestriction;
 use common\models\User;
@@ -47,6 +48,9 @@ trait ActionTrait
 
     public function beforeAction($action)
     {
+        $menu = Menu::find()
+            ->all();
+        dd($menu);
         if (Yii::$app->user->isGuest) {
             return $this->redirect(['site/login'])->send();
         }
