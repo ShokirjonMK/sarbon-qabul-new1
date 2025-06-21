@@ -62,6 +62,38 @@ $breadcrumbs['item'][] = [
         ],
         'payment_date',
         'text',
+        [
+            'class' => \yii\grid\ActionColumn::className(),
+            'contentOptions' => ['date-label' => 'Harakatlar' , 'class' => 'd-flex justify-content-around'],
+            'header'=> 'Harakatlar',
+            'buttons'  => [
+                'view'   => function () {
+                    return false;
+                },
+                'update' => function ($url, $model) {
+                    if (permission('student-payment', 'update')) {
+                        $url = Url::to(['student-payment/update', 'id' => $model->id]);
+                        return Html::a('<i class="fa-solid fa-pen-to-square"></i>', $url, [
+                            'title' => 'update',
+                            'class' => 'tableIcon',
+                        ]);
+                    }
+                    return false;
+                },
+                'delete' => function ($url, $model) {
+                    if (permission('student-payment', 'delete')) {
+                        $url = Url::to(['student-payment/delete', 'id' => $model->id]);
+                        return Html::a('<i class="fa fa-trash"></i>', $url, [
+                            'title' => 'delete',
+                            'class' => 'tableIcon',
+                            'data-confirm' => Yii::t('yii', 'Ma\'lumotni o\'chirishni xoxlaysizmi?'),
+                            'data-method'  => 'post',
+                        ]);
+                    }
+                    return false;
+                },
+            ],
+        ],
     ];
     ?>
 
@@ -89,3 +121,39 @@ $breadcrumbs['item'][] = [
 
 
 </div>
+
+
+    <div class="modal fade" id="studentInfoDate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="form-section">
+                    <div class="form-section_item">
+                        <div class="modal-body" id="studentInfoBodyDate">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<?php
+$js = <<<JS
+$(document).ready(function() {
+    $('#studentInfo').on('show.bs.modal', function (e) {
+        $(this).find('#studentInfoBody').empty();
+        var button = $(e.relatedTarget);
+        var url = button.attr('href');
+        $(this).find('#studentInfoBody').load(url);
+    });
+    
+    $('#studentInfoDate').on('show.bs.modal', function (e) {
+        // $(this).find('#studentInfoBody').empty();
+        var button = $(e.relatedTarget);
+        var url = button.attr('href');
+        $(this).find('#studentInfoBodyDate').load(url);
+    });
+});
+JS;
+$this->registerJs($js);
+?>
