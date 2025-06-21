@@ -1046,6 +1046,8 @@ if ($model->eduType != null) {
                                     return Html::a('<i class="fa-solid fa-pen-to-square"></i>', $url, [
                                         'title' => 'update',
                                         'class' => 'tableIcon',
+                                        "data-bs-toggle" => "modal",
+                                        "data-bs-target" => "#studentInfoDate",
                                     ]);
                                 }
                                 return false;
