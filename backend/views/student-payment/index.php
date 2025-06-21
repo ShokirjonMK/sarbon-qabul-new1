@@ -63,6 +63,17 @@ $breadcrumbs['item'][] = [
         'payment_date',
         'text',
         [
+            'attribute' => 'Batafsil',
+            'contentOptions' => ['date-label' => 'Batafsil'],
+            'format' => 'raw',
+            'value' => function($model) {
+                if (permission('student', 'view')) {
+                    $readMore = "<a href='".Url::to(['student/view' , 'id' => $model->student_id])."' class='badge-table-div active mt-2'>Batafsil</a>";
+                    return $readMore;
+                }
+            },
+        ],
+        [
             'class' => \yii\grid\ActionColumn::className(),
             'contentOptions' => ['date-label' => 'Harakatlar' , 'class' => 'd-flex justify-content-around'],
             'header'=> 'Harakatlar',
