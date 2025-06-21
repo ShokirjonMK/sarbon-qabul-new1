@@ -62,7 +62,7 @@ use yii\widgets\ActiveForm;
         <?= Html::submitButton(Yii::t('app', 'Qidirish'), ['class' => 'b-btn b-primary']) ?>
         <?= Html::a(Yii::t('app', 'Reset'), ['index'], ['class' => 'b-btn b-secondary']) ?>
     </div>
-    
+
     <?php ActiveForm::end(); ?>
 
 </div>

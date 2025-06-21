@@ -32,39 +32,59 @@ $breadcrumbs['item'][] = [
 
     <?= $this->render('_search', ['model' => $searchModel]); ?>
 
+    <?php
+    $data = [
+        ['class' => 'yii\grid\SerialColumn'],
+        [
+            'attribute' => 'F.I.O',
+            'contentOptions' => ['date-label' => 'F.I.O'],
+            'format' => 'raw',
+            'value' => function($model) {
+                return $model->student->fullName ?? '---';
+            },
+        ],
+        [
+            'attribute' => 'F.I.O',
+            'contentOptions' => ['date-label' => 'F.I.O'],
+            'format' => 'raw',
+            'value' => function($model) {
+                $student = $model->student;
+                return $student->passport_serial ." | ".$student->passport_number;
+            },
+        ],
+        [
+            'attribute' => 'price',
+            'contentOptions' => ['date-label' => 'price'],
+            'format' => 'raw',
+            'value' => function($t) {
+                return number_format($t->price, 0, '', ' ');
+            },
+        ],
+        'payment_date',
+        'text',
+    ];
+    ?>
+
+
+    <div class="form-section">
+        <div class="form-section_item">
+            <div class="d-flex justify-content-between align-items-center">
+                <p><b>Jami soni: &nbsp; <?= $dataProvider->totalCount ?></b></p>
+                <div class="page_export d-flex align-items-center gap-4">
+                    <div>
+                        <?php echo \kartik\export\ExportMenu::widget([
+                            'dataProvider' => $dataProvider,
+                            'columns' => $data,
+                            'asDropdown' => false,
+                        ]); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            [
-                'attribute' => 'F.I.O',
-                'contentOptions' => ['date-label' => 'F.I.O'],
-                'format' => 'raw',
-                'value' => function($model) {
-                    return $model->student->fullName ?? '---';
-                },
-            ],
-            [
-                'attribute' => 'F.I.O',
-                'contentOptions' => ['date-label' => 'F.I.O'],
-                'format' => 'raw',
-                'value' => function($model) {
-                    $student = $model->student;
-                    return $student->passport_serial ." | ".$student->passport_number;
-                },
-            ],
-            [
-                'attribute' => 'price',
-                'contentOptions' => ['date-label' => 'price'],
-                'format' => 'raw',
-                'value' => function($t) {
-                    return number_format($t->price, 0, '', ' ');
-                },
-            ],
-            'payment_date',
-            'text',
-        ],
+        'columns' => $data,
     ]); ?>
 
 
