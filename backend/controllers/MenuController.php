@@ -28,6 +28,17 @@ class MenuController extends Controller
 
     public function actionIndex()
     {
+        $student = Student::findOne(5612);
+        $exam = Exam::findOne([
+            'student_id' => $student->id,
+            'is_deleted' => 0
+        ]);
+        $exam->edu_form_id = 1;
+        $exam->save(false);
+        $student->edu_form_id = 1;
+        $student->save(false);
+        ExamSubject::updateAll(['edu_form_id' => 1],['exam_id' => $exam->id]);
+        dd(232323);
         $searchModel = new MenuSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
