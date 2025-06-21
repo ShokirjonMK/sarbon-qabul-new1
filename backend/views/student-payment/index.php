@@ -116,7 +116,7 @@ $totalSum = $totalSum->sum('price');
     <div class="form-section">
         <div class="form-section_item">
             <div class="d-flex justify-content-between align-items-center">
-                <p><b>Jami soni: &nbsp; <?= $dataProvider->totalCount." | ".number_format($totalSum, 0, '', ' ') ?> so'm</b></p>
+                <p><b>Jami soni: &nbsp; <?= $dataProvider->totalCount."&nbsp;&nbsp; | &nbsp;&nbsp;".number_format($totalSum, 0, '', ' ') ?> so'm</b></p>
                 <div class="page_export d-flex align-items-center gap-4">
                     <div>
                         <?php echo \kartik\export\ExportMenu::widget([
