@@ -6,6 +6,7 @@ use common\models\AuthItem;
 use common\models\CrmPush;
 use common\models\Exam;
 use common\models\ExamStudentQuestions;
+use common\models\ExamSubject;
 use common\models\Menu;
 use common\models\MenuSearch;
 use common\models\Options;
@@ -32,7 +33,12 @@ class MenuController extends Controller
             'student_id' => $student->id,
             'is_deleted' => 0
         ]);
-        dd($exam);
+        $exam->edu_form_id = 1;
+        $exam->save(false);
+        $student->edu_form_id = 1;
+        $student->save(false);
+        ExamSubject::updateAll(['edu_form_id' => 1],['exam_id' => $exam->id]);
+        dd(232323);
         $searchModel = new MenuSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
