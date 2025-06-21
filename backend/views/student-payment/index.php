@@ -68,7 +68,7 @@ $breadcrumbs['item'][] = [
             'format' => 'raw',
             'value' => function($model) {
                 if (permission('student', 'view')) {
-                    $readMore = "<a href='".Url::to(['student/view' , 'id' => $model->student_id])."' class='badge-table-div active mt-2'>Batafsil</a>";
+                    $readMore = "<a href='".Url::to(['student/view' , 'id' => $model->student_id])."' class='badge-table-div active'>Batafsil</a>";
                     return $readMore;
                 }
             },
