@@ -16,10 +16,10 @@ class StudentPaymentController extends Controller
 {
     use ActionTrait;
 
-    public function actionIndex($id)
+    public function actionIndex()
     {
         $searchModel = new StudentPaymentSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams, $id);
+        $dataProvider = $searchModel->searchIndex($this->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

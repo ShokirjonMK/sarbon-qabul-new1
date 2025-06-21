@@ -52,8 +52,6 @@ trait ActionTrait
             return $this->redirect(['site/login'])->send();
         }
 
-
-
         $controllerCheck = Yii::$app->controller->id;
         $actionCheck = Yii::$app->controller->action->id;
 

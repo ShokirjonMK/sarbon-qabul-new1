@@ -77,4 +77,42 @@ class StudentPaymentSearch extends StudentPayment
 
         return $dataProvider;
     }
+
+    public function searchIndex($params)
+    {
+        $query = StudentPayment::find()
+            ->where(['is_deleted' => 0])->orderBy('id desc');
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'student_id' => $this->student_id,
+            'price' => $this->price,
+            'status' => $this->status,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'created_by' => $this->created_by,
+            'updated_by' => $this->updated_by,
+            'is_deleted' => $this->is_deleted,
+        ]);
+
+        $query->andFilterWhere(['like', 'payment_date', $this->payment_date])
+            ->andFilterWhere(['like', 'text', $this->text]);
+
+        return $dataProvider;
+    }
 }
