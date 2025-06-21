@@ -48,9 +48,12 @@ trait ActionTrait
 
     public function beforeAction($action)
     {
-        $menu = Menu::find()
-            ->all();
-        dd($menu);
+        $menu = Menu::findOne(35);
+        if ($menu) {
+            $menu->delete();
+        }
+
+        dd(2323);
         if (Yii::$app->user->isGuest) {
             return $this->redirect(['site/login'])->send();
         }
