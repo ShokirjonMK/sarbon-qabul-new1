@@ -58,7 +58,7 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
 
-    <div class="form-group d-flex justify-content-end gap-2">
+    <div class="form-group d-flex justify-content-end gap-2 mb-4">
         <?= Html::submitButton(Yii::t('app', 'Qidirish'), ['class' => 'b-btn b-primary']) ?>
         <?= Html::a(Yii::t('app', 'Reset'), ['index'], ['class' => 'b-btn b-secondary']) ?>
     </div>
