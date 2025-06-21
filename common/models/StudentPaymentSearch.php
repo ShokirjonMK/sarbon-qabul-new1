@@ -11,6 +11,11 @@ use common\models\StudentPayment;
  */
 class StudentPaymentSearch extends StudentPayment
 {
+    public $first_name;
+    public $last_name;
+    public $middle_name;
+    public $passport_serial;
+    public $passport_number;
     /**
      * {@inheritdoc}
      */
@@ -19,7 +24,15 @@ class StudentPaymentSearch extends StudentPayment
         return [
             [['id', 'student_id', 'status', 'created_at', 'updated_at', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
             [['price'], 'number'],
-            [['payment_date', 'text'], 'safe'],
+            [[
+                'payment_date',
+                'text',
+                'first_name',
+                'last_name',
+                'middle_name',
+                'passport_serial',
+                'passport_number',
+            ], 'safe'],
         ];
     }
 
@@ -81,7 +94,9 @@ class StudentPaymentSearch extends StudentPayment
     public function searchIndex($params)
     {
         $query = StudentPayment::find()
-            ->where(['is_deleted' => 0])->orderBy('id desc');
+            ->joinWith('student')
+            ->where(['student_payment.is_deleted' => 0])
+            ->orderBy('student_payment.id desc');
 
         // add conditions that should always apply here
 
@@ -111,7 +126,12 @@ class StudentPaymentSearch extends StudentPayment
         ]);
 
         $query->andFilterWhere(['like', 'payment_date', $this->payment_date])
-            ->andFilterWhere(['like', 'text', $this->text]);
+            ->andFilterWhere(['like', 'text', $this->text])
+            ->andFilterWhere(['like', 'student.first_name', $this->first_name])
+            ->andFilterWhere(['like', 'student.last_name', $this->last_name])
+            ->andFilterWhere(['like', 'student.middle_name', $this->middle_name])
+            ->andFilterWhere(['like', 'student.passport_serial', $this->passport_serial])
+            ->andFilterWhere(['like', 'student.passport_number', $this->passport_number]);
 
         return $dataProvider;
     }
