@@ -208,7 +208,8 @@ $js = <<<JS
         
         $("#stepthreetwo-edu_direction_id").on('change', function () {
             var dir_id = $(this).val();
-            if (dir_id > 0) {
+            var branch_id = $("#stepthreetwo-filial_id").val();
+            if (dir_id > 0 && branch_id > 0) {
                 $.ajax({
                     url: '../file/direction-course/',
                     data: {dir_id: dir_id},
