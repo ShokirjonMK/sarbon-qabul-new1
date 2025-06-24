@@ -72,7 +72,7 @@ class ArchiveDocController extends Controller
             $student = Student::findOne($model->student_id);
             if ($student) {
                 $model->student_full_name = $student->first_name . ' ' . $student->last_name . ' ' . $student->middle_name;
-                $model->direction = $student->direction->name_uz;
+                $model->direction = $student->eduDirection->direction->name_uz;
                 $model->edu_form = $student->eduForm->name_uz;
                 $model->phone_number = $student->username;
                 $model->direction_id = $student->direction_id;
