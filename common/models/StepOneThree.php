@@ -50,7 +50,7 @@ class StepOneThree extends Model
         return array_unique($result);
     }
 
-    public function ikStep($user , $student)
+    public function ikStep($user, $student)
     {
         $transaction = Yii::$app->db->beginTransaction();
         $errors = [];
@@ -59,25 +59,41 @@ class StepOneThree extends Model
         if (!$this->validate()) {
             $errors[] = $this->simple_errors($this->errors);
             $transaction->rollBack();
-            return ['is_ok' => false , 'errors' => $errors];
+            return ['is_ok' => false, 'errors' => $errors];
         }
+
+        $student->last_name = mb_strtoupper($this->last_name, 'UTF-8');
+        $student->first_name = mb_strtoupper($this->first_name, 'UTF-8');
+        $student->middle_name = mb_strtoupper($this->middle_name, 'UTF-8');
+        $student->birthday = date("Y-m-d", strtotime($this->birthday));;
+        $student->passport_serial = $this->passport_serial;
+        $student->passport_number = $this->passport_number;
+        $student->gender = 1;
 
         if ($pinfl != $this->passport_pin) {
             self::deleteNull($student->id);
 
-            $student->last_name = $this->last_name;
-            $student->first_name = $this->first_name;
-            $student->middle_name = $this->middle_name;
-            $student->birthday = $this->birthday;
-            $student->passport_serial = $this->passport_serial;
-            $student->passport_number = $this->passport_number;
             $student->passport_pin = $this->passport_pin;
-            $student->gender = 1;
+
+            $query = Student::find()
+                ->joinWith('user')
+                ->where(['passport_pin' => $student->passport_pin])
+                ->andWhere(['user.status' => [9, 10]])
+                ->one();
+
+            if ($query) {
+                $queryUser = $query->user;
+                if ($queryUser->id != $user->id) {
+                    $errors[] = ['Bu pasport ma\'lumot avval ro\'yhatdan o\'tgan. Tel:' . $queryUser->username];
+                    $transaction->rollBack();
+                    return ['is_ok' => false, 'errors' => $errors];
+                }
+            }
 
             $amo = CrmPush::processType(3, $student, $user);
             if (!$amo['is_ok']) {
                 $transaction->rollBack();
-                return ['is_ok' => false , 'errors' => $amo['errors']];
+                return ['is_ok' => false, 'errors' => $amo['errors']];
             }
         }
 
