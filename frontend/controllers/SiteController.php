@@ -81,6 +81,8 @@ class SiteController extends Controller
 
     public function actionIndex($id = null)
     {
+        $amoCrmClient = Yii::$app->ikAmoCrm->getPipelines();
+        dd($amoCrmClient);
         if ($id !== null) {
             $target = Target::findOne($id);
             if ($target) {

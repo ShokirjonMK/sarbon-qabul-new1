@@ -145,25 +145,25 @@ class CrmPush extends \yii\db\ActiveRecord
                 break;
             case 8:
                 $pipelineId = 8625302;
-                $statusId = 142;
+                $statusId = 77821646;
                 // Shartnoma tasdiqlandi
                 self::confirmContract($pipelineId, $statusId, $student, $user , $id);
                 break;
             case 9:
-                $pipelineId = 9586438;
-                $statusId = 76558922;
+                $pipelineId = 8625302;
+                $statusId = 142;
                 // Shartnoma Yuklab oldi
                 self::loadContract($pipelineId, $statusId, $student, $user , $id);
                 break;
             case 10:
                 $pipelineId = 8625302;
-                $statusId = 142;
+                $statusId = 77821646;
                 // To'lov qildi
                 self::confirmContract($pipelineId, $statusId, $student, $user , $id);
                 break;
             case 11:
                 $pipelineId = 8625302;
-                $statusId = 142;
+                $statusId = 77821646;
                 // Yopildi
                 self::confirmContract($pipelineId, $statusId, $student, $user , $id);
                 break;
@@ -455,7 +455,7 @@ class CrmPush extends \yii\db\ActiveRecord
         }
 
         if ($check && $ofertaCheck) {
-            $statusId = 142;
+            $statusId = 77821646;
         }
 
         $new = new CrmPush();
