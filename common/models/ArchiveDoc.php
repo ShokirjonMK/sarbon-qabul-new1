@@ -45,6 +45,7 @@ class ArchiveDoc extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['student_id'], 'required'],
             [['student_id', 'direction_id', 'edu_form_id', 'edu_direction_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
             [['submission_date'], 'safe'],
             [['submission_date'], 'default', 'value' => date('Y-m-d')],
@@ -67,7 +68,7 @@ class ArchiveDoc extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'student_id' => Yii::t('app', 'Talaba ID'),
+            'student_id' => Yii::t('app', 'Talaba '),
             'direction_id' => Yii::t('app', 'Asosiy yo‘nalish ID'),
             'edu_form_id' => Yii::t('app', 'Ta\'lim shakli ID'),
             'edu_direction_id' => Yii::t('app', 'Tashkilot ID'),

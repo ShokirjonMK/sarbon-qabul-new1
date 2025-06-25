@@ -18,7 +18,7 @@
             <li>
                 <a href="/cabinet/index" class="<?= getActive('cabinet', 'index') ?>">
                     <span><i class="bi bi-signpost"></i></span>
-                    <span class="sidebar-link-test">Mening ma'lumotlarim</span>
+                    <span class="sidebar-link-test"><?= Yii::t("app", "a40") ?></span>
                 </a>
             </li>
 
@@ -26,7 +26,7 @@
                 <li>
                     <a href="/cabinet/exam" class="<?= getActive('cabinet', 'exam') ?>">
                         <span><i class="bi bi-graph-up"></i></span>
-                        <span class="sidebar-link-test">Imtihon</span>
+                        <span class="sidebar-link-test"><?= Yii::t("app", "a205") ?></span>
                     </a>
                 </li>
             <?php endif; ?>
@@ -34,21 +34,21 @@
             <li>
                 <a href="/cabinet/download-file" class="<?= getActive('cabinet', 'download-file') ?>">
                     <span><i class="fa-solid fa-file-arrow-down"></i></span>
-                    <span class="sidebar-link-test">Shartnoma</span>
+                    <span class="sidebar-link-test"><?= Yii::t("app", "a206") ?></span>
                 </a>
             </li>
 
             <li>
                 <a href="/cabinet/send-file" class="<?= getActive('cabinet', 'send-file') ?>">
                     <span><i class="bi bi-credit-card"></i></span>
-                    <span class="sidebar-link-test">Yuborilgan hujjatlar</span>
+                    <span class="sidebar-link-test"><?= Yii::t("app", "a207") ?></span>
                 </a>
             </li>
 
             <li>
                 <a href="/site/logout" data-method="post">
                     <span><i class="bi bi-box-arrow-right"></i></span>
-                    <span class="sidebar-link-test">Kabinetdan chiqish</span>
+                    <span class="sidebar-link-test"><?= Yii::t("app", "a41") ?></span>
                 </a>
             </li>
         </ul>
@@ -59,8 +59,8 @@
             <i class="bi bi-question-circle"></i>
         </div>
         <div class="sidebar-bottom-right">
-            <p>Savolingiz bormi?</p>
-            <a href="https://t.me/sarbonuniversity">Murojaat etish</a>
+            <p><?= Yii::t("app", "a208") ?></p>
+            <a href="https://t.me/sarbonuniversity"><?= Yii::t("app", "a209") ?></a>
         </div>
     </div>
 </div>

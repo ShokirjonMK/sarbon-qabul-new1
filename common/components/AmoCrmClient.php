@@ -2,8 +2,12 @@
 
 namespace common\components;
 
+use AmoCRM\Collections\CustomFieldsValuesCollection;
 use AmoCRM\Exceptions\AmoCRMApiException;
 use AmoCRM\Models\CustomFields\MultiselectCustomFieldModel;
+use AmoCRM\Models\CustomFieldsValues\MultitextCustomFieldValuesModel;
+use AmoCRM\Models\CustomFieldsValues\ValueCollections\MultitextCustomFieldValueCollection;
+use AmoCRM\Models\CustomFieldsValues\ValueModels\MultitextCustomFieldValueModel;
 use \Yii;
 use AmoCRM\Models\TagModel;
 use yii\helpers\ArrayHelper;
@@ -213,7 +217,7 @@ class  AmoCrmClient extends Component  implements AmoCrmSettings, IAmoCrmClient
     public function updateLead(int $leadId, array $updatedFields = [], array $tags = [], string $message = null, array $customFields = [])
     {
         try {
-            $lead = $this->apiClient->leads()->getOne($leadId);
+            $lead = $this->apiClient->leads()->getOne($leadId, ['contacts']);
             if (!$lead) {
                 return ['is_ok' => false];
             }
@@ -246,7 +250,6 @@ class  AmoCrmClient extends Component  implements AmoCrmSettings, IAmoCrmClient
 
             if (!empty($customFields)) {
                 $customFieldsCollection = $lead->getCustomFieldsValues() ?: new \AmoCRM\Collections\CustomFieldsValuesCollection();
-
                 foreach ($customFields as $fieldId => $fieldValue) {
                     $fieldModel = (new \AmoCRM\Models\CustomFieldsValues\TextCustomFieldValuesModel())
                         ->setFieldId($fieldId)
@@ -259,29 +262,59 @@ class  AmoCrmClient extends Component  implements AmoCrmSettings, IAmoCrmClient
                         );
                     $customFieldsCollection->add($fieldModel);
                 }
-
                 $lead->setCustomFieldsValues($customFieldsCollection);
             }
 
-            //            dd($lead);
+            // Telefon raqam yangilanishi
+            if (isset($updatedFields['name'])) {
+                $contacts = $lead->getContacts();
+                if ($contacts && $contacts->count() > 0) {
+                    /** @var ContactModel $contact */
+                    $contact = $contacts->first();
+                    $contactId = $contact->getId();
 
-            // 5. Leadni yangilash
+                    /** @var ContactModel $contactFull */
+                    $contactFull = $this->apiClient->contacts()->getOne($contactId);
+
+                    $cfCollection = $contactFull->getCustomFieldsValues() ?: new CustomFieldsValuesCollection();
+
+                    // Eski raqamni olib tashlash
+                    $cfCollection->removeBy('fieldCode', 'PHONE');
+
+                    // Yangi telefon raqamini qo‘shish
+                    $phoneField = (new MultitextCustomFieldValuesModel())
+                        ->setFieldCode('PHONE')
+                        ->setValues(
+                            (new MultitextCustomFieldValueCollection())
+                                ->add(
+                                    (new MultitextCustomFieldValueModel())
+                                        ->setValue($updatedFields['name'])
+                                        ->setEnum('WORK')
+                                )
+                        );
+
+                    $cfCollection->add($phoneField);
+                    $contactFull->setCustomFieldsValues($cfCollection);
+
+                    $this->apiClient->contacts()->updateOne($contactFull);
+                }
+            }
+
+            // Leadni yangilash
             $updatedLead = $this->apiClient->leads()->updateOne($lead);
 
-            // 6. Agar note qo'shmoqchi bo'lsangiz
+            // Note qo‘shish (agar mavjud bo‘lsa)
             if ($message) {
                 $notesService = $this->apiClient->notes(EntityTypesInterface::LEADS);
                 $note = new CommonNote();
                 $note->setEntityId($updatedLead->getId());
                 $note->setText($message);
-                $notesCollection = new NotesCollection();
-                $notesCollection->add($note);
                 $notesService->addOne($note);
             }
 
             return ['is_ok' => true, 'data' => $updatedLead];
         } catch (\AmoCRM\Exceptions\AmoCRMApiException $e) {
-            return ['is_ok' => false];
+            return ['is_ok' => false, 'error' => $e->getMessage()];
         }
     }
 }

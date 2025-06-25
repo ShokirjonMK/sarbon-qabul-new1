@@ -21,7 +21,10 @@ use common\models\ExamDate;
 
 $lang = Yii::$app->language;
 $languages = Lang::find()->where(['is_deleted' => 0, 'status' => 1])->all();
-$eduForms = EduForm::find()->where(['is_deleted' => 0, 'status' => 1])->all();
+$eduForms = EduForm::find()
+    ->where(['is_deleted' => 0, 'status' => 1])
+    ->where(['not in', 'id', [2]])
+    ->all();
 
 $model->filial_id = $student->branch_id;
 $model->lang_id = $student->lang_id;
@@ -142,7 +145,7 @@ if ($model->edu_direction_id != null) {
                             <label for='check_<?= $examDate->id ?>' class='permission_label'>
                                 <div class='d-flex gap-2 align-items-center'>
                                     <input type='radio' class='bu-check' name='StepThreeOne[exam_date_id]' id='check_<?= $examDate->id ?>' value='<?= $examDate->id ?>' <?= $checked ?>>
-                                    <span>Imtihon sanasi:</span>
+                                    <span><?= Yii::t("app", "a166") ?></span>
                                 </div>
                                 <p><?= date('Y-m-d H:i', strtotime($examDate->date)) ?></p>
                             </label>

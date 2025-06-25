@@ -1,4 +1,5 @@
 <?php
+
 use yii\helpers\Html;
 use yii\bootstrap5\ActiveForm;
 use kartik\date\DatePicker;
@@ -30,15 +31,18 @@ $model->passport_pin = $student->passport_pin;
     ]); ?>
 
     <div class="form-group">
-        <?= $form->field($model, 'last_name')->textInput(['placeholder' => Yii::t("app" , "Familya")])->label(Yii::t("app" , "Familya").' <span>*</span>') ?>
+        <?= $form->field($model, 'last_name')->textInput([
+            'placeholder' => Yii::t("app", "Familya"),
+            'style' => 'text-transform: uppercase;'
+        ])->label(Yii::t("app", "Familya") . ' <span>*</span>') ?>
     </div>
 
     <div class="form-group">
-        <?= $form->field($model, 'first_name')->textInput(['placeholder' => Yii::t("app" , "Ism")])->label(Yii::t("app" , "Ism").' <span>*</span>') ?>
+        <?= $form->field($model, 'first_name')->textInput(['placeholder' => Yii::t("app", "Ism"), 'style' => 'text-transform: uppercase;'])->label(Yii::t("app", "Ism") . ' <span>*</span>') ?>
     </div>
 
     <div class="form-group">
-        <?= $form->field($model, 'middle_name')->textInput(['placeholder' => Yii::t("app" , "Otasi")])->label(Yii::t("app" , "Otasi")) ?>
+        <?= $form->field($model, 'middle_name')->textInput(['placeholder' => Yii::t("app", "Otasi"), 'style' => 'text-transform: uppercase;'])->label(Yii::t("app", "Otasi")) ?>
     </div>
 
     <div class="form-group">
@@ -46,7 +50,7 @@ $model->passport_pin = $student->passport_pin;
             'maxlength' => true,
             'placeholder' => '__',
             'oninput' => "this.value = this.value.replace(/\\d/, '').toUpperCase()"
-        ])->label(Yii::t("app" , "Pasport seriya").' <span>*</span>') ?>
+        ])->label(Yii::t("app", "Pasport seriya") . ' <span>*</span>') ?>
     </div>
 
     <div class="form-group">
@@ -55,17 +59,17 @@ $model->passport_pin = $student->passport_pin;
             'options' => [
                 'placeholder' => '_______',
             ],
-        ])->label(Yii::t("app" , "Pasport raqam").' <span>*</span>') ?>
+        ])->label(Yii::t("app", "Pasport raqam") . ' <span>*</span>') ?>
     </div>
 
     <div class="form-group">
         <?= $form->field($model, 'birthday')->widget(DatePicker::classname(), [
-            'options' => ['placeholder' => Yii::t("app" , "Tug'ilgan sana")],
+            'options' => ['placeholder' => Yii::t("app", "Tug'ilgan sana")],
             'pluginOptions' => [
                 'autoclose' => true,
                 'format' => 'dd-mm-yyyy'
             ]
-        ])->label(Yii::t("app" , "Tug\'ilgan sana").' <span>*</span>'); ?>
+        ])->label(Yii::t("app", "Tug\'ilgan sana") . ' <span>*</span>'); ?>
     </div>
 
     <div class="form-group">
@@ -74,7 +78,7 @@ $model->passport_pin = $student->passport_pin;
             'options' => [
                 'placeholder' => '______________',
             ],
-        ])->label(Yii::t("app" , "JSHSHIR").' <span>*</span>') ?>
+        ])->label(Yii::t("app", "JSHSHIR") . ' <span>*</span>') ?>
     </div>
 
     <div class="d-flex justify-content-center mt-2 mb-2">
@@ -83,8 +87,3 @@ $model->passport_pin = $student->passport_pin;
 
     <?php ActiveForm::end(); ?>
 </div>
-
-
-
-
-

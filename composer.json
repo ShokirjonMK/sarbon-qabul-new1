@@ -30,7 +30,8 @@
         "kartik-v/yii2-export": "@dev",
         "dotzero/yii2-amocrm": "^0.2.2",
         "amocrm/amocrm-api-library": "^1.9",
-        "kartik-v/yii2-widget-datetimepicker": "^1.5"
+        "kartik-v/yii2-widget-datetimepicker": "^1.5",
+        "mobiledetect/mobiledetectlib": "^4.8"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

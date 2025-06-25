@@ -26,6 +26,7 @@ use common\models\Student;
 use common\models\StudentDtm;
 use common\models\StudentMaster;
 use common\models\StudentOferta;
+use common\models\StudentPaymentSearch;
 use common\models\StudentPerevot;
 use common\models\StudentSearch;
 use kartik\mpdf\Pdf;
@@ -179,8 +180,14 @@ class StudentController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModelView($id);
+        $searchModel = new StudentPaymentSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams, $id);
+
         return $this->render('view', [
-            'model' => $this->findModelView($id),
+            'model' => $model,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -312,6 +319,31 @@ class StudentController extends Controller
         } else {
             return false;
         }
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post())) {
+                $result = $model->ikStep($user, $student);
+                if ($result['is_ok']) {
+                    \Yii::$app->session->setFlash('success');
+                } else {
+                    \Yii::$app->session->setFlash('error', $result['errors']);
+                }
+                return $this->redirect(['view', 'id' => $student->id]);
+            }
+        }
+
+        return $this->renderAjax($action, [
+            'model' => $model,
+            'student' => $student,
+        ]);
+    }
+
+    public function actionInfoFull($id)
+    {
+        $student = $this->findModel($id);
+        $user = $student->user;
+        $action = '_form-step13';
+        $model = new StepOneThree();
+
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
                 $result = $model->ikStep($user, $student);
@@ -800,17 +832,6 @@ class StudentController extends Controller
      * @return Student the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
-        if (($model = Student::findOne(['id' => $id])) !== null) {
-            $user = $model->user;
-            if ($user->status != 0) {
-                return $model;
-            }
-        }
-
-        throw new NotFoundHttpException(\Yii::t('app', 'The requested page does not exist.'));
-    }
 
     protected function findModelView($id)
     {
@@ -821,11 +842,26 @@ class StudentController extends Controller
         throw new NotFoundHttpException(\Yii::t('app', 'The requested page does not exist.'));
     }
 
+
+    protected function findModel($id)
+    {
+        if (($model = Student::findOne(['id' => $id])) !== null) {
+            $user = $model->user;
+            $isPermission = $model->contractCheck;
+            if ($isPermission && $user->status != 0) {
+                return $model;
+            }
+        }
+
+        throw new NotFoundHttpException(\Yii::t('app', 'The requested page does not exist.'));
+    }
+
     protected function ofertafindModel($id)
     {
         if (($model = StudentOferta::findOne(['id' => $id, 'is_deleted' => 0])) !== null) {
             $user = $model->student->user;
-            if ($user->status == 10) {
+            $isPermission = $model->student->contractCheck;
+            if ($isPermission && $user->status == 10) {
                 return $model;
             }
         }
@@ -837,7 +873,8 @@ class StudentController extends Controller
     {
         if (($model = StudentPerevot::findOne(['id' => $id, 'is_deleted' => 0])) !== null) {
             $user = $model->student->user;
-            if ($user->status == 10) {
+            $isPermission = $model->student->contractCheck;
+            if ($isPermission && $user->status == 10) {
                 return $model;
             }
         }
@@ -849,7 +886,8 @@ class StudentController extends Controller
     {
         if (($model = StudentDtm::findOne(['id' => $id, 'is_deleted' => 0])) !== null) {
             $user = $model->student->user;
-            if ($user->status == 10) {
+            $isPermission = $model->student->contractCheck;
+            if ($isPermission && $user->status == 10) {
                 return $model;
             }
         }
@@ -861,7 +899,8 @@ class StudentController extends Controller
     {
         if (($model = StudentMaster::findOne(['id' => $id, 'is_deleted' => 0])) !== null) {
             $user = $model->student->user;
-            if ($user->status == 10) {
+            $isPermission = $model->student->contractCheck;
+            if ($isPermission && $user->status == 10) {
                 return $model;
             }
         }
@@ -873,7 +912,8 @@ class StudentController extends Controller
     {
         if (($model = ExamSubject::findOne(['id' => $id, 'is_deleted' => 0])) !== null) {
             $user = $model->student->user;
-            if ($user->status == 10 && $user->step == 5) {
+            $isPermission = $model->student->contractCheck;
+            if ($isPermission && $user->status == 10 && $user->step == 5) {
                 return $model;
             }
         }
@@ -885,7 +925,8 @@ class StudentController extends Controller
     {
         if (($model = Exam::findOne(['id' => $id, 'is_deleted' => 0])) !== null) {
             $user = $model->student->user;
-            if ($user->status == 10) {
+            $isPermission = $model->student->contractCheck;
+            if ($isPermission && $user->status == 10) {
                 return $model;
             }
         }

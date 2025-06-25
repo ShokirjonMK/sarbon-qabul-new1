@@ -5,6 +5,7 @@ use backend\components\HttpBearerAuth;
 use backend\components\PermissonCheck;
 //use base\ResponseStatus;
 use common\models\Actions;
+use common\models\Menu;
 use common\models\Permission;
 use common\models\RoleRestriction;
 use common\models\User;
@@ -50,8 +51,6 @@ trait ActionTrait
         if (Yii::$app->user->isGuest) {
             return $this->redirect(['site/login'])->send();
         }
-
-
 
         $controllerCheck = Yii::$app->controller->id;
         $actionCheck = Yii::$app->controller->action->id;

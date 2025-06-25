@@ -21,7 +21,7 @@ use common\models\Branch;
 
 $lang = Yii::$app->language;
 $languages = Lang::find()->where(['is_deleted' => 0 , 'status' => 1])->all();
-$eduForms = EduForm::find()->where(['is_deleted' => 0 , 'status' => 1])->all();
+$eduForms = EduForm::find()->where(['id' => [1,2], 'is_deleted' => 0 , 'status' => 1])->all();
 
 $model->filial_id = $student->branch_id;
 $model->lang_id = $student->lang_id;
@@ -208,10 +208,11 @@ $js = <<<JS
         
         $("#stepthreetwo-edu_direction_id").on('change', function () {
             var dir_id = $(this).val();
-            if (dir_id > 0) {
+            var branch_id = $("#stepthreetwo-filial_id").val();
+            if (dir_id > 0 && branch_id > 0) {
                 $.ajax({
                     url: '../file/direction-course/',
-                    data: {dir_id: dir_id},
+                    data: {dir_id: dir_id, branch_id:branch_id},
                     type: 'POST',
                     success: function (data) {
                         $("#stepthreetwo-direction_course_id").html(data);

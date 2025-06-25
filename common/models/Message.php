@@ -24,6 +24,47 @@ class Message extends \yii\db\ActiveRecord
 {
     public static function sendSmsNew($phone, $text)
     {
+//        $phone = preg_replace("/[^0-9]/", "", $phone);
+//        $text = "SARBON UNIVERSITETI qabul saytiga ro'yxatdan o'tish uchun tasdiqlash kodi: ". $text;
+//        $data = '{
+//                "messages":
+//                    [
+//                        {
+//                        "recipient":'.$phone.',
+//                        "message-id":"abc000000001",
+//                            "sms":{
+//                                "originator": "3700",
+//                                "content": {
+//                                    "text": "'.$text.'"
+//                                }
+//                            }
+//                        }
+//                    ]
+//                }';
+//        $curl = curl_init();
+//        curl_setopt_array($curl, array(
+//            CURLOPT_URL => "https://send.smsxabar.uz/broker-api/send",
+//            CURLOPT_RETURNTRANSFER => true,
+//            CURLOPT_ENCODING => "",
+//            CURLOPT_MAXREDIRS => 10,
+//            CURLOPT_TIMEOUT => 30,
+//            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+//            CURLOPT_CUSTOMREQUEST => "POST",
+//            CURLOPT_POSTFIELDS => $data,
+//            CURLOPT_HTTPHEADER => array(
+//                "Authorization: Basic ".base64_encode("sarbonuniversiteti:3z3Q|X|w!a&^"),
+//                "cache-control: no-cache",
+//                "content-type: application/json",
+//            ),
+//        ));
+//        $response = curl_exec($curl);
+//        $err = curl_error($curl);
+//        curl_close($curl);
+//        return [
+//            'is_ok' => true,
+//        ];
+
+
         $phone = preg_replace("/[^0-9]/", "", $phone);
         $email = 'norbobo1996@gmail.com';
         $password = 'UknMFbL9gen9oy8JKbibVpBNfrMP1VY6lq0sFuyj';
@@ -70,11 +111,51 @@ class Message extends \yii\db\ActiveRecord
                 'errors' => ['SMS yuborishda xatolik: ' . $e->getMessage()],
             ];
         }
-        return ($response->statusCode);
+        return [
+            'is_ok' => true,
+        ];
     }
 
     public static function sendSms($phone, $text)
     {
+//        $phone = preg_replace("/[^0-9]/", "", $phone);
+//        $text = "SARBON UNIVERSITETI qabul saytiga ro'yxatdan o'tish uchun tasdiqlash kodi: ". $text;
+//        $data = '{
+//                "messages":
+//                    [
+//                        {
+//                        "recipient":'.$phone.',
+//                        "message-id":"abc000000001",
+//                            "sms":{
+//                                "originator": "3700",
+//                                "content": {
+//                                    "text": "'.$text.'"
+//                                }
+//                            }
+//                        }
+//                    ]
+//                }';
+//        $curl = curl_init();
+//        curl_setopt_array($curl, array(
+//            CURLOPT_URL => "https://send.smsxabar.uz/broker-api/send",
+//            CURLOPT_RETURNTRANSFER => true,
+//            CURLOPT_ENCODING => "",
+//            CURLOPT_MAXREDIRS => 10,
+//            CURLOPT_TIMEOUT => 30,
+//            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+//            CURLOPT_CUSTOMREQUEST => "POST",
+//            CURLOPT_POSTFIELDS => $data,
+//            CURLOPT_HTTPHEADER => array(
+//                "Authorization: Basic ".base64_encode("sarbonuniversiteti:3z3Q|X|w!a&^"),
+//                "cache-control: no-cache",
+//                "content-type: application/json",
+//            ),
+//        ));
+//        $response = curl_exec($curl);
+//        $err = curl_error($curl);
+//        curl_close($curl);
+//        return $phone." --- ".$response;
+
         $phone = preg_replace("/[^0-9]/", "", $phone);
         $email = 'norbobo1996@gmail.com';
         $password = 'UknMFbL9gen9oy8JKbibVpBNfrMP1VY6lq0sFuyj';
@@ -142,7 +223,7 @@ class Message extends \yii\db\ActiveRecord
             CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_POSTFIELDS => $data,
             CURLOPT_HTTPHEADER => array(
-                "Authorization: Basic " . base64_encode("tgfu:6Ya!W5n=Xk9c"),
+                "Authorization: Basic " . base64_encode("sarbonuniversiteti:3z3Q|X|w!a&^"),
                 "cache-control: no-cache",
                 "content-type: application/json",
             ),

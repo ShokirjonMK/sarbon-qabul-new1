@@ -133,7 +133,7 @@ $breadcrumbs['item'][] = [
         ],
     ]; ?>
 
-    <div class="form-section">
+    <div class="form-section mt-3">
         <div class="form-section_item">
             <div class="d-flex justify-content-between align-items-center">
                 <p><b>Jami soni: &nbsp; <?= $dataProvider->totalCount ?></b></p>

@@ -16,8 +16,8 @@ use yii\helpers\Url;
                         <i class="fa-solid fa-exclamation"></i>
                     </div>
                     <div class="down_content_box_right">
-                        <p><?= Yii::t("app" , "XURMATLI TALABA!") ?></p>
-                        <h6><?= Yii::t("app" , "SHARTNOMANGIZNI UNIVERSITETGA TASHRIF BUYURIB OLiSHINGIZ MUMKIN.") ?></h6>
+                        <p><?= Yii::t("app" , "a167") ?></p>
+                        <h6><?= Yii::t("app" , "a168") ?></h6>
                     </div>
                 </div>
             </div>

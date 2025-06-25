@@ -55,6 +55,7 @@ use Yii;
  * @property User $branch
  * @property ExamDate $examDate
  * @property $ipCheck
+ * @property StudentPayment $payment
  */
 class Student extends \yii\db\ActiveRecord
 {
@@ -145,6 +146,20 @@ class Student extends \yii\db\ActiveRecord
             'edu_direction' => Yii::t('app', 'Edu Direction'),
         ];
     }
+
+    public function getPayment()
+    {
+        $sum = StudentPayment::find()
+            ->where([
+                'is_deleted' => 0,
+                'status' => 1,
+                'student_id' => $this->id,
+            ])
+            ->sum('price');
+
+        return $sum ?? 0;
+    }
+
 
     /**
      * Gets query for [[Course]].
@@ -238,7 +253,7 @@ class Student extends \yii\db\ActiveRecord
 
     public function getFullName()
     {
-        return $this->last_name." ".$this->first_name." ".$this->middle_name;
+        return $this->last_name . " " . $this->first_name . " " . $this->middle_name;
     }
 
     public function getIpCheck()
@@ -246,7 +261,7 @@ class Student extends \yii\db\ActiveRecord
         if ($this->exam_type == 1) {
             $userIp = getIpMK();
             $ikIp = IkIp::findOne([
-               'ip_address' => $userIp,
+                'ip_address' => $userIp,
                 'branch_id' => $this->branch_id,
                 'status' => 1,
                 'is_deleted' => 0
@@ -273,7 +288,8 @@ class Student extends \yii\db\ActiveRecord
         return $text;
     }
 
-    public function getContractStatus() {
+    public function getContractStatus()
+    {
         $text = 'Shartnoma olmadi';
 
         switch ($this->edu_type_id) {
@@ -315,7 +331,35 @@ class Student extends \yii\db\ActiveRecord
     }
 
 
-    public function getContractPrice() {
+    public function getContractCheck()
+    {
+        $payment = $this->payment;
+
+        if ($payment == 0 || isRole('super_admin')) {
+            return true;
+        }
+
+        if ($this->exam_type == 0) {
+            return true;
+        }
+
+        if ($this->edu_type_id == 1) {
+            $record = Exam::findOne([
+                'student_id' => $this->id,
+                'edu_direction_id' => $this->edu_direction_id,
+                'is_deleted' => 0
+            ]);
+
+            if ($record && $record->status > 2) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    public function getContractPrice()
+    {
         $text = 'Shartnoma yo\'q';
 
         switch ($this->edu_type_id) {
@@ -358,7 +402,8 @@ class Student extends \yii\db\ActiveRecord
         return "<div class='badge-table-div active'><span>$text</span></div>";
     }
 
-    public function getContractConfirmDate() {
+    public function getContractConfirmDate()
+    {
         $text = '----';
 
         switch ($this->edu_type_id) {
@@ -399,7 +444,8 @@ class Student extends \yii\db\ActiveRecord
         return "<div class='badge-table-div active'><span>$text</span></div>";
     }
 
-    public function getContractDownDate() {
+    public function getContractDownDate()
+    {
         $text = '----';
 
         switch ($this->edu_type_id) {
@@ -441,7 +487,8 @@ class Student extends \yii\db\ActiveRecord
     }
 
 
-    public function getChalaStatus() {
+    public function getChalaStatus()
+    {
         $user = $this->user;
         $text = '';
         if ($user->status == 9 && $user->step > 0) {
@@ -457,7 +504,7 @@ class Student extends \yii\db\ActiveRecord
         } elseif ($user->step == 4) {
             $text = 'Tasdiqlamagan';
         }
-        return "<div class='badge-table-div active'><span>".$text."</span></div>";
+        return "<div class='badge-table-div active'><span>" . $text . "</span></div>";
     }
 
     public function getEduStatus()
@@ -627,7 +674,7 @@ class Student extends \yii\db\ActiveRecord
         if ($user->status == 0) {
             $errors[] = ['Arxivlangan ma\'lumotni tahrirlab bo\'lmaydi.'];
             $transaction->rollBack();
-            return ['is_ok' => false , 'errors' => $errors];
+            return ['is_ok' => false, 'errors' => $errors];
         }
         $user->status = $model->status;
 
@@ -644,7 +691,7 @@ class Student extends \yii\db\ActiveRecord
         if ($query) {
             $errors[] = ['Bu telefon raqam avval ro\'yhatdan o\'tgan.'];
             $transaction->rollBack();
-            return ['is_ok' => false , 'errors' => $errors];
+            return ['is_ok' => false, 'errors' => $errors];
         }
         $user->save(false);
 
@@ -658,7 +705,10 @@ class Student extends \yii\db\ActiveRecord
         $new->save(false);
 
         if ($user->status == User::STATUS_DELETED) {
-            $user->username = $user->username."__".$time;
+            $user->username = $user->username . "__" . $time;
+            $user->generateAuthKey();
+            $user->generateEmailVerificationToken();
+            $user->generatePasswordResetToken();
             $user->update(false);
             $model->username = $user->username;
             $model->save(false);
@@ -666,7 +716,7 @@ class Student extends \yii\db\ActiveRecord
             $amo = CrmPush::processType(12, $model, $user);
             if (!$amo['is_ok']) {
                 $transaction->rollBack();
-                return ['is_ok' => false , 'errors' => $amo['errors']];
+                return ['is_ok' => false, 'errors' => $amo['errors']];
             }
         }
 
@@ -680,12 +730,12 @@ class Student extends \yii\db\ActiveRecord
             $amo = CrmPush::processType(2, $model, $user);
             if (!$amo['is_ok']) {
                 $transaction->rollBack();
-                return ['is_ok' => false , 'errors' => $amo['errors']];
+                return ['is_ok' => false, 'errors' => $amo['errors']];
             }
         }
 
 
-        $model->status = 1;
+        // $model->status = 1;
         $model->save(false);
 
         if (count($errors) == 0) {
@@ -693,7 +743,7 @@ class Student extends \yii\db\ActiveRecord
             return ['is_ok' => true];
         }
         $transaction->rollBack();
-        return ['is_ok' => false , 'errors' => $errors];
+        return ['is_ok' => false, 'errors' => $errors];
     }
 
     public static function contractUpdate($query, $model)
@@ -712,7 +762,7 @@ class Student extends \yii\db\ActiveRecord
         $amo = CrmPush::processType(6, $student, $user);
         if (!$amo['is_ok']) {
             $transaction->rollBack();
-            return ['is_ok' => false , 'errors' => $amo['errors']];
+            return ['is_ok' => false, 'errors' => $amo['errors']];
         }
 
         if (count($errors) == 0) {
@@ -720,7 +770,40 @@ class Student extends \yii\db\ActiveRecord
             return ['is_ok' => true];
         }
         $transaction->rollBack();
-        return ['is_ok' => false , 'errors' => $errors];
+        return ['is_ok' => false, 'errors' => $errors];
     }
 
+    public function beforeSave($insert)
+    {
+        if ($insert) {
+            $this->created_by = Yii::$app->user->identity->id ?? 0;
+        } else {
+            $this->updated_by = Yii::$app->user->identity->id ?? 0;
+        }
+        return parent::beforeSave($insert);
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+
+
+        $changes = [];
+        foreach ($changedAttributes as $attribute => $oldValue) {
+            $newValue = $this->getAttribute($attribute);
+            if ($oldValue != $newValue) {
+                $changes[$attribute] = [
+                    'old' => $oldValue,
+                    'new' => $newValue
+                ];
+            }
+        }
+
+        if (!empty($changes)) {
+            $history = new StudentLog();
+            $history->student_id = $this->id;
+            $history->data = $changes;
+            $history->save(false);
+        }
+    }
 }

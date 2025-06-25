@@ -54,7 +54,7 @@ class StudentSearch extends Student
             ->where([
                 's.edu_type_id' => $eduType->id,
                 'u.step' => 5,
-                'u.status' => 10,
+                'u.status' => [9, 10],
                 'u.user_role' => 'student',
             ])
             ->andWhere(getConsIk())->orderBy('s.id desc');
@@ -439,6 +439,7 @@ class StudentSearch extends Student
                 'u.status' => [9, 10],
                 'u.user_role' => 'student',
                 's.exam_type' => 1,
+                's.edu_type_id' => 1,
             ])->orderBy('s.id desc');
 
         // Ma'lumotlarni chiqarish uchun ActiveDataProvider

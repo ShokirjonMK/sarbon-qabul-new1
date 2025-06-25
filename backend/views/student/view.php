@@ -14,6 +14,8 @@ use common\models\ExamDate;
 
 /** @var yii\web\View $this */
 /** @var common\models\Student $model */
+/** @var common\models\StudentPaymentSearch $searchModel */
+/** @var yii\data\ActiveDataProvider $dataProvider */
 
 $user = $model->user;
 $cons = $user->cons;
@@ -205,6 +207,15 @@ if ($model->eduType != null) {
                                             </div>
                                         <?php endif; ?>
 
+                                        <div class="d-flex justify-content-between align-items-center mt-3">
+                                            <div class="subject_box_left">
+                                                <p>To'lov:</p>
+                                            </div>
+                                            <div class="subject_box_right">
+                                                <h6><?= number_format($model->payment, 0, '', ' ') ?> </h6>
+                                            </div>
+                                        </div>
+
                                         <div class="d-flex gap-3 align-items-center mt-3">
                                             <?php if (permission('student', 'user-update')): ?>
                                                 <?= Html::a(
@@ -251,19 +262,35 @@ if ($model->eduType != null) {
 
         <div class="page_title mt-5 mb-3">
             <h6 class="title-h5">Pasport ma'lumoti</h6>
-            <?php if (permission('student', 'info') && $user->step >= 1): ?>
-                <h6 class="title-link">
-                    <?= Html::a(
-                        Yii::t('app', 'Tahrirlash'),
-                        ['info', 'id' => $model->id],
-                        [
-                            "data-bs-toggle" => "modal",
-                            "data-bs-target" => "#studentInfoDate",
-                        ]
-                    )
-                    ?>
-                </h6>
-            <?php endif; ?>
+            <div class="d-flex gap-2">
+                <?php if (permission('student', 'info')): ?>
+                    <h6 class="title-link">
+                        <?= Html::a(
+                            Yii::t('app', 'Tahrirlash'),
+                            ['info', 'id' => $model->id],
+                            [
+                                "data-bs-toggle" => "modal",
+                                "data-bs-target" => "#studentInfoDate",
+                            ]
+                        )
+                        ?>
+                    </h6>
+                <?php endif; ?>
+
+                <?php if (permission('student', 'info-full')): ?>
+                    <h6 class="title-link">
+                        <?= Html::a(
+                            Yii::t('app', 'Tahrirlash'),
+                            ['info-full', 'id' => $model->id],
+                            [
+                                "data-bs-toggle" => "modal",
+                                "data-bs-target" => "#studentInfoDate",
+                            ]
+                        )
+                        ?>
+                    </h6>
+                <?php endif; ?>
+            </div>
         </div>
 
         <div class="row">
@@ -928,7 +955,6 @@ if ($model->eduType != null) {
     </div>
 
     <?php if ($contract) : ?>
-
         <div class="page-item mb-4">
             <div class="page_title mt-5 mb-3">
                 <h6 class="title-h5">Shartnoma</h6>
@@ -974,6 +1000,94 @@ if ($model->eduType != null) {
             <?php endif; ?>
         </div>
     <?php endif; ?>
+
+
+    <?php if (permission('student-payment', 'index')): ?>
+
+        <div class="page-item mb-4">
+            <div class="page_title mt-5 mb-3">
+                <h6 class="title-h5">
+                    To'lovlar
+                </h6>
+                <div class="d-flex gap-3">
+                    <?php if (permission('student-payment', 'create')): ?>
+                        <h6 class="title-link">
+                            <?= Html::a(
+                                Yii::t('app', 'Yangi to\'lovni qo\'shish'),
+                                ['student-payment/create', 'id' => $model->id],
+                                [
+                                    "data-bs-toggle" => "modal",
+                                    "data-bs-target" => "#studentInfoDate",
+                                ]
+                            )
+                            ?>
+                        </h6>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="form-section_item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p><b>Jami to'lovlar soni: &nbsp; <?= $dataProvider->totalCount ?> &nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp; Summa: &nbsp; <?= number_format($model->payment, 0, '', ' ') ?></b></p>
+                    </div>
+                </div>
+            </div>
+            <?= \yii\grid\GridView::widget([
+                'dataProvider' => $dataProvider,
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
+
+                    [
+                        'attribute' => 'price',
+                        'contentOptions' => ['date-label' => 'price'],
+                        'format' => 'raw',
+                        'value' => function ($t) {
+                            return number_format($t->price, 0, '', ' ');
+                        },
+                    ],
+                    'payment_date',
+                    'text',
+                    [
+                        'class' => \yii\grid\ActionColumn::className(),
+                        'contentOptions' => ['date-label' => 'Harakatlar', 'class' => 'd-flex justify-content-around'],
+                        'header' => 'Harakatlar',
+                        'buttons'  => [
+                            'view'   => function () {
+                                return false;
+                            },
+                            'update' => function ($url, $model) {
+                                if (permission('student-payment', 'update')) {
+                                    $url = Url::to(['student-payment/update', 'id' => $model->id]);
+                                    return Html::a('<i class="fa-solid fa-pen-to-square"></i>', $url, [
+                                        'title' => 'update',
+                                        'class' => 'tableIcon',
+                                        "data-bs-toggle" => "modal",
+                                        "data-bs-target" => "#studentInfoDate",
+                                    ]);
+                                }
+                                return false;
+                            },
+                            'delete' => function ($url, $model) {
+                                if (permission('student-payment', 'delete')) {
+                                    $url = Url::to(['student-payment/delete', 'id' => $model->id]);
+                                    return Html::a('<i class="fa fa-trash"></i>', $url, [
+                                        'title' => 'delete',
+                                        'class' => 'tableIcon',
+                                        'data-confirm' => Yii::t('yii', 'Ma\'lumotni o\'chirishni xoxlaysizmi?'),
+                                        'data-method'  => 'post',
+                                    ]);
+                                }
+                                return false;
+                            },
+                        ],
+                    ],
+                ],
+            ]); ?>
+        </div>
+
+    <?php endif; ?>
+
 </div>
 
 
