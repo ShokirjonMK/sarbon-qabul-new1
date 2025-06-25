@@ -61,7 +61,7 @@ $direction = $student->direction;
                     <div class="offcanvas-body">
 
                         <div class="test-time">
-                            <p>Vaqtingiz yakunlanishiga shuncha vaqt qoldi: <span>kun</span> | <span>soat</span> | <span>minut</span> | <span>sekund</span></p>
+                            <p><?= Yii::t("app", "a199") ?> <span><?= Yii::t("app", "a200") ?></span> | <span><?= Yii::t("app", "a201") ?></span> | <span><?= Yii::t("app", "a202") ?></span> | <span><?= Yii::t("app", "a203") ?></span></p>
                             <h6><span id="day2">00</span> : <span id="hour2">00</span> : <span id="minute2">00</span> : <span id="secund2">00</span></h6>
                         </div>
                         <div class="question-info">
@@ -88,8 +88,8 @@ $direction = $student->direction;
                                         <?php endif; ?>
                                         <p class="subject-title"><?= $examSubject->subject['name_'.$lang] ?></p>
                                         <div class="subject-info">
-                                            <p><span>Savollar soni: <?= $directionSubject->count ?> ta &nbsp; | &nbsp; <?= $startCount ?>-<?= $endCount ?> gacha</span></p>
-                                            <p><span>Har bir savolga beriladigan bal: <?= $directionSubject->ball ?></span></p>
+                                            <p><span><?= Yii::t("app", "a96") ?> <?= $directionSubject->count ?>  &nbsp; | &nbsp; <?= $startCount ?>-<?= $endCount ?></span></p>
+                                            <p><span><?= Yii::t("app", "a97") ?> <?= $directionSubject->ball ?></span></p>
                                         </div>
                                         <?php if ($directionSubject->count > 0) : ?>
                                             <div class="subject-question-number">
@@ -113,7 +113,7 @@ $direction = $student->direction;
                                 <?php endif; ?>
 
                                 <button class="testTheEnd" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                    <span>Yakunlash</span>
+                                    <span><?= Yii::t("app", "a144") ?></span>
                                 </button>
 
                             </div>
@@ -133,7 +133,7 @@ $direction = $student->direction;
                             <div class="page-card-item">
                                 <!-- Questions -->
                                 <div class="question-item">
-                                    <p class="question-number"><?= $grantStudentQuestions->order ?> - savol.</p>
+                                    <p class="question-number"><?= $grantStudentQuestions->order ?> - <?= Yii::t("app", "a204") ?>.</p>
 
                                     <?php if ($question->text != null) : ?>
                                         <div class="question-text">
@@ -222,7 +222,7 @@ $direction = $student->direction;
                 <div class="page-card">
                     <div class="page-card-item">
                         <div class="test-time">
-                            <p>Vaqtingiz yakunlanishiga shuncha vaqt qoldi: <span>kun</span> | <span>soat</span> | <span>minut</span> | <span>sekund</span></p>
+                            <p><?= Yii::t("app", "a199") ?> <span><?= Yii::t("app", "a200") ?></span> | <span><?= Yii::t("app", "a201") ?></span> | <span><?= Yii::t("app", "a202") ?></span> | <span><?= Yii::t("app", "a203") ?></span></p>
                             <h6><span id="day1">00</span> : <span id="hour1">00</span> : <span id="minute1">00</span> : <span id="secund1">00</span></h6>
                         </div>
                         <div class="question-info">
@@ -249,8 +249,8 @@ $direction = $student->direction;
                                         <?php endif; ?>
                                         <p class="subject-title"><?= $examSubject->subject['name_'.$lang] ?></p>
                                         <div class="subject-info">
-                                            <p><span>Savollar soni: <?= $qCount ?> ta &nbsp; | &nbsp; <?= $startCount ?>-<?= $endCount ?> gacha</span></p>
-                                            <p><span>Har bir savolga beriladigan bal: <?= $examSubject->ball ?></span></p>
+                                            <p><span><?= Yii::t("app", "a96") ?> <?= $qCount ?>  &nbsp; | &nbsp; <?= $startCount ?>-<?= $endCount ?> </span></p>
+                                            <p><span><?= Yii::t("app", "a97") ?> <?= $examSubject->ball ?></span></p>
                                         </div>
                                         <?php if ($qCount > 0) : ?>
                                             <div class="subject-question-number">
@@ -274,7 +274,7 @@ $direction = $student->direction;
                                 <?php endif; ?>
 
                                 <button class="testTheEnd" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                    <span>Yakunlash</span>
+                                    <span><?= Yii::t("app", "a144") ?></span>
                                 </button>
 
                             </div>

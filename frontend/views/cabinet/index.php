@@ -67,37 +67,37 @@ if ($student->edu_type_id == 1) {
                 <div class="row">
                     <?php
                     $userDetails = [
-                        'ID' => $student->user_id,
-                        'F.I.SH' => $student->fullName,
-                        'Pasport ma\'lumoti' => $student->passport_serial . " " . $student->passport_number,
-                        'Telefon raqami' => $student->username,
-                        'Parolingiz' => $student->password,
-                        'Status' => 'Faol'
+                        Yii::t("app", "a192") => $student->user_id,
+                        Yii::t("app", "a193") => $student->fullName,
+                        Yii::t("app", "a70") => $student->passport_serial . " " . $student->passport_number,
+                        Yii::t("app", "a194") => $student->username,
+                        Yii::t("app", "a195") => $student->password,
+                        Yii::t("app", "a196") => Yii::t("app", "a197")
                     ];
 
                     // direction null emasligini tekshiramiz
-                    $directionName = $direction ? ($direction->code . " - " . ($direction['name_' . $lang] ?? '---')) : 'Yo‘nalish ma’lumotlari mavjud emas';
+                    $directionName = $direction ? ($direction->code . " - " . ($direction['name_' . $lang] ?? '---')) : Yii::t("app", "a191");
 
                     $eduDetails = [
-                        'Qabul turi' => $eduDirection->eduType['name_' . $lang] ?? '---',
-                        'Filial' => $student->branch['name_' . $lang] ?? '---',
-                        'Yo‘nalish' => $directionName,
-                        'Ta\'lim shakli' => $eduDirection->eduForm['name_' . $lang] ?? '---',
-                        'Ta\'lim tili' => $eduDirection->lang['name_' . $lang] ?? '---'
+                        Yii::t("app", "a136") => $eduDirection->eduType['name_' . $lang] ?? '---',
+                        Yii::t("app", "a160") => $student->branch['name_' . $lang] ?? '---',
+                        Yii::t("app", "a170") => $directionName,
+                        Yii::t("app", "a16") => $eduDirection->eduForm['name_' . $lang] ?? '---',
+                        Yii::t("app", "a59") => $eduDirection->lang['name_' . $lang] ?? '---'
                     ];
 
                     if ($student->edu_type_id == 1) {
                         $eduDetails[Yii::t("app", "a64")] = Status::getExamStatus($student->exam_type);
                         if ($student->exam_type == 1 && $student->examDate) {
-                            $eduDetails['Imtihon sanasi'] = $student->examDate->date ?? '---';
+                            $eduDetails[Yii::t("app", "a166")] = $student->examDate->date ?? '---';
                         }
                     }
 
                     if ($student->edu_type_id == 2) {
                         $courseName = Course::findOne(['id' => ($student->course_id + 1)]);
                         $eduDetails[Yii::t("app", "a81")] = $courseName['name_' . $lang] ?? '----';
-                        $eduDetails['Avvalgi OTM nomi'] = $student->edu_name ?? '----';
-                        $eduDetails['Avvalgi yo\'nalish nomi'] = $student->edu_direction ?? '----';
+                        $eduDetails[Yii::t("app", "a77")] = $student->edu_name ?? '----';
+                        $eduDetails[Yii::t("app", "a79")] = $student->edu_direction ?? '----';
                     }
 
                     function renderList($data)

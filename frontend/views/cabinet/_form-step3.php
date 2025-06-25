@@ -145,7 +145,7 @@ if ($model->edu_direction_id != null) {
                             <label for='check_<?= $examDate->id ?>' class='permission_label'>
                                 <div class='d-flex gap-2 align-items-center'>
                                     <input type='radio' class='bu-check' name='StepThreeOne[exam_date_id]' id='check_<?= $examDate->id ?>' value='<?= $examDate->id ?>' <?= $checked ?>>
-                                    <span>Imtihon sanasi:</span>
+                                    <span><?= Yii::t("app", "a166") ?></span>
                                 </div>
                                 <p><?= date('Y-m-d H:i', strtotime($examDate->date)) ?></p>
                             </label>

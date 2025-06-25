@@ -73,9 +73,9 @@ if ($eduDirection->is_oferta == 1) {
             <div class="row top30">
                 <div class="col-md-4 col-12 mb-4">
                     <div class="ika_column">
-                        <p>Yo'nalish nomi</p>
+                        <p><?= Yii::t("app", "a170") ?></p>
                         <h6>
-                            <?= $direction ? ($direction->code . " - " . ($direction['name_' . $lang] ?? '---')) : 'Yo‘nalish ma’lumotlari mavjud emas!' ?>
+                            <?= $direction ? ($direction->code . " - " . ($direction['name_' . $lang] ?? '---')) : Yii::t("app", "a169") ?>
                         </h6>
 
                     </div>
@@ -83,42 +83,42 @@ if ($eduDirection->is_oferta == 1) {
 
                 <div class="col-md-4 col-12 mb-4">
                     <div class="ika_column">
-                        <p>Ta'lim tili</p>
+                        <p><?= Yii::t("app", "a59") ?></p>
                         <h6><?= $eduDirection->lang['name_' . $lang] ?? "-" ?></h6>
                     </div>
                 </div>
 
                 <div class="col-md-4 col-12 mb-4">
                     <div class="ika_column">
-                        <p>Ta'lim shakli</p>
+                        <p><?= Yii::t("app", "a60") ?></p>
                         <h6><?= $eduDirection->eduForm['name_' . $lang] ?? "-" ?></h6>
                     </div>
                 </div>
 
                 <div class="col-md-4 col-12 mb-4">
                     <div class="ika_column">
-                        <p>Imtihon turi</p>
+                        <p><?= Yii::t("app", "a64") ?></p>
                         <h6><?= Status::getExamStatus($student->exam_type); ?></h6>
                     </div>
                 </div>
 
                 <div class="col-md-4 col-12 mb-4">
                     <div class="ika_column">
-                        <p>Imtihon holati</p>
+                        <p><?= Yii::t("app", "a171") ?></p>
                         <h6>
                             <?php
                             switch ($exam->status) {
                                 case 1:
-                                    echo "Imtihonni boshlamadingiz";
+                                    echo Yii::t("app", "a172");
                                     break;
                                 case 2:
-                                    echo "Imtihonni boshladingiz";
+                                    echo Yii::t("app", "a173");
                                     break;
                                 case 3:
-                                    echo "Imtihondan o'tdingiz";
+                                    echo Yii::t("app", "a174");
                                     break;
                                 case 4:
-                                    echo "Imtihondan o'ta olmadingiz";
+                                    echo Yii::t("app", "a175");
                                     break;
                                 default:
                                     echo "---";
@@ -132,17 +132,17 @@ if ($eduDirection->is_oferta == 1) {
                 <?php if ($exam->status >= 3): ?>
                     <div class="col-md-4 col-12 mb-4">
                         <div class="ika_column">
-                            <p>To'plangan ball</p>
-                            <h6><?= $exam->ball ?> ball</h6>
+                            <p><?= Yii::t("app", "a176") ?></p>
+                            <h6><?= $exam->ball ?> <?= Yii::t("app", "a99") ?></h6>
                         </div>
                     </div>
                 <?php endif; ?>
 
                 <div class="col-md-4 col-12 mb-4">
                     <div class="ika_column">
-                        <p>Imtihonga ajratilgan vaqt</p>
+                        <p><?= Yii::t("app", "a177") ?></p>
                         <h6>
-                            1 soat 30 minut
+                            <?= Yii::t("app", "a178") ?>
                         </h6>
                     </div>
                 </div>
@@ -150,50 +150,50 @@ if ($eduDirection->is_oferta == 1) {
                 <?php if (!empty($subjects)) : ?>
                     <div class="col-md-12">
                         <div class="ika_column">
-                            <p>Fanlari</p>
+                            <p><?= Yii::t("app", "a95") ?></p>
                             <div class="row mt-2">
                                 <?php foreach ($subjects as $subject) : ?>
                                     <?php $directionSubject = $subject->directionSubject; ?>
                                     <div class="col-lg-6 col-md-12">
                                         <div class="ika_user_page_item">
                                             <ul>
-                                                <li>Fan nomi:</li>
+                                                <li><?= Yii::t("app", "a179") ?></li>
                                                 <li>
                                                     <p><?= $subject->subject['name_' . $lang] ?? "-" ?></p>
                                                 </li>
                                             </ul>
                                             <ul>
-                                                <li>Jami savollar soni:</li>
+                                                <li><?= Yii::t("app", "a180") ?></li>
                                                 <li>
-                                                    <p><?= $directionSubject->count ?? "0" ?> ta</p>
+                                                    <p><?= $directionSubject->count ?? "0" ?></p>
                                                 </li>
                                             </ul>
                                             <ul>
-                                                <li>Har bir savolga beriladigan ball:</li>
+                                                <li><?= Yii::t("app", "a181") ?></li>
                                                 <li>
-                                                    <p><?= $directionSubject->ball ?? "0" ?> ball</p>
+                                                    <p><?= $directionSubject->ball ?? "0" ?> <?= Yii::t("app", "a99") ?></p>
                                                 </li>
                                             </ul>
                                             <?php if ($exam->status > 3 && $exam->ball > 80) : ?>
                                                 <ul>
-                                                    <li>Fandan to'plagan ball:</li>
+                                                    <li><?= Yii::t("app", "a182") ?></li>
                                                     <li>
-                                                        <p><?= $subject->ball ?> ball</p>
+                                                        <p><?= $subject->ball ?> <?= Yii::t("app", "a99") ?></p>
                                                     </li>
                                                 </ul>
                                             <?php endif; ?>
                                             <ul>
-                                                <li>Fandan sertifikat:</li>
+                                                <li><?= Yii::t("app", "a183") ?></li>
                                                 <li>
                                                     <p>
                                                         <?php
                                                         $statuses = [
                                                             0 => "Yuklanmagan",
-                                                            1 => '<a href="/frontend/web/uploads/' . $student->id . '/' . $subject->file . '">Tekshirilmoqda <i class="bi bi-arrow-up-right-circle"></i></a>',
-                                                            2 => '<a href="/frontend/web/uploads/' . $student->id . '/' . $subject->file . '">Tasdiqlandi <i class="bi bi-arrow-up-right-circle"></i></a>',
-                                                            3 => '<a href="/frontend/web/uploads/' . $student->id . '/' . $subject->file . '">Bekor qilindi <i class="bi bi-arrow-up-right-circle"></i></a>',
+                                                            1 => '<a href="/frontend/web/uploads/' . $student->id . '/' . $subject->file . '">'. Yii::t("app", "a184") .' <i class="bi bi-arrow-up-right-circle"></i></a>',
+                                                            2 => '<a href="/frontend/web/uploads/' . $student->id . '/' . $subject->file . '">'. Yii::t("app", "a185") .' <i class="bi bi-arrow-up-right-circle"></i></a>',
+                                                            3 => '<a href="/frontend/web/uploads/' . $student->id . '/' . $subject->file . '">'. Yii::t("app", "a186") .' <i class="bi bi-arrow-up-right-circle"></i></a>',
                                                         ];
-                                                        echo $statuses[$subject->file_status] ?? "Noma'lum holat";
+                                                        echo $statuses[$subject->file_status] ?? Yii::t("app", "a187");
                                                         ?>
                                                     </p>
                                                 </li>
@@ -235,14 +235,14 @@ if ($eduDirection->is_oferta == 1) {
                         <?php else: ?>
                             <div class="col-md-12 col-12">
                                 <div class="ika_danger top30">
-                                    <h6><i class="fa-solid fa-exclamation"></i> <span><?= getIpMK() ?> sizning qurilmangizga imtihonda qatnashishga ruxsat berilmagan.</span></h6>
+                                    <h6><i class="fa-solid fa-exclamation"></i> <span><?= getIpMK() ?> <?= Yii::t("app", "a188") ?></span></h6>
                                 </div>
                             </div>
                         <?php endif; ?>
                     <?php else: ?>
                         <div class="col-md-12 col-12">
                             <div class="ika_danger top30">
-                                <h6><i class="fa-solid fa-exclamation"></i> <span>Imtihonda qatnashish uchun 5 yillik staj fayl tasdiqlanishini kuting.</span></h6>
+                                <h6><i class="fa-solid fa-exclamation"></i> <span><?= Yii::t("app", "a189") ?></span></h6>
                             </div>
                         </div>
                     <?php endif; ?>
@@ -269,7 +269,7 @@ if ($eduDirection->is_oferta == 1) {
                             </div>
                             <div class="cfile_box_content_question">
                                 <p><span><i class="fa-solid fa-exclamation"></i></span>
-                                    Prezidentning 2022-yil 22-iyundagi PQ-289-son qaroriga muvofiq pedagogika sohasidagi ta’lim yo‘nalishlariga sirtqi ta’lim shakli bo‘yicha o‘qishga ta’lim tizimida pedagogik faoliyatga oid kamida besh yillik ish stajiga ega bo‘lgan shaxslar qabul qilinadi. </p>
+                                    <?= Yii::t("app", "a190") ?> </p>
                             </div>
                             <?php if ($oferta->file_status == 0) : ?>
                                 <div class="cfile_box_content_upload">
