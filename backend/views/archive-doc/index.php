@@ -132,7 +132,7 @@ $breadcrumbs['item'][] = [
                         ]);
                     },
                 ],
-                'contentOptions' => ['class' => 'text-center'],
+                'contentOptions' => ['class' => 'text-center d-flex gap-2'],
             ],
         ],
     ]); ?>
