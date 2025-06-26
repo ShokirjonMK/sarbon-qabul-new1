@@ -787,14 +787,13 @@ class Student extends \yii\db\ActiveRecord
     {
         parent::afterSave($insert, $changedAttributes);
 
-
         $changes = [];
         foreach ($changedAttributes as $attribute => $oldValue) {
             $newValue = $this->getAttribute($attribute);
             if ($oldValue != $newValue) {
                 $changes[$attribute] = [
-                    'old' => $oldValue,
-                    'new' => $newValue
+                    'old' => (string)$oldValue,
+                    'new' => (string)$newValue
                 ];
             }
         }
@@ -802,7 +801,7 @@ class Student extends \yii\db\ActiveRecord
         if (!empty($changes)) {
             $history = new StudentLog();
             $history->student_id = $this->id;
-            $history->data = $changes;
+            $history->data = json_encode($changes);
             $history->save(false);
         }
     }
