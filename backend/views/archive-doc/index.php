@@ -122,9 +122,11 @@ $breadcrumbs['item'][] = [
                     ]);
                 },
                 'delete' => function ($url) {
-                    return Html::a('<i class="fa fa-solid fa-trash"></i>', $url, [
-                        'title' => 'O\'chrish',
-                        'class' => 'btn btn-sm btn-outline-danger',
+                    return Html::a('<i class="fa fa-trash"></i>', $url, [
+                        'title' => 'delete',
+                        'class' => 'tableIcon',
+                        'data-confirm' => Yii::t('yii', 'Ma\'lumotni o\'chirishni xoxlaysizmi?'),
+                        'data-method'  => 'post',
                     ]);
                 },
             ],
