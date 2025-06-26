@@ -2,6 +2,21 @@
 use yii\helpers\Html;
 
 /** @var app\models\ArchiveDoc $model */
+
+$eduDirection = \common\models\EduDirection::findOne($model->edu_direction_id);
+$subject = \common\models\ExamSubject::find()
+    ->where([
+        'edu_direction_id' => $model->edu_direction_id,
+        'student_id' => $model->student_id,
+        'file_status' => 2,
+        'is_deleted' => 0
+    ])
+    ->andWhere(['is_deleted' => 0])
+    ->exists();
+$sertificate = "YO'Q";
+if ($subject) {
+    $sertificate = "HA";
+}
 ?>
 
 <style>
@@ -48,6 +63,10 @@ use yii\helpers\Html;
     <tr>
         <td><strong>Ta’lim shakli:</strong></td>
         <td><?= Html::encode($model->edu_form) ?></td>
+    </tr>
+    <tr>
+        <td><strong>Ta’lim tili:</strong></td>
+        <td><?= Html::encode($eduDirection->lang->name_uz) ?></td>
     </tr>
     <tr>
         <td><strong>Talaba FIO:</strong></td>
@@ -100,5 +119,10 @@ use yii\helpers\Html;
         <td>6</td>
         <td>To‘lov cheki</td>
         <td><?= $model->payment_receipt ? 'HA' : 'YO‘Q' ?></td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>Fanlardan sertifikat</td>
+        <td><?= $sertificate ?></td>
     </tr>
 </table>
