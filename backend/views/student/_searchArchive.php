@@ -34,7 +34,7 @@ $cons = Consulting::find()
 
 <div class="student-perevot-search">
     <?php $form = ActiveForm::begin([
-        'action' => ['all'],
+        'action' => ['archive'],
         'method' => 'get',
     ]); ?>
 
