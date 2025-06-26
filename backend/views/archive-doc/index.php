@@ -116,18 +116,25 @@ $breadcrumbs['item'][] = [
             'template' => '{view}{delete}', // faqat ko‘rish
             'buttons' => [
                 'view' => function ($url) {
-                    return Html::a('<i class="fa fa-eye"></i>', $url, [
-                        'title' => 'Ko‘rish',
-                        'class' => 'btn btn-sm btn-outline-primary',
-                    ]);
+                    if (permission('archive-doc', 'view')) {
+                        return Html::a('<i class="fa fa-eye"></i>', $url, [
+                            'title' => 'Ko‘rish',
+                            'class' => 'btn btn-sm btn-outline-primary',
+                        ]);
+                    }
+                    return false;
                 },
                 'delete' => function ($url) {
-                    return Html::a('<i class="fa fa-trash"></i>', $url, [
-                        'title' => 'delete',
-                        'class' => 'btn btn-sm btn-outline-danger',
-                        'data-confirm' => Yii::t('yii', 'Ma\'lumotni o\'chirishni xoxlaysizmi?'),
-                        'data-method'  => 'post',
-                    ]);
+                    if (permission('archive-doc', 'delete')) {
+                        $url = Url::to(['delete', 'id' => $url->id]);
+                        return Html::a('<i class="fa fa-trash"></i>', $url, [
+                            'title' => 'delete',
+                            'class' => 'btn btn-sm btn-outline-danger',
+                            'data-confirm' => Yii::t('yii', 'Ma\'lumotni o\'chirishni xoxlaysizmi?'),
+                            'data-method'  => 'post',
+                        ]);
+                    }
+                    return false;
                 },
             ],
             'contentOptions' => ['class' => 'text-center d-flex gap-2'],
