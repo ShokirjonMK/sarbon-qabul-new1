@@ -117,7 +117,7 @@ $breadcrumbs['item'][] = [
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{view}', // faqat ko‘rish
+                'template' => '{view}{delete}', // faqat ko‘rish
                 'buttons' => [
                     'view' => function ($url) {
                         return Html::a('<i class="fa fa-eye"></i>', $url, [
