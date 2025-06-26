@@ -125,6 +125,12 @@ $breadcrumbs['item'][] = [
                             'class' => 'btn btn-sm btn-outline-primary',
                         ]);
                     },
+                    'delete' => function ($url) {
+                        return Html::a('<i class="fa fa-eye"></i>', $url, [
+                            'title' => 'O\'chrish',
+                            'class' => 'btn btn-sm btn-outline-danger',
+                        ]);
+                    },
                 ],
                 'contentOptions' => ['class' => 'text-center'],
             ],
