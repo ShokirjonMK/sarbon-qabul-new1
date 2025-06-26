@@ -129,7 +129,6 @@ $breadcrumbs['item'][] = [
                 },
                 'delete' => function ($url) {
                     if (permission('archive-doc', 'delete')) {
-                        $url = Url::to(['delete', 'id' => $url->id]);
                         return Html::a('<i class="fa fa-trash"></i>', $url, [
                             'title' => 'delete',
                             'class' => 'btn btn-sm btn-outline-danger',

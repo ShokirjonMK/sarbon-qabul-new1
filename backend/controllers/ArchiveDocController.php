@@ -17,7 +17,7 @@ use yii\filters\VerbFilter;
 class ArchiveDocController extends Controller
 {
     use ActionTrait;
-    
+
     /**
      * {@inheritdoc}
      */
