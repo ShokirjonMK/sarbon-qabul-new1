@@ -825,7 +825,7 @@ class Student extends \yii\db\ActiveRecord
             if (!empty($changes)) {
                 $history = new StudentLog();
                 $history->student_id = $this->id;
-                $history->data = json_encode($changes, JSON_UNESCAPED_UNICODE); // <-- MUHIM
+                $history->data = (string) json_encode($changes, JSON_UNESCAPED_UNICODE);
                 $history->save(false);
             }
         }
