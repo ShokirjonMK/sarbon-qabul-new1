@@ -810,22 +810,24 @@ class Student extends \yii\db\ActiveRecord
     {
         parent::afterSave($insert, $changedAttributes);
 
-        $changes = [];
-        foreach ($changedAttributes as $attribute => $oldValue) {
-            $newValue = $this->getAttribute($attribute);
-            if ($oldValue != $newValue) {
-                $changes[$attribute] = [
-                    'old' => $oldValue,
-                    'new' => $newValue
-                ];
+        if (!$insert) {
+            $changes = [];
+            foreach ($changedAttributes as $attribute => $oldValue) {
+                $newValue = $this->getAttribute($attribute);
+                if ($oldValue != $newValue) {
+                    $changes[$attribute] = [
+                        'old' => $oldValue,
+                        'new' => $newValue
+                    ];
+                }
             }
-        }
 
-        if (!empty($changes)) {
-            $history = new StudentLog();
-            $history->student_id = $this->id;
-            $history->data = json_encode($changes, JSON_UNESCAPED_UNICODE); // <-- MUHIM
-            $history->save(false);
+            if (!empty($changes)) {
+                $history = new StudentLog();
+                $history->student_id = $this->id;
+                $history->data = json_encode($changes, JSON_UNESCAPED_UNICODE); // <-- MUHIM
+                $history->save(false);
+            }
         }
     }
 }
