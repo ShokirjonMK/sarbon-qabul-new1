@@ -114,10 +114,11 @@ class ArchiveDocController extends Controller
             'model' => $model,
         ]);
 
-        $pdf = new \Mpdf\Mpdf([
+        $pdf = new Mpdf([
             'format' => 'A4',
             'margin_top' => 20,
             'margin_bottom' => 20, // pastgi bo‘sh joyni ham aniqlaymiz
+            'tempDir' => __DIR__ . '/../runtime/mpdf_temp',
         ]);
 
         // Footer qo‘shamiz
