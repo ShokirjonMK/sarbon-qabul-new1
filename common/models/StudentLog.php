@@ -80,7 +80,9 @@ class StudentLog extends \yii\db\ActiveRecord
             $this->updated_by = Yii::$app->user->identity->id ?? 0;
         }
 
-        $this->user_data = getBrowser();
+        $this->user_data = json_encode(getBrowser(), JSON_UNESCAPED_UNICODE); // <--- Muhim tuzatish
+
+        // $this->user_data = getBrowser();
 
         return parent::beforeSave($insert);
     }
