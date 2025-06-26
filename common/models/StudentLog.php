@@ -24,7 +24,7 @@ class StudentLog extends \yii\db\ActiveRecord
         ];
     }
 
-    public $data;
+    // public $data;
 
 
     /**
@@ -33,7 +33,7 @@ class StudentLog extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            // [['data'], 'safe'],
+            [['data'], 'safe'],
             [['user_data'], 'safe'],
             [['student_id'], 'integer'],
             [['status'], 'integer'],
