@@ -189,7 +189,7 @@ class ExamStudentQuestions extends \yii\db\ActiveRecord
             $history = new ExamStudentQuestionsHistory();
             $history->exam_student_question_id = $this->id;
             $history->is_correct = $this->is_correct;
-            $history->data = $changes;
+            $history->data = (string) json_encode($changes, JSON_UNESCAPED_UNICODE);
             $history->save(false);
         }
     }
