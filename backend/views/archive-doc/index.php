@@ -126,7 +126,7 @@ $breadcrumbs['item'][] = [
                         ]);
                     },
                     'delete' => function ($url) {
-                        return Html::a('<i class="fa fa-eye"></i>', $url, [
+                        return Html::a('<i class="fa fa-solid fa-trash"></i>', $url, [
                             'title' => 'O\'chrish',
                             'class' => 'btn btn-sm btn-outline-danger',
                         ]);
