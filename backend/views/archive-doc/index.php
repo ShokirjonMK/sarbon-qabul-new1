@@ -124,7 +124,7 @@ $breadcrumbs['item'][] = [
                 'delete' => function ($url) {
                     return Html::a('<i class="fa fa-trash"></i>', $url, [
                         'title' => 'delete',
-                        'class' => 'tableIcon',
+                        'class' => 'btn btn-sm btn-outline-danger',
                         'data-confirm' => Yii::t('yii', 'Ma\'lumotni o\'chirishni xoxlaysizmi?'),
                         'data-method'  => 'post',
                     ]);
