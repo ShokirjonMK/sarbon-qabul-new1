@@ -68,6 +68,14 @@ $breadcrumbs['item'][] = [
             },
         ],
         [
+            'attribute' => 'Parol',
+            'contentOptions' => ['date-label' => 'Parol'],
+            'format' => 'raw',
+            'value' => function ($model) {
+                return $model->password;
+            },
+        ],
+        [
             'attribute' => 'Imtihon sanasi',
             'contentOptions' => ['date-label' => 'Imtihon sanasi'],
             'format' => 'raw',
