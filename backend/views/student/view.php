@@ -563,7 +563,7 @@ if ($model->eduType != null) {
                                     <div class="col-md-4 col-12">
                                         <div class="view-info-right">
                                             <p>Tamomlagan bosqich</p>
-                                            <h6><?= Course::findOne(['id' => $model->course_id])->name_uz ?></h6>
+                                            <h6><?= Course::findOne(['id' => $model->course_id])->name_uz ?? '---' ?></h6>
                                         </div>
                                     </div>
 
